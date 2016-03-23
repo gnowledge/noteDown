@@ -1,0 +1,8 @@
+{
+  	"name": "noteDown",
+  	"version": "0.0.1",
+ 	"description" :"noteDown is an app for reading, writing, sharing, re-writing, discussing, organize, and network our notes",
+  	"scripts": {
+    		"start": "meteor --settings server/settings-development.json"
+  	}
+}
