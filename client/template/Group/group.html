@@ -1,0 +1,66 @@
+<template name="displayGroup">
+	<div class="container">  
+		<h2>Display Groups <a href="{{pathFor route='showGroup'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<hr class="divider">
+	</div>
+</template>
+
+<template name="showGroup">
+	{{> Navbar }}
+	<!-- Start Container -->
+	<div class="container-fluid"><br><br><br> 
+		<hr class="divider">
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+					{{#each groups}}
+						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2 img-zoom">
+							<div class="thumbnail">
+								<div class="caption">
+									<h3 id="gname">{{gname}}</h3> 
+			                	</div>
+									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+			  						<hr class="divider">
+			  						<a href="/group/{{_id}}">View Group</a>
+			  				</div>
+		  				</div>
+		            {{/each}}
+	        	{{else}}
+	        		<p>Loading</p>
+	        {{/if}}
+      	</div>
+    	<hr class="divider">
+   	</div>
+	<!-- End Container -->
+</template>
+
+<template name="Group">
+	{{> Navbar }}
+	<!-- Start Container -->
+	<div class="container-fluid"><br><br><br> 
+		<hr class="divider">
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2 img-zoom">
+						<div class="thumbnail">
+							<div class="caption">
+								<img src="images/groups.png" width="80%" height="50%" alt="thumb01">
+								<hr>
+								<h3 id="gname">{{group.gname}}</h3> 
+		                		<span style="float: right;" id="privacy"><i>{{group.privacy}}-group...</i></span>
+							</div>
+								<hr class="divider">
+		  						<h3 id="gdesc">{{group.gdesc}}</h3>
+		  						<!--{{group.owner}}-->
+		  						<hr class="divider">
+		  							<input type="submit" class="btn btn-danger" id="delete" value="Delete">
+		  							<input type="submit" class="btn btn-success" id="join" value="Join">
+		  						
+			           	</div>
+		          	</div>
+	        	{{else}}
+	        		<p>Loading</p>
+	        {{/if}}
+      	</div>
+    	<hr class="divider">
+   	</div>
+</template>

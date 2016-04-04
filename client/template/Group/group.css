@@ -1,0 +1,32 @@
+h3#gname{
+	font-size:18px;
+	color:black;
+}
+h3#gdesc{
+	font-size:12px;
+	color:black;
+}
+.divider{
+	height: 1px;
+	color: #123455;
+	background-color: #123455;
+	border: none;
+}
+
+		/*Image zoom*/
+		.img-zoom img {
+	    		-webkit-transition: all 1s ease; /* Safari and Chrome */
+	    		-moz-transition: all 1s ease; /* Firefox */
+	    		-o-transition: all 1s ease; /* IE 9 */
+	    		-ms-transition: all 1s ease; /* Opera */
+	    		transition: all 1s ease;
+			max-width: 100%;
+		}
+		.img-zoom:hover img {
+		    	-webkit-transform:scale(1.25); /* Safari and Chrome */
+	    		-moz-transform:scale(1.25); /* Firefox */
+	    		-ms-transform:scale(1.25); /* IE 9 */
+	    		-o-transform:scale(1.25); /* Opera */
+	     		transform:scale(1.25);
+		}
+

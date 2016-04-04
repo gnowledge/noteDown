@@ -1,0 +1,36 @@
+<template name="Reminder">
+	<div class="container">  
+		<h2>Add a Remainder <a href="{{pathFor route='createRemainder'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<hr class="divider">
+	</div>
+</template>
+
+<template name="createReminder">
+	{{> Navbar }}
+	<!-- Start Container -->
+	<div class="container-fluid"><br>
+		<h3>Create List</h3><br>
+		<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+        	Add
+   		</button>
+
+   		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		        	 <div class="modal-header">
+                		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                		<h4 class="modal-title" id="myModalLabel">List Name</h4>
+               		</div>
+		            <div class="modal-body">
+		                <input id="list_name" placeholder="Name.." type="text">
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		                <button type="button" id="Save" class="btn btn-primary">Save</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div><br><br><br>
+</template>

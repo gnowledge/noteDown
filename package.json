@@ -1,8 +1,24 @@
 {
-  	"name": "noteDown",
-  	"version": "0.0.1",
- 	"description" :"noteDown is an app for reading, writing, sharing, re-writing, discussing, organize, and network our notes",
-  	"scripts": {
-    		"start": "meteor --settings server/settings-development.json"
-  	}
+  "name": "notedown",
+  "version": "0.0.2",
+  "description": "noteDown is an app for reading, writing, sharing, re-writing, discussing, organize, and network our notes",
+  "scripts": {
+    "start": "meteor --settings server/settings-development.json"
+  },
+  "dependencies": {
+    "npm" : "^3.8.5"
+  },
+  "devDependencies" : {
+    "npm": "^3.8.5"
+  },
+  "engine": "node >= 5.7.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnowledge/noteDown.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnowledge/noteDown/issues"
+  },
+  "homepage": "https://github.com/gnowledge/noteDown#readme"
 }
