@@ -7,7 +7,7 @@ Template.newGroup.events({
             // Get value from form element
             var gtitle = event.target.gTitle.value;
             var gdesc = event.target.gDescription.value;
-            
+
             // Insert a task into the collection
             if(event.target.privacy.checked){
             	privacy_flag = "private";
@@ -15,11 +15,13 @@ Template.newGroup.events({
             else{
             	privacy_flag = "public";
             }
+
             if(confirm("Are the details correct ?")== true){
                   Meteor.call("addGroup", gtitle, gdesc, privacy_flag, function(err, res){
             		if(!err){//all good
-            			console.log("callback recieved: "+res);
+            			//console.log("callback recieved: "+res);
                               alert('Group created succesfully');
+                              Meteor.call('Successfully');
             		}
             	});
             }

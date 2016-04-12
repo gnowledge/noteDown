@@ -36,7 +36,7 @@ Template.singleGroup.events({
 				if(!err){//all good
 					console.log("group deleted: "+res);
 	                alert('Group deleted succesfully');
-	                Meteor.call('deletedSuccessfully');
+	                Meteor.call('Successfully');
 				}
 			});
 		}
@@ -50,7 +50,7 @@ Template.singleGroup.events({
 				if(!err){//all good
 					console.log("group joined: "+res);
 	                alert('Group joined succesfully');
-	                $(event.target).text("edit"); 
+	                Meteor.call('Successfully');
 				}
 			});	
 		}	

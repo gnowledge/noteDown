@@ -96,7 +96,7 @@ Meteor.methods({
 		var data = Groups.findOne(groupId);
 		var owner= data.owner.id;
 		console.log(owner);
-		if(owner !== this.userId()){ // if not the owner of the group
+		if(owner !== this.userId){ // if not the owner of the group
 			throw new Meteor.Error("not-authorised");
 			alert("Not authorised to delete");
 		}
@@ -136,7 +136,7 @@ Meteor.methods({
 			return id;
 		}
 	},
-	deletedSuccessfully:function(){
+	Successfully:function(){
 		Router.go('User');
 	},
 
