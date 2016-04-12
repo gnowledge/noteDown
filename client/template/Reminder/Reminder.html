@@ -1,36 +1,38 @@
 <template name="Reminder">
 	<div class="container">  
-		<h2>Add a Remainder <a href="{{pathFor route='createRemainder'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<h2>Add a Remainder <a href="{{pathFor route='createReminder'}}"><img src="images/add.png"  height="50" ></a></h2>
 		<hr class="divider">
 	</div>
 </template>
 
 <template name="createReminder">
-	{{> Navbar }}
-	<!-- Start Container -->
-	<div class="container-fluid"><br>
-		<h3>Create List</h3><br>
-		<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
-        	Add
-   		</button>
+	{{> Navbar}}
+	<div class="container-fluid">
+	  	<div class="container" id="container">
+	    	<h1>To do list ({{incompleteCount}})</h1>
+	       	<label class="hide-completed" id="hide">
+	        <input type="checkbox" checked= "{{hideCompleted}}" />
+	          Hide Completed Tasks
+	       	</label>
 
-   		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		        	 <div class="modal-header">
-                		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                		<h4 class="modal-title" id="myModalLabel">List Name</h4>
-               		</div>
-		            <div class="modal-body">
-		                <input id="list_name" placeholder="Name.." type="text">
-		            </div>
-		            <div class="modal-footer">
-		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		                <button type="button" id="Save" class="btn btn-primary">Save</button>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-	</div><br><br><br>
+	       	{{#if currentUser}}
+	       		<form class="new-task" id="form">
+	         		<input type="text" name="text" placeholder="Type to add new tasks" />
+	       		</form>
+	       	{{/if}}
+		  	<ul>
+				{{#each tasks}}
+		  			{{>task}}
+				{{/each}}
+		  	</ul>
+	  	</div>
+	</div>
+</template>
+
+<template name="task">
+	<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+		<button class="delete">&times;</button>      
+	    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+	    <span class="text"><strong>{{text}}</strong></span>
+	</li>
 </template>
