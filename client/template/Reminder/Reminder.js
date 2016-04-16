@@ -1,8 +1,7 @@
-/*
-Template.createReminder.rendered=function() {
-	this.$('.datetimepicker').datetimepicker();
-}*/
-
+Template.createReminder.onRendered(function() {
+	  //this.$('.datetimepicker').datetimepicker();
+});
+	
 Template.createReminder.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
@@ -35,7 +34,8 @@ Template.createReminder.events({
 		event.preventDefault();
 		// Get value from form element
 		var text = event.target.text.value;
-		Meteor.call("createReminder",text, function(err,res){
+		var desc = event.target.desc.value;
+		Meteor.call("createReminder",text, desc, function(err,res){
 			if(!err){
 				console.log("callback recieved: "+res);
 			}
@@ -43,6 +43,7 @@ Template.createReminder.events({
 		// Insert a task into the collection
 		// Clear form
 		event.target.text.value = "";
+		event.target.desc.value = "";
 		},
 		"change .hide-completed input": function (event) {
 			Session.set("hideCompleted", event.target.checked);

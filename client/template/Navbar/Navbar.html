@@ -1,18 +1,11 @@
 <template name="Navbar">
 	<nav id="navbar-menu" class="navbar-item" style="border-radius:0px !important; margin-top:0px;">
 		<div class="container-fluid">
-			<!--div class="navbar-header">
-      				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        				<span class="icon-bar"></span>
-        				<span class="icon-bar"></span>
-        				<span class="icon-bar"></span>
-      				</button>
-    			</div-->
 			<ul class="nav navbar-nav navbar-left push-top">
 				<a id="list" href="{{pathFor route='User'}}">Home Page</a>&nbsp;&nbsp;
 				<a id="list" href="{{pathFor route='createNote'}}">Create Notes</a>&nbsp;&nbsp;
-				<a id="list" href="{{pathFor route='newGroup'}}">Create Groups</a>&nbsp;&nbsp;				
-				<a id="list" href="{{pathFor route='otherGroup'}}">Display Groups</a>&nbsp;&nbsp;
+				<a id="list" href="{{pathFor route='newGroup'}}">Create Groups</a>&nbsp;&nbsp;	
+			   <a id="list" href="{{pathFor route='createReminder'}}">Create Reminder</a>&nbsp;&nbsp;
 			</ul>
 		</div>
 	</nav>

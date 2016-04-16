@@ -7,8 +7,7 @@
 .new-task input {
   box-sizing: border-box;
   padding: 10px 0;
-  background: transparent;
-  border: none;
+  border: 1;
   width: 100%;
   padding-right: 80px;
   font-size: 1em;
@@ -51,15 +50,3 @@ li.checked {
 li.checked .text {
   text-decoration: line-through;
 }
-
-li.private {
-  background: #eee;
-  border-color: #ddd;
-}
-
-
-
-.toggle-private {
-  margin-left: 5px;
-}
-

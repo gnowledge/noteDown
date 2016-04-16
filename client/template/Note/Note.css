@@ -7,3 +7,8 @@
 	resize:both;
 	width:100%;
 }
+
+.editor{
+	outline: 1px solid black;
+}
+

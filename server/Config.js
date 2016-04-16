@@ -8,7 +8,6 @@ ServiceConfiguration.configurations.upsert({
     		secret: Meteor.settings.facebook.secret
   	}
 });
-
 ServiceConfiguration.configurations.upsert({
 	service: "google"
 },

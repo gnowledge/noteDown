@@ -25,4 +25,11 @@ Meteor.publish("groups", function(){
 
 Meteor.publish("tasks",function(){
   return Tasks.find({"owner.id":this.userId},{sort: {createdAt: -1}});
-});
+});  
+
+if (Meteor.isClient) {
+  	Meteor.startup(function() {
+    		GoogleMaps.load();
+  	});
+}
+

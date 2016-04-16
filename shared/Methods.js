@@ -1,6 +1,7 @@
 Meteor.methods({
 	addDoc:function(){
 		var doc;
+		
 		if(!this.userId){// NOt logged in
 			return;
 		}else{
@@ -60,9 +61,9 @@ Meteor.methods({
 	},
 
 	//---------------Group Function--------------------------------------------
-
-
 	addGroup: function(gtitle,gdesc, privacy) {
+		check(gtitle,String);
+		check(gdesc,String);
 		var group;
 		if(!this.userId){// NOt logged in
 			return;
@@ -77,17 +78,15 @@ Meteor.methods({
 					    "name": Meteor.user().username 
 				},
 				members:[],
+				member_count: 1,
 				createdOn: new Date()
 			};
 			var id= Groups.insert(group);
-			//console.log(id);
 			var group_Id= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
 					group_ids: id
 				}
 			});
-			
-			//console.log(Meteor.users.find());
 			return id;
 		}
 	},
@@ -114,47 +113,98 @@ Meteor.methods({
 
 	joinGroup : function(groupId){
 		var data= Groups.findOne(groupId);
-		//console.log("data: " +data);
 		var member=Groups.find({},{ "members_id":1, _id: 0 });
 		var id= data._id;
-		console.log("id: " +id);
-		console.log(member);
-		//member= data.members.id;
+		var count= data.member_count;
+		var userId = Meteor.userId();
+
+		for (var i = 0; i < data.members.length; i++) {
+      		if (data.members[i].id == userId) {
+        		return false;
+      		}
+    	}
+    	count++;
 		if(!this.userId){// NOt logged in
 			return;
 		}
 		else{
 			var id= Groups.update(
 				{"_id" : id},{
+					$set:{ member_count: count},
 					$addToSet: {
 						members:{ 
 							"id": this.userId,
-							 "name":Meteor.user().username 
+							"name":Meteor.user().username
 							}
 						}
 					});
 			return id;
 		}
 	},
-	Successfully:function(){
-		Router.go('User');
-	},
 
+	leaveGroup: function(groupId) {
+	    check(groupId, String);
+	    var userId = Meteor.userId();
+
+	    var result = Groups.findOne({_id: groupId});
+	    var count= result.member_count;
+	    if (!result) {
+	      return false;
+	    }
+	    if (result.owner.id === userId) {
+	      throw new Meteor.Error(403, 'You can\'t leave this group because you are owner');
+	      return false;
+	    } 
+	    else {
+	      count--;
+	      return Groups.update(result._id, {
+	      	$set: { member_count: count},
+	      	$pull: {
+				members:{
+					id: userId,
+					name: Meteor.user().username 
+				}
+			}
+			});
+	    }
+  	},
+
+  	saveGroup: function(groupId,title, description){
+  		var data= Groups.findOne(groupId);
+  		check(title,String);
+  		check(description,String);
+  		if(!this.userId){// NOt logged in
+			return;
+		}
+		else {
+			var id= Groups.update({ _id: groupId },{
+				$set:{
+					gname: title,
+					gdesc: description
+				}
+			});
+			return id;
+		}
+  	},
+	
 	//---------------Todo Function--------------------------------------------
 
-	createReminder : function(text){
+	createReminder : function(text, desc){
+		check(text,String);
+		check(desc,String);
 		var task;
 	    if(! this.userId){
 	    	throw new Meteor.Error("non-authorized");
 	    }
 		else{
 			task={
-				text: text,
-		    createdAt : new Date(),
-		    owner:{
-				"id": this.userId,
-				"name": Meteor.user().username 
-			}
+				title: text,
+				desc: desc,
+			    createdAt : new Date(),
+			    owner:{
+					"id": this.userId,
+					"name": Meteor.user().username 
+				}
 			}
 		}
 		var id=Tasks.insert(task);
@@ -167,9 +217,8 @@ Meteor.methods({
     },
 
     deleteReminder : function(taskId){
-		//Tasks.remove(taskId);
 		var task = Tasks.findOne(taskId);
-		if(task.private && task.owner.id !== this.userId){
+		if(task.owner.id !== this.userId){
 			throw new Meteor.Error("not-authorized");
 		}
 		var id=Tasks.remove(taskId);
@@ -179,17 +228,18 @@ Meteor.methods({
 				}
 		});
 		return id;
-
     },
 
     setCheckedReminder : function(taskId, setChecked){
-		//Tasks.update(taskId, {$set : {checked:setChecked} });
 		var task = Tasks.findOne(taskId);
-		if(task.private && task.owner.id !== this.userId){
+		if(task.owner.id !== this.userId){
 			throw new Meteor.Error("not-authorized");
 		}
 		else{
 			Tasks.update({_id: taskId},{$set: {checked:setChecked}});
 		}
     }
-})
+});
+
+
+

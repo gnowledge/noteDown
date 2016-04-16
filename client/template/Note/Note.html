@@ -17,8 +17,13 @@
 			<div class="col-md-12" style="background-color:#55e9bc">
   				{{> editingUsers}}
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-12 editor">
   				{{> editor}}
+			</div>
+			<div class="col-md-12">
+				<br><br>
+				{{> getLocation}}
+				<br><br>
 			</div>
 			
 		</div>
@@ -50,7 +55,9 @@
 </template>
 
 <template name="editor">
-	{{>sharejsCM docid=docid onRender=config id="editor"}}
+	<div div class="container-fluid">
+		{{>sharejsCM docid=docid onRender=config id="editor"}}
+	</div>
 </template>
 
 

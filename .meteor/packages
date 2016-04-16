@@ -11,7 +11,6 @@ blaze-html-templates    # Compile .html files into Meteor Blaze views
 session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
-
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 accounts-ui
@@ -27,11 +26,11 @@ gwendall:auth-client-callbacks
 service-configuration
 aldeed:collection2
 aldeed:simple-schema
-aldeed:autoform
-standard-minifier-css
-standard-minifier-js
 msavin:mongol
-
+matb33:bootstrap-glyphicons
+dburles:google-maps
+jeffrey:easy-map
+jaymc:google-reverse-geocode
+sacha:spin
 check
 #tsega:bootstrap3-datetimepicker
-#dayd:todos

@@ -1,0 +1,27 @@
+<template name="getLocation">
+	<div class="map-container">
+	    {{> googleMap name="exampleMap" options=exampleMapOptions}}
+	</div>
+
+	<br><br>
+
+	<div class="container-fluid pull-right" style="width:100%;">
+		<input type="text" id="textbox1" class="pull-right" value="Location" style="width:70%;" readonly><br>
+    		<input type="hidden" id="textbox" value="Location" size="80">
+  	</div>
+
+	<br><br>
+
+	<!--div>
+    		Lat: {{lat}}
+  	</div>
+  	<div>
+    		Lon: {{lon}}
+  	</div>
+
+	<br><br-->
+
+</template>
+
+
+

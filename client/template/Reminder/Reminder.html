@@ -1,6 +1,6 @@
 <template name="Reminder">
 	<div class="container">  
-		<h2>Add a Remainder <a href="{{pathFor route='createReminder'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<h2>Todo <a href="{{pathFor route='createReminder'}}"><img src="images/add.png"  height="50" ></a></h2>
 		<hr class="divider">
 	</div>
 </template>
@@ -9,14 +9,22 @@
 	{{> Navbar}}
 	<div class="container-fluid">
 	  	<div class="container" id="container">
-	    	<h1>To do list ({{incompleteCount}})</h1>
+	    	<h1>Todo ({{incompleteCount}})</h1>
 	       	<label class="hide-completed" id="hide">
 	        <input type="checkbox" checked= "{{hideCompleted}}" />
 	          Hide Completed Tasks
 	       	</label>
 	       	{{#if currentUser}}
 	       		<form class="new-task" id="form">
-	         		<input type="text" name="text" placeholder="Type to add new tasks" />
+	         		<ul>
+	         			<input type="text" name="text" placeholder="Type to add new tasks" required />
+	         			<li><input type="text" name="desc" placeholder="Type to add a description" required/></li>
+	         			<li><input type="submit" class="btn btn-primary" value="Create"></li>
+	         		</ul>
+	         		<!--<div class="input-group datetimepicker">
+					    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					    <input class="set-due-date form-control" type="text"/>
+				  </div>-->
 	       		</form>
 	       	{{/if}}
 		  	<ul>
@@ -32,6 +40,9 @@
 	<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
 		<button class="delete">&times;</button>      
 	    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-	    <span class="text"><strong>{{text}}</strong></span>
+	    <span class="text">
+	    	<strong>{{title}}</strong> - {{desc}}
+	    </span>
 	</li>
 </template>
+
