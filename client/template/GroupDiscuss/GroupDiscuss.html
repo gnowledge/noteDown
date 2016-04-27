@@ -1,38 +1,28 @@
 <template name="groupDiscuss">
-{{> Navbar }}
   <div class="container-fluid">
     {{> groupdiscussion}}  
     {{> postMessage}}
   </div>
-  <br><br><br><br><br><br><br><br><br><br><br><br>
 </template>
 
-<template name="groupdiscussion">
-   
+<template name="groupdiscussion"> 
   <div class="container">    
     <div class="row">    
     <div class="col-md-6">
         <div class="widget-area no-padding blank">
-            <div class="status-upload">
-                <form class="new-post">
-                    
-                  <textarea placeholder="Write here to create thread" name="commentbox" id="commentbox" required></textarea>
-                    
-                   <ul>
-                      
-                      <!--<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>-->
-                  </ul>
-                  <button type="submit" class="btn btn-success green" id="add"><i class="fa fa-share"></i> Post</button>
-
-                </form>
-                </div><!-- Status Upload  -->
-
-              </div><!-- Widget Area -->
-              
+          <div class="status-upload">
+            <form class="new-post">
+              <textarea placeholder="Write here to create thread" name="commentbox" id="commentbox" required></textarea>
+              <ul>
+                <!--<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>-->
+              </ul>
+              <button type="submit" class="btn btn-success green" id="add"><i class="fa fa-share"></i> Post</button>
+            </form>
+          </div><!-- Status Upload  -->
+        </div><!-- Widget Area -->
       </div>
     </div>
 </div>
-
 </template>
 
 <template name = "postMessage">
@@ -41,20 +31,16 @@
       <span class="badge" style="float: right;">Total : {{count}}</span>
     </h4> 
     <br>
-      {{#each message}}
-    
+    {{#each message}}
       <div class="well well-lg" style="width: 700px;margin-left: 20px;display: inline-block;">
-      <ul>
-          <li><span><b>{{owner}} : </b></span></li>
-          <li><span>{{content}}</span></li>
-          <li><img src="{{avatar}}"></li>
-          <span style="float: right">{{createdAt}}</span>
-      </ul>
+        <ul>
+            <li><span><b>{{owner}} : </b></span></li>
+            <li><span>{{content}}</span></li>
+            <span style="float: right">{{createdAt}}</span>
+        </ul>
       </div>
       <span class="glyphicon glyphicon-trash" id="delete" style="cursor: pointer;"></span>
       <span class="glyphicon glyphicon-pencil" id="edit" style="margin-left: 5px; cursor: pointer;"></span>
-  
     {{/each}} 
-    
   </div>
 </template>

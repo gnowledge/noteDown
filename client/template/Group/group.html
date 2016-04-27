@@ -6,7 +6,7 @@
 			{{#if owner}}
 				<input type="submit" class="btn btn-primary pull-right" id="edit" value=" Edit " style="margin-right: 20px;">
 				<input type="submit" class="btn btn-danger pull-right" id="delete" value="Delete">	
-				{{#if members}}
+				{{#if group}}
 	 				<div class="dropdown">
 	  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
 		  					<span class="glyphicon glyphicon-user"></span>&nbsp;
@@ -15,9 +15,9 @@
 	  					</button>
 	  					<ul class="dropdown-menu dropdown-menu-right">
 	  						{{#each members}}
-					    	<li>
-					    		{{name}}&nbsp;&nbsp;&nbsp;&nbsp;
-					    	</li>
+						    	<li>
+						    		{{name}} <button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
+						    	</li>
 							{{/each}}
 	  					</ul>
 					</div>
@@ -31,7 +31,7 @@
 					</div>
 				{{/if}}
 				
-				<!--{{#if notificationCount}}
+				{{#if notificationCount}}
 	 				<div class="dropdown">
 	  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown">
 		  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
@@ -56,7 +56,7 @@
 							    <li><a href="#">No notifications</a></li>
 				  			</ul>
 					</div>
-				{{/if}}	-->
+				{{/if}}	
 			{{else}}
 				{{#if member}}
 					<input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;">
@@ -68,7 +68,7 @@
 					{{/if}}
 				{{/if}}
 			{{/if}}
-		
+
 		</div>
 
 		<div class="row">

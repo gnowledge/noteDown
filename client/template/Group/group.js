@@ -31,13 +31,19 @@ Template.singleGroup.helpers({
 	member: function(){
 		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
         var group = Groups.findOne({_id: groupId});
-        var member= Groups.find({ _id: groupId },{ "members.id":1, _id: 0 });
+        //var member= Groups.find({ _id: groupId },{ "members.id":1, _id: 0 });
         var userId = Meteor.userId();
         for (var i = 0; i < group.members.length; i++) {
       		if (group.members[i].id === userId) {
         		return true;
       		}
     	}
+    },
+    members: function(){
+    	var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+        var group = Groups.findOne({_id: groupId});
+        var members= group.members;
+        return members;
     },
     notification: function(){
     	var groupId = Session.get('groupId');
@@ -63,7 +69,7 @@ Template.singleGroup.events({
 			});
 		}
 	},
-
+	
 	"click #join": function(event) {
 		if(confirm("Are you sure you want to join ?")== true){
 			var groupId = Session.get('groupId');
@@ -210,6 +216,25 @@ Template.singleGroup.events({
 		var id= this._id;
 		var nid= Notify.remove(id);
 	    return nid;
+	},
+	"click .delete": function(event) {
+		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+        var group = Groups.findOne({_id: groupId});
+		var memberId= this.id;
+		var memberName= this.name;
+		console.log(memberName);
+		Meteor.call('removeMember',groupId, memberId, memberName, function(err,res){
+			if(!err){
+				Notify.insert({
+	                	title: "You have been removed to group- " + group.gname,
+	                	user:{
+	                		id: memberId,
+	                		name: memberName
+	                	},
+	                	read: false
+	                });
+			}
+		});
 	}
 
 });
