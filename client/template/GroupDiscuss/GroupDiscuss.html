@@ -34,13 +34,15 @@
     {{#each message}}
       <div class="well well-lg" style="width: 700px;margin-left: 20px;display: inline-block;">
         <ul>
-            <li><span><b>{{owner}} : </b></span></li>
+            <li><span><b>{{owner.name}} : </b></span></li>
             <li><span>{{content}}</span></li>
             <span style="float: right">{{createdAt}}</span>
         </ul>
       </div>
-      <span class="glyphicon glyphicon-trash" id="delete" style="cursor: pointer;"></span>
-      <span class="glyphicon glyphicon-pencil" id="edit" style="margin-left: 5px; cursor: pointer;"></span>
+      {{#if admin}}
+        <span class="glyphicon glyphicon-trash" id="delete" style="cursor: pointer;"></span>
+        <span class="glyphicon glyphicon-pencil" id="edit" style="margin-left: 5px; cursor: pointer;"></span>
+      {{/if}}
     {{/each}} 
   </div>
 </template>

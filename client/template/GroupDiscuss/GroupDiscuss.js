@@ -30,6 +30,9 @@ Template.postMessage.helpers({
     },
     'count':function(){
         return Thread.find().count();
+    },
+    'admin': function(){
+        return Thread.find({ "owner.id" : Meteor.user()._id });
     }
 });
 

@@ -6,7 +6,7 @@
 			{{#if owner}}
 				<input type="submit" class="btn btn-primary pull-right" id="edit" value=" Edit " style="margin-right: 20px;">
 				<input type="submit" class="btn btn-danger pull-right" id="delete" value="Delete">	
-				{{#if group}}
+				{{#if members}}
 	 				<div class="dropdown">
 	  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
 		  					<span class="glyphicon glyphicon-user"></span>&nbsp;
@@ -68,7 +68,6 @@
 					{{/if}}
 				{{/if}}
 			{{/if}}
-
 		</div>
 
 		<div class="row">
@@ -79,15 +78,20 @@
 			<h3 id="gdesc" style="margin-left: 20px;">{{group.gdesc}}</h3>
 			<hr class="divider">		
 		</div>
+
 		{{#if owner}}
-			{{> groupDiscuss}}	
+			{{> groupDiscuss}}
 		{{else}}
 			{{#if member}}
 				{{> groupDiscuss}}
 			{{/if}}
 		{{/if}}
+
 	</div>
 </template>
+
+
+
 
 <template name="yourGroup">
 	<!-- Start Container -->

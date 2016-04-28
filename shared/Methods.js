@@ -295,7 +295,10 @@ Meteor.methods({
 		var thread = {
 
 				content:msg,
-				owner:Meteor.user().profile.name,
+				owner:{
+					"id":this.userId,
+					"name":Meteor.user().profile.name
+				},
 				createdAt: new Date()
 		};
 		Thread.insert(thread);		

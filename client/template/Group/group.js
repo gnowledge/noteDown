@@ -100,9 +100,10 @@ Template.singleGroup.events({
 				    group:{ 
 				    		id: groupId,
 				    		name: name
-				    }
+				    },
+				    user: data.owner.id
 	    			});*/
-	                Meteor.call('Successfully');
+	                //Meteor.call('Successfully');
 				}
 			});	
 		}			
@@ -119,7 +120,7 @@ Template.singleGroup.events({
 
 			var input= $('<input id="name" type="text" value="' + n + '" />');
 			$("#gname").replaceWith(input);
-			var input2 = $('<input id="desc" type="text" value="' + d + '" />');
+			var input2 = $('<textarea id="desc" rows="5">'+ d +'</textarea>');
 			$("#gdesc").replaceWith(input2);
 
 			//Change button text
@@ -132,13 +133,9 @@ Template.singleGroup.events({
 	"click #save": function(event){
 		var groupId = Session.get('groupId');
 		var group= Groups.findOne({ _id: groupId});
-		
 		var gtitle=document.getElementById('name').value;
-		
 		var gdesc= document.getElementById('desc').value;
 		
-		
-
 		var h1= document.createElement('h3');
 		var lblname= $(h1).attr({
 			'id': "gname",
