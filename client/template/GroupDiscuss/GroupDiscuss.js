@@ -25,14 +25,14 @@ Template.groupdiscussion.events({
 
 Template.postMessage.helpers({
     'message':function(){
-        //return Thread.find({},{sort : {createdAt:-1} }); 
-        return Thread.find();
+        return Thread.find({},{sort : {createdAt:-1} }); 
+        //return Thread.find();
     },
     'count':function(){
         return Thread.find().count();
     },
     'admin': function(){
-        return Thread.find({ "owner.id" : Meteor.user()._id });
+        return Thread.findOne({_id:this._id, "owner.id" : Meteor.user()._id });
     }
 });
 

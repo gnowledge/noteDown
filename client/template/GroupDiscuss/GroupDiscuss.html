@@ -1,3 +1,7 @@
+<head>  
+  <title>Group</title>
+  <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+</head>
 <template name="groupDiscuss">
   <div class="container-fluid">
     {{> groupdiscussion}}  
@@ -42,6 +46,8 @@
       {{#if admin}}
         <span class="glyphicon glyphicon-trash" id="delete" style="cursor: pointer;"></span>
         <span class="glyphicon glyphicon-pencil" id="edit" style="margin-left: 5px; cursor: pointer;"></span>
+        {{else}}
+        <span class="fa fa-reply" id="reply" style=" margin-left: 5px; cursor: pointer;"></span>
       {{/if}}
     {{/each}} 
   </div>
