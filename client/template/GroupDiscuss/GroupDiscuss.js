@@ -13,14 +13,7 @@ Template.groupdiscussion.events({
         Meteor.call("addThread",text);
         event.target.commentbox.value='';
         
-    },
-    /*'click #edit':function(event){
-        alert("hello");
-        event.target.commentbox.value='hello';
-    },*/
-    /*'click #delete' : function(){
-        Thread.remove(this._id);
-    }*/
+    }
 });
 
 Template.postMessage.helpers({
@@ -39,12 +32,12 @@ Template.postMessage.helpers({
 Template.postMessage.events({
     'click #delete' : function(){
         Thread.remove(this._id);
-    }
-    // 'click #edit' :function(text){
-    //  
-    //  var edittext = Thread.findOne({_id:this._id},{content:1,_id:0,createdAt:0});
-    //  Meteor.call("editThread",edittext);
-    //  console.log(edittext);
-    //  //event.target.commentbox.value = "hello";
-    // }
+    },
+    'click #rename' :function(text){
+        var id= this._id;
+        var edittext = Thread.findOne({_id: id});
+        //Meteor.call("editThread",id, content);
+        //console.log(content);
+        //event.target.commentbox.value = "hello";
+     }
 });

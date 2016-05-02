@@ -1,5 +1,5 @@
 Meteor.methods({
-	addDoc:function(){
+	addDoc:function(loc,tags){		//, tags
 		var doc;
 		
 		if(!this.userId){// NOt logged in
@@ -7,11 +7,16 @@ Meteor.methods({
 		}else{
 			doc={
 				owner:this.userId, 
+				getLocation:loc,
+				tagsName:tags,
 				createdOn:new Date(), 
 				title:"Untitled Document"
 			};
 			var id = Documents.insert(doc);
 			return id; //return was missing. caused problem in method call.
+			//console.log(doc);
+			//Meteor._reload.reload();
+			//Meteor.reload();
 		}
 	},
 	delDoc:function(doc){
@@ -114,7 +119,7 @@ Meteor.methods({
 	joinGroup : function(groupId, memberId, memberName){
 		var data= Groups.findOne(groupId);
 		var member=Groups.find({},{ "members_id":1, _id: 0 });
-		var id= data._id;
+		var id= data._id;	
 		var count= data.member_count;
 		
 
@@ -292,18 +297,34 @@ Meteor.methods({
 
     //-----------------------------------------------------------------------
     addThread : function(msg){
+    	var date= new Date();
+    	var h= date.getHours();
+    	var m= date.getMinutes();
+    	var s= date.getSeconds();
+    	var y= date.getFullYear();
+    	var mo= date.getMonth();
+    	var d= date.getDay();
+    	date=y + '/' + mo + '/' + d + ' ' + h + '-' + m + '-' + s;
 		var thread = {
-
 				content:msg,
 				owner:{
 					"id":this.userId,
 					"name":Meteor.user().profile.name
 				},
-				createdAt: new Date()
+				publishedAt: date
 		};
 		Thread.insert(thread);		
 	},
-	editThread : function(){	
+	editThread : function(id,content){
+		var date= new Date();
+    	var h= date.getHours();
+    	var m= date.getMinutes();
+    	var s= date.getSeconds();
+    	var y= date.getFullYear();
+    	var mo= date.getMonth();
+    	var d= date.getDay();
+    	date=y + '/' + mo + '/' + d + ' ' + h + '-' + m + '-' + s;
+		Thread.update({_id: id}, {$set: { content: content, publishedAt: date }})
 	}
 });
 

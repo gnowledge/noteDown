@@ -1,20 +1,9 @@
-//Notifications.success('Login', 'Succesfull');
-Meteor.subscribe('notify');
 Template.Header.helpers({
-	notification: function(){
-    	var notification= Notify.find({"user.id": Meteor.user()._id});
-    	return notification;
-    },
-    notificationCount: function(){
-    	return Notify.find({"user.id": Meteor.userId()}).count();
-  	}
+	
 });
 
 Template.Header.events({	
-	"click #read":function(event){
-		var id= this._id;
-		Notify.remove({_id: id});	
-	}
+	
 });
 
 

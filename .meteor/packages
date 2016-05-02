@@ -34,4 +34,16 @@ sacha:spin
 check
 tsega:bootstrap3-datetimepicker
 gfk:notifications	
-raix:rssfeed	
+	
+meteor-platform
+cfs:standard-packages
+cfs:gridfs
+cfs:filesystem
+cfs:s3
+cfs:ui
+raix:ui-dropped-event
+mrt:jquery-easing
+mrt:numeral
+cfs:autoform
+reactive-var
+cfs:graphicsmagick

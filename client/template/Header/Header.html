@@ -10,20 +10,7 @@
           
           <ul id="slides" class="nav navbar-nav pull-right push-bottom">
           {{#if currentUser}}
-            <!--<li>{{> Search}}</li>-->
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notification"><span class="glyphicon glyphicon-bell pull-right"><span class="badge badge-inverse">{{notificationCount}}</span></span></a>
-              <ul class="dropdown-menu">
-
-                  {{#if notificationCount}}
-                    {{#each notification}}
-                      {{title}}
-                      <input type="submit" class="btn" id="read" value="Read">
-                    {{/each}}
-                  {{/if}} 
-                
-              </ul>
-            </li>
+            <li>{{> Search}}</li>
           {{/if}}
             <li><a class="Login" href="#" title="">{{> Login}}</a></li>
           </ul>

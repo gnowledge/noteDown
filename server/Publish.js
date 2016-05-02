@@ -39,3 +39,20 @@ if (Meteor.isClient) {
 Meteor.publish("threads",function(){
   return Thread.find({});
 });
+
+Meteor.publish("images", function() {
+  return Collections.Images.find();
+});
+
+
+Meteor.publish("files", function() {
+  return Collections.Files.find();
+});
+
+Meteor.publish("audios",function(){
+  return Collections.Audios.find();
+});
+
+Meteor.publish("videos",function(){
+  return Collections.Videos.find();
+});

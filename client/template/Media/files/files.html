@@ -1,0 +1,34 @@
+<template name="files">
+
+  <h1>Files</h1>
+  <div class="well">
+    <input type="file" multiple class="any">
+  </div>
+  
+<!--
+  <div class="well">
+    <p>Or enter the file name here and then copy, paste, and execute the CURL command below in your terminal window, in the directory that contains the file.</p>
+    <input type="text" class="filename">
+    <p style="margin-top: 20px"><code>{{curl}}</code></p>
+  </div>
+-->
+
+  <div class="fileArea">
+  {{#each uploadedFiles}}
+  {{> uploadedFile}}
+  {{/each}}
+  <br><br><br>
+  </div>
+</template>
+
+<template name="uploadedFile">
+  <h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>{{else}}{{this.name}}{{/with}} ({{this.size}} bytes)</h4>
+  {{#if this.isUploaded}}
+  {{#with this.url download=true}}
+  <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
+  {{/with}}
+  {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+  {{else}}
+  <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
+  {{/if}}
+</template>
