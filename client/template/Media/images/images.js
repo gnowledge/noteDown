@@ -28,7 +28,6 @@ Meteor.startup(function () {
 
 Template.images.uploadedImages = function() {
   return Collections.Images.find({owner: Meteor.userId()});
-
 };
 
 Template.images.onCreated(function(){

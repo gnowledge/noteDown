@@ -1,7 +1,6 @@
 Template.createReminder.onRendered(function() {
-	  this.$('.datetimepicker').datetimepicker({
-	  	useCurrent: true
-	  });
+	  	//this.$('.datetimepicker').datetimepicker();
+	  	this.$('.datetimepicker').datetimepicker();
 });
 	
 Template.createReminder.onCreated(function(){
@@ -64,4 +63,7 @@ Template.task.events({
 		//Tasks.remove(this._id);
 		Meteor.call("deleteReminder",this._id);
 	}
+});
+Template.task.helpers({
+
 });

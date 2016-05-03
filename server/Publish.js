@@ -31,6 +31,7 @@ Meteor.publish("notify",function(){
   return Notify.find({});
 });  
 
+
 if (Meteor.isClient) {
   	Meteor.startup(function() {
     		GoogleMaps.load();
@@ -55,4 +56,12 @@ Meteor.publish("audios",function(){
 
 Meteor.publish("videos",function(){
   return Collections.Videos.find();
+});
+
+Meteor.publish("posts",function(){
+  return Posts.find({});
+});
+
+Meteor.publish("rss-feed",function(){
+  return Rss.find({});
 });

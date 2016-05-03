@@ -1,7 +1,6 @@
 Meteor.methods({
 	addDoc:function(loc,tags){		//, tags
 		var doc;
-		
 		if(!this.userId){// NOt logged in
 			return;
 		}else{
@@ -14,13 +13,11 @@ Meteor.methods({
 			};
 			var id = Documents.insert(doc);
 			return id; //return was missing. caused problem in method call.
-			//console.log(doc);
 			//Meteor._reload.reload();
 			//Meteor.reload();
 		}
 	},
 	delDoc:function(doc){
-		
 		if(!this.userId){// NOt logged in
 			return;
 		}else{
@@ -34,8 +31,6 @@ Meteor.methods({
 	},
 	updateDocPrivacy:function(doc){
 		console.log("updateDocPrivacy Method");
-		console.log(doc);
-
 		var realDoc=Documents.findOne({_id:doc._id, owner:this.userId});
 		if(realDoc){
 			realDoc.isPrivate=doc.isPrivate;
@@ -325,6 +320,51 @@ Meteor.methods({
     	var d= date.getDay();
     	date=y + '/' + mo + '/' + d + ' ' + h + '-' + m + '-' + s;
 		Thread.update({_id: id}, {$set: { content: content, publishedAt: date }})
+	},
+
+
+	//SummerNote------------------------------------
+	addPost: function (title, message, postBody, loc, tags) {
+		var doc;
+		if(!this.userId){// NOt logged in
+			return;
+		}
+		else{
+			doc={
+				
+				Title: title,
+				Message: message,
+				Body: postBody,
+				owner:{
+					id:this.userId, 
+					name:Meteor.user().profile.name
+				},
+				getLocation:loc,
+				tagsName:tags,
+				createdOn:new Date(), 
+			};
+			var id = Posts.insert(doc);
+			 //return was missing. caused problem in method call.
+			return id;
+		}  
+		
+	},
+
+	editPost: function (postID, title, message, postBody) {
+				var id =Posts.update(postID,{
+						$set:{
+							Title: title,
+							Message: message,
+							Body: postBody	
+						}
+					});
+
+				return id;
+	},
+	
+	deletePost: function (postID) {
+		Posts.remove(postID);
+			
 	}
 });
 

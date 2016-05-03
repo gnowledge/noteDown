@@ -1,0 +1,98 @@
+<template name="SmNote">
+	{{> Navbar}}
+	<br>
+	<div class="container-fluid">
+		<div class="col-xs-12">
+			<h3>Create Note</h3>
+			<form class="form-horizontal" role="form" id ="addPost">
+				<div class="form-group container-fluid">
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter title here..." required style="width: 100%;">
+				</div>
+				<div class="form-group container-fluid">
+					<!--label for="postMessage">Post Message: </label-->
+					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter message here..." required style="width: 100%;"></textarea>
+				</div>
+				<div id="summernote" class="form-group" required>	
+				</div>
+				<div class="form-group">
+					<button type="submit" style="width=10%;" class="form-control btn btn-success">Save</button>
+					<a href=""><button type="submit" style="width=10%;" class="form-control btn btn-default">Publish</button></a>
+				</div>
+			</form>
+			{{> Tags}}
+			{{> Media}}
+			{{> getLocation}}
+		</div>
+	</div>
+</template>
+
+
+<template name="ShowNotes">
+	<div class="container">
+		<h2>Your Notes</h2>
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				{{#each posts}}
+					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+						<div class="thumbnail">
+							<div class="caption">
+								<h3>{{Title}}</h3> 
+		                	</div>
+								<span style="float: right;" id="showMsg"><i>{{Message}} </i></span>
+								<hr class="divider">
+		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a>
+		  				</div>
+	  				</div>
+	            {{/each}}
+	        {{else}}
+	        	<p>Loading... {{> spinner}}</p>
+	        {{/if}}
+      	</div>
+      	<hr class="divider">
+   	</div>
+</template>
+
+<template name="SinglePost">
+	{{> Navbar}}
+	<div class="col-xs-12">
+		<div class="panel-group">
+			{{#if post}}
+			<div class="panel panel-title">
+				<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
+			</div>
+			<div class="panel panel-body">
+				<p class="text-center">Body : {{{post.Body}}}</p>
+			</div>
+			<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="form-control btn btn-success">Edit Post</button></a>
+			<button class="btn btn-danger pull-right" id="deletePost"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+			{{else}}
+				<h2>No Post</h2>
+			{{/if}}
+		</div>
+	</div>
+	<br><br><br><br><br><br><br><br><br>
+</template>
+
+<template name="EditPosts">
+	{{> Navbar}}
+		<div class="col-xs-12">
+		<form role="form" id ="editPost">
+			<div class="form-group">
+				<!--label for="postTitle">Post Title: </label-->
+				<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..." style="width:100%">
+			</div>
+			<div class="form-group">
+				<!--label for="postMessage">Post Message: </label-->
+				<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..." style="width:100%"></textarea>
+			</div>
+			<div id="summernote" class="form-group">
+				{{{edit.Body}}}
+			</div>
+			<div class="form-group">
+				<button type="submit" class="form-control btn btn-success">Save Post</button>
+			</div>
+		</form>
+	</div>
+	<br><br><br><br><br><br><br><br><br>
+</template>

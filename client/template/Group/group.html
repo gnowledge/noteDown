@@ -3,10 +3,12 @@
 	<!--Start Container-->
 	<div class="container-fluid "><br>
 		<div class="row">
+		
+		<ul class="nav navbar-nav navbar-left push-top">
 			{{#if owner}}
-				<input type="submit" class="btn btn-primary pull-right" id="edit" value=" Edit " style="margin-right: 20px;">
-				<input type="submit" class="btn btn-danger pull-right" id="delete" value="Delete">	
-				{{#if members}}
+				<li><input type="submit" class="btn btn-primary pull-right" id="edit" value=" Edit "></li>
+				<li><input type="submit" class="btn btn-danger pull-right" id="delete" value="Delete"></li>	
+				<li>{{#if members}}
 	 				<div class="dropdown">
 	  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
 		  					<span class="glyphicon glyphicon-user"></span>&nbsp;
@@ -23,15 +25,15 @@
 					</div>
 				{{else}}
 					<div class="dropdown">
-				  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">Members
+				  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
 				  			<span class="caret"></span></button>
 				  			<ul class="dropdown-menu dropdown-menu-right">
 							    <li><a href="#">No members</a></li>
 						</ul>
 					</div>
-				{{/if}}
+				{{/if}}</li>
 				
-				{{#if notificationCount}}
+				<li>{{#if notificationCount}}
 	 				<div class="dropdown">
 	  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown">
 		  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
@@ -50,33 +52,39 @@
 					</div>
 				{{else}}
 					<div class="dropdown">
-				  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">Notifications
+				  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+				  			<span class="glyphicon glyphicon-bell"></span>&nbsp;
+				  			Notifications
 				  			<span class="caret"></span></button>
 				  			<ul class="dropdown-menu dropdown-menu-right">
 							    <li><a href="#">No notifications</a></li>
 				  			</ul>
 					</div>
-				{{/if}}	
+				{{/if}}	</li>
 			{{else}}
 				{{#if member}}
-					<input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;">
+					<li><input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;"></li>
 				{{else}}
 					{{#if private}}
-						<input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;">
+						<li><input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;"></li>
 					{{else}}
-						<input type="submit" class="btn btn-success pull-right" id="join" value="Join" style="margin-right:20px;">
+						<li><input type="submit" class="btn btn-success pull-right" id="join" value="Join" style="margin-right:20px;"></li>
 					{{/if}}
 				{{/if}}
 			{{/if}}
+			</ul>
+			
 		</div>
 
 		<div class="row">
-			<hr class="divider">
-			<h3 id="gname" style="margin-left:20px;">{{group.gname}}</h3> 
-			<span style="float: right;" id="privacy"><i>{{group.privacy}}-group...</i></span>
-			<hr class="divider">
-			<h3 id="gdesc" style="margin-left: 20px;">{{group.gdesc}}</h3>
-			<hr class="divider">		
+			<div class="container-fluid">
+				<hr class="divider">
+				<h3 id="gname" style="margin-left:20px;">{{group.gname}}</h3> 
+				<span style="float: right;" id="privacy"><i>{{group.privacy}}-group...</i></span>
+				<hr class="divider">
+				<h3 id="gdesc" style="margin-left: 20px;">{{group.gdesc}}</h3>
+				<hr class="divider">
+			</div>		
 		</div>
 
 		{{#if owner}}
@@ -89,9 +97,6 @@
 
 	</div>
 </template>
-
-
-
 
 <template name="yourGroup">
 	<!-- Start Container -->
@@ -107,7 +112,7 @@
 		                	</div>
 								<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 		  						<hr class="divider">
-		  						<a href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group</a>
+		  						<a class="btn btn-default" href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 		  				</div>
 	  				</div>
 	            {{/each}}
@@ -134,7 +139,7 @@
 			                	</div>
 									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 			  						<hr class="divider">
-			  						<a href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group</a>
+			  						<a class="btn btn-default" href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 			  				</div>
 		  				</div>
 		            {{/each}}

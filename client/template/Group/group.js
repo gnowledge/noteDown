@@ -113,7 +113,7 @@ Template.singleGroup.events({
 
 			var input= $('<input id="name" type="text" value="' + n + '" />');
 			$("#gname").replaceWith(input);
-			var input2 = $('<textarea id="desc" rows="5">'+ d +'</textarea>');
+			var input2 = $('<textarea id="desc" rows="3">'+ d +'</textarea>');
 			$("#gdesc").replaceWith(input2);
 
 			//Change button text
@@ -220,7 +220,7 @@ Template.yourGroup.helpers({
 				{"owner.id": Meteor.userId()},
 				{"members.id": Meteor.userId()}
 			]
-		});
+		},{sort: {createdAt: 1}},{limit: 6});
 	}
 });
 
@@ -239,6 +239,6 @@ Template.allGroup.helpers({
 				{"members.id": {$ne:  Meteor.userId() } }/*,
 				{ "privacy" : { $ne: "private"}}*/
 			]
-		});
+		},{sort: {createdAt: 1}},{limit: 6});
 	}
 });

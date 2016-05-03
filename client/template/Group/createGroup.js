@@ -31,7 +31,7 @@ Template.newGroup.events({
             		if(!err){//all good
             			//console.log("callback recieved: "+res);
                               alert('Group created succesfully');
-                              Meteor.call('Successfully');
+                              //Meteor.call('Successfully');
             		}
             	});
             }

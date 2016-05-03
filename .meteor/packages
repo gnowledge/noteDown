@@ -18,7 +18,7 @@ accounts-password
 accounts-facebook
 accounts-google
 iron:router
-mrt:bootstrap-3
+twbs:bootstrap
 babrahams:editable-text
 mizzao:sharejs-codemirror
 gwendall:auth-client-callbacks
@@ -32,9 +32,8 @@ jeffrey:easy-map
 jaymc:google-reverse-geocode
 sacha:spin
 check
-tsega:bootstrap3-datetimepicker
+hujhax:bootstrap3-datetimepicker
 gfk:notifications	
-	
 meteor-platform
 cfs:standard-packages
 cfs:gridfs
@@ -47,3 +46,5 @@ mrt:numeral
 cfs:autoform
 reactive-var
 cfs:graphicsmagick
+summernote:summernote
+fortawesome:fontawesome
