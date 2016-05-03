@@ -1,0 +1,32 @@
+<template name="Search">
+  <div class="input-group">
+      <div class="input-group-btn search-panel">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span id="search_concept">Filter by</span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>Note
+              <ol><a href="#Notes_Tags">By tags</a></ol>
+              <ol><a href="#Notes_Location">By location</a></ol>
+              <ol><a href="#Notes_Date">By date</a></ol>
+            </li>
+            <li>Groups
+              <ol><a href="#Groups_Public">By public groups</a></ol>
+              <ol><a href="#Groups_Private">By private groups</a></ol>
+              <ol><a href="#Groups_Posts">By posts</a></ol>
+              <ol><a href="#Groups_Date">By date</a></ol>
+            </li>
+            <li>Files
+              <ol><a href="#Files_Images">By images</a></ol>
+              <ol><a href="#Files_Videos">By videos</a></ol>
+              <ol><a href="#Files_Audios">By audios</a></ol>
+            </li>
+            <li><a href="#All">All</a></li>
+          </ul>
+      </div>
+      <input type="hidden" name="search_param" value="all" id="search_param"><input type="text" class="form-control" name="x" placeholder="Search term...">
+      <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+      </span>
+  </div>  
+</template>

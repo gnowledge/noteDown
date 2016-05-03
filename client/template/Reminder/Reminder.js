@@ -1,5 +1,6 @@
 Template.createReminder.onRendered(function() {
-	  //this.$('.datetimepicker').datetimepicker();
+	  	//this.$('.datetimepicker').datetimepicker();
+	  	this.$('.datetimepicker').datetimepicker();
 });
 	
 Template.createReminder.onCreated(function(){
@@ -10,7 +11,6 @@ Template.createReminder.onCreated(function(){
 });
   
 Template.createReminder.helpers({
-
     tasks: function () {
       	if (Session.get("hideCompleted")) {
         	// If hide completed is checked, filter tasks
@@ -36,7 +36,8 @@ Template.createReminder.events({
 		// Get value from form element
 		var text = event.target.text.value;
 		var desc = event.target.desc.value;
-		Meteor.call("createReminder",text, desc, function(err,res){
+		var date= event.target.date.value;
+		Meteor.call("createReminder",text, desc, date ,function(err,res){
 			if(!err){
 				console.log("callback recieved: "+res);
 			}
@@ -45,6 +46,7 @@ Template.createReminder.events({
 		// Clear form
 		event.target.text.value = "";
 		event.target.desc.value = "";
+		event.target.date.value = "";
 		},
 		"change .hide-completed input": function (event) {
 			Session.set("hideCompleted", event.target.checked);
@@ -61,4 +63,7 @@ Template.task.events({
 		//Tasks.remove(this._id);
 		Meteor.call("deleteReminder",this._id);
 	}
+});
+Template.task.helpers({
+
 });

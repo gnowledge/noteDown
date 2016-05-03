@@ -1,0 +1,45 @@
+<template name="groupDiscuss">
+  <div class="container-fluid">
+    {{> groupdiscussion}}  
+    {{> postMessage}}
+  </div>
+</template>
+
+<template name="groupdiscussion"> 
+  <div class="container">    
+    <div class="row">    
+    <div class="col-md-6">
+        <div class="widget-area no-padding blank">
+          <div class="status-upload">
+            <form class="new-post">
+              <textarea placeholder="Write here to create thread" name="commentbox" id="commentbox" required></textarea>
+              <button type="submit" class="btn btn-success green" id="add"><i class="fa fa-share"></i> Post</button>
+            </form>
+          </div><!-- Status Upload  -->
+        </div><!-- Widget Area -->
+      </div>
+    </div>
+</div>
+</template>
+
+<template name = "postMessage">
+  <div class="container">
+    <h4 style="margin: 20px ;width: 700px">Threads :
+      <span class="badge" style="float: right;">Total : {{count}}</span>
+    </h4> 
+    <br>
+    {{#each message}}
+      <div class="well well-lg" style="width: 700px;margin-left: 20px;display: inline-block;">
+        <ul id="data">
+            <li><span><b>{{owner.name}} : </b></span></li>
+            <li id="content"><span>{{content}}</span></li>
+            <span style="float: right">{{createdAt}}</span>
+        </ul>
+      </div>
+      {{#if admin}}
+        <span class="glyphicon glyphicon-trash" id="delete" style="cursor: pointer;"></span>
+        <span class="glyphicon glyphicon-pencil" id="rename" style="margin-left: 5px; cursor: pointer;"></span>
+      {{/if}}
+    {{/each}} 
+  </div>
+</template>

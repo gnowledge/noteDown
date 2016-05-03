@@ -1,7 +1,6 @@
 Meteor.subscribe("documents");
 Meteor.subscribe("editingUsers");
 
-
 Template.editor.helpers({
 	docid:function(){
 		setupCurrentDocument();
@@ -85,12 +84,15 @@ Template.noteHeader.events({
 			alert("You need to login first");
 		}else{
 			//They are logged in lets add a document
-			var id = Meteor.call("addDoc", function(err, res){
+			var loc = Session.get('location');
+			var tags = Session.get('tag');
+			var id = Meteor.call("addDoc", loc , tags , function(err, res){	//, tags
 				if(!err){//all good
 					console.log("callback recieved: "+res);
 					Session.set("docid",res);
 				}
 			}); // DB ops only works from methods.
+			location.reload();					//current page load click on addNote button
 		}
 	},
 
@@ -122,8 +124,6 @@ Template.docMeta.events({
 
 	}
 })
-
-
 
 function setupCurrentDocument(){
 	var doc;

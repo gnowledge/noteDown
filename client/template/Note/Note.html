@@ -1,9 +1,10 @@
 <template name="Note">
 	<div class="container">  
-		<h2>Create a Note <a href="{{pathFor route='createNote'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<h2>Note <a href="{{pathFor route='SmNote'}}"><img src="images/add.png"  height="50" ></a></h2>
 		<hr class="divider">
 	</div>
 </template>
+
 <template name="createNote">
 	{{> Navbar }}
 	<div class="container-fluid top-margin">
@@ -19,11 +20,12 @@
 			</div>
 			<div class="col-md-12 editor">
   				{{> editor}}
+  				{{> Tags}}
+  				{{> Media}}
 			</div>
 			<div class="col-md-12">
-				<br><br>
+				<br>
 				{{> getLocation}}
-				<br><br>
 			</div>
 			
 		</div>
@@ -49,8 +51,8 @@
 			     	<!--<li>
 				     	<a href="#" class="js-del-doc"><span class=" glyphicon glyphicon-trash" aria-hidden="true"></span> Discard
 				     	</a>
-			     		</li>
-			     	-->
+			     	</li>-->
+			     	
 			    </ul>
 </template>
 
@@ -59,6 +61,7 @@
 		{{>sharejsCM docid=docid onRender=config id="editor"}}
 	</div>
 </template>
+
 
 
 <template name="docMeta">
@@ -80,4 +83,3 @@
 	<span class="label label-success">{{firstname}}</span>
 	{{/each}}
 </template>
- 

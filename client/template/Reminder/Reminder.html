@@ -1,6 +1,6 @@
 <template name="Reminder">
 	<div class="container">  
-		<h2>Todo <a href="{{pathFor route='createReminder'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<h2>Todo <a href="{{pathFor route='createReminder'}}"><img src="images/add.png"  height="50" title="Create todo"></a></h2>
 		<hr class="divider">
 	</div>
 </template>
@@ -14,15 +14,25 @@
 	        <input type="checkbox" checked= "{{hideCompleted}}" />
 	          Hide Completed Tasks
 	       	</label>
-	       	{{#if currentUser}}
-	       		<form class="new-task" id="form">
+	       		<form  class="new-task" id="form">
 	         		<ul>
 	         			<input type="text" name="text" placeholder="Type to add new tasks" required />
-	         			<li><input type="text" name="desc" placeholder="Type to add a description" required/></li>
-	         			<li><input type="submit" class="btn btn-primary" value="Create"></li>
+	         			<li>
+	         				<input type="text" name="desc" placeholder="Type to add a description" required/>
+	         				<li>
+		         				<div class="input-group datetimepicker">
+								    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								    <input class="set-due-date form-control" id="date" type="text" placeholder="Select a date" required/>
+					  			</div>
+					  		</li>
+	         			</li>
+	         			
+	         			<li>
+	         				<input type="submit" class="btn btn-primary" value="Create">
+	         			</li>
 	         		</ul>
+	         		
 	       		</form>
-	       	{{/if}}
 		  	<ul>
 				{{#each tasks}}
 		  			{{>task}}
@@ -37,7 +47,7 @@
 		<button class="delete">&times;</button>      
 	    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 	    <span class="text">
-	    	<strong>{{title}}</strong> - {{desc}}
+	    	<strong>{{title}}</strong> - {{desc}} - <strong>{{date}}</strong>
 	    </span>
 	</li>
 </template>
