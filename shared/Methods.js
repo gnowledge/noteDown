@@ -1,6 +1,7 @@
 Meteor.methods({
 	addDoc:function(loc,tags){		//, tags
 		var doc;
+		
 		if(!this.userId){// NOt logged in
 			return;
 		}else{
@@ -88,6 +89,7 @@ Meteor.methods({
 					group_ids: id
 				}
 			});
+
 			Rss.insert({
                 rss_title: user + "has created a new group " + gtitle,
                 user: user,
@@ -95,6 +97,7 @@ Meteor.methods({
                 action: "Group",
                 id: id
           	});
+
 			return id;
 		}
 	},
@@ -122,17 +125,18 @@ Meteor.methods({
 	joinGroup : function(groupId, memberId, memberName){
 		var data= Groups.findOne(groupId);
 		var member=Groups.find({},{ "members_id":1, _id: 0 });
-		var id= data._id;	
+
+		var id= data._id;
 		var count= data.member_count;
-		
+		var userId = Meteor.userId();
 
 		for (var i = 0; i < data.members.length; i++) {
-      		if (data.members[i].id == memberId) {
+      		if (data.members[i].id == userId) {
         		return false;
       		}
     	}
     	count++;
-		if(!memberId){// NOt logged in
+		if(!this.userId){// NOt logged in
 			return;
 		}
 		else{
@@ -243,10 +247,10 @@ Meteor.methods({
 			});
 	    }
   	},
-	
+
 	//---------------Todo Function--------------------------------------------
 
-	createReminder : function(text, desc, date){
+	createReminder : function(text, desc){
 		check(text,String);
 		check(desc,String);
 		var task;
@@ -264,7 +268,6 @@ Meteor.methods({
 					"name": Meteor.user().profile.name 
 				}
 			}
-		}
 		var id=Tasks.insert(task);
 		var reminderId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
@@ -381,6 +384,7 @@ Meteor.methods({
 		Posts.remove(postID);
 			
 	}
+
 });
 
 
