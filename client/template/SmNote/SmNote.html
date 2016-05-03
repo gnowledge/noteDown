@@ -17,7 +17,6 @@
 				</div>
 				<div class="form-group">
 					<button type="submit" style="width=10%;" class="form-control btn btn-success">Save</button>
-					<a href=""><button type="submit" style="width=10%;" class="form-control btn btn-default">Publish</button></a>
 				</div>
 			</form>
 			{{> Tags}}
@@ -55,6 +54,7 @@
 
 <template name="SinglePost">
 	{{> Navbar}}
+	<div class="container-fluid">
 	<div class="col-xs-12">
 		<div class="panel-group">
 			{{#if post}}
@@ -64,19 +64,22 @@
 			<div class="panel panel-body">
 				<p class="text-center">Body : {{{post.Body}}}</p>
 			</div>
-			<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="form-control btn btn-success">Edit Post</button></a>
-			<button class="btn btn-danger pull-right" id="deletePost"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+			<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="btn btn-success">Edit Post</button></a>
+			<button class="btn btn-danger pull-right" id="deletePost"><span class="glyphicon glyphicon-remove"></span> Delete Post</button>
 			{{else}}
 				<h2>No Post</h2>
 			{{/if}}
 		</div>
+	</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br>
 </template>
 
 <template name="EditPosts">
 	{{> Navbar}}
-		<div class="col-xs-12">
+	<div class="container-fluid">
+	<div class="col-xs-12">
+		<h2>Edit Note</h2>
 		<form role="form" id ="editPost">
 			<div class="form-group">
 				<!--label for="postTitle">Post Title: </label-->
@@ -93,6 +96,7 @@
 				<button type="submit" class="form-control btn btn-success">Save Post</button>
 			</div>
 		</form>
+	</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br>
 </template>

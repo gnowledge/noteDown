@@ -65,6 +65,7 @@ Meteor.methods({
 		check(gtitle,String);
 		check(gdesc,String);
 		var group;
+		var user=Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
 			return;
 		}
@@ -87,6 +88,13 @@ Meteor.methods({
 					group_ids: id
 				}
 			});
+			Rss.insert({
+                rss_title: user + "has created a new group " + gtitle,
+                user: user,
+                createdAt: new Date(),
+                action: "Group",
+                id: id
+          	});
 			return id;
 		}
 	},
@@ -326,6 +334,7 @@ Meteor.methods({
 	//SummerNote------------------------------------
 	addPost: function (title, message, postBody, loc, tags) {
 		var doc;
+		var user= Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
 			return;
 		}
@@ -344,7 +353,13 @@ Meteor.methods({
 				createdOn:new Date(), 
 			};
 			var id = Posts.insert(doc);
-			 //return was missing. caused problem in method call.
+			Rss.insert({
+				rss_title: user + "has created a new note " + title,
+				user: user,
+				createdAt: new Date(),
+				action: "Post",
+				id: id
+			});
 			return id;
 		}  
 		

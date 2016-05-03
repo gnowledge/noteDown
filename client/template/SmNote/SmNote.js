@@ -1,7 +1,7 @@
 Template.SmNote.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
-		self.subscribe('posts','rss-feed');
+		self.subscribe('posts');
 	});
 });
 
@@ -13,25 +13,7 @@ Template.SmNote.events({
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
-		/*var arr=[];
-		arr[0]= title;
-		arr[1]=message;
-		arr[2]=postBody;
-		arr[3]=loc;
-		arr[4]=tags;*/
-		var user= Meteor.user().profile.name;
-		Meteor.call('addPost', title, message, postBody,loc, tags, function (error) {
-			if(!error){
-				var feed={
-					rss_title: user + "has created a new note " + title,
-					user: user,
-					createdAt: new Date() 
-				}
-				Notify.insert(feed);
-				Meteor.call('Successfully');
-			}
-		});
-			
+		Meteor.call('addPost', title, message, postBody,loc, tags);
 		location.reload();
 	}
 });
@@ -76,6 +58,7 @@ Template.SinglePost.events({
 		var id = Session.get('postId');
 		console.log(id);
 		Meteor.call('deletePost', id);
+		Meteor.call('Successfully');
 	}
 });
 Template.EditPosts.events({
@@ -88,7 +71,7 @@ Template.EditPosts.events({
 		Meteor.call('editPost',id, title, message, postBody, function (error) {
 			if(!error){
 				console.log('Successfully');
-				Router.go('ShowNotes');
+				Meteor.call('Successfully');
 			}
 		});
 	}

@@ -29,13 +29,11 @@ Template.newGroup.events({
             if(confirm("Are the details correct ?")== true){
                   Meteor.call("addGroup", gtitle, gdesc, privacy_flag, function(err, res){
             		if(!err){//all good
-            			//console.log("callback recieved: "+res);
                               alert('Group created succesfully');
-                              //Meteor.call('Successfully');
+                              Meteor.call('Successfully');
             		}
             	});
             }
-
             // Clear form
             event.target.Title.value = "";
             event.target.Description.value = "";

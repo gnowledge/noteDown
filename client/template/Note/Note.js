@@ -1,7 +1,6 @@
 Meteor.subscribe("documents");
 Meteor.subscribe("editingUsers");
 
-
 Template.editor.helpers({
 	docid:function(){
 		setupCurrentDocument();
