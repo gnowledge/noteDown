@@ -29,7 +29,7 @@
 
 <template name="ShowNotes">
 	<div class="container">
-		<h2>Your Notes</h2>
+		<h2>All Notes</h2>
 		<div class="row">
 			{{#if Template.subscriptionsReady}}
 				{{#each posts}}
@@ -58,14 +58,19 @@
 	<div class="col-xs-12">
 		<div class="panel-group">
 			{{#if post}}
-			<div class="panel panel-title">
-				<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
-			</div>
-			<div class="panel panel-body">
-				<p class="text-center">Body : {{{post.Body}}}</p>
-			</div>
-			<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="btn btn-success">Edit Post</button></a>
-			<button class="btn btn-danger pull-right" id="deletePost"><span class="glyphicon glyphicon-remove"></span> Delete Post</button>
+				<div class="panel panel-title">
+					<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
+				</div>
+				<div class="panel panel-body">
+					<p class="text-center">Body : {{{post.Body}}}</p>
+					<p class="text-center">Tags: {{post.tagsName}}</p>
+					<p class="text-center">Edited User: {{post.editedUser}}</p>
+					<p class="text-center">Updated At: {{post.updatedAt}}</p>
+				</div>
+				<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="btn btn-success">Edit Post</button></a>
+				{{#if owner}}
+					<button class="btn btn-danger pull-right" id="deletePost"><span class="glyphicon glyphicon-remove"></span> Delete Post</button>
+				{{/if}}
 			{{else}}
 				<h2>No Post</h2>
 			{{/if}}
@@ -92,6 +97,7 @@
 			<div id="summernote" class="form-group">
 				{{{edit.Body}}}
 			</div>
+			Updated At: {{edit.updatedAt}}
 			<div class="form-group">
 				<button type="submit" class="form-control btn btn-success">Save Post</button>
 			</div>

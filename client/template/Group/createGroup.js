@@ -1,4 +1,9 @@
-Meteor.subscribe("groups");
+Template.newGroup.onCreated(function(){
+      var self= this;
+      this.autorun( function() {
+            self.subscribe('groups');
+      });
+});
 
 Template.newGroup.helpers({
       group_name: function(){
@@ -30,9 +35,11 @@ Template.newGroup.events({
                   Meteor.call("addGroup", gtitle, gdesc, privacy_flag, function(err, res){
                         if(!err){//all good
                               alert('Group created succesfully');
-                              Meteor.call('Successfully');
-                        }
-                  });
+                              var group = Groups.findOne({ gname: gtitle });
+                              var id= group._id;
+                              Router.go('/group/'+id);
+            		}
+            	});
             }
             // Clear form
             event.target.Title.value = "";

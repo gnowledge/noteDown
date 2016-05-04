@@ -27,6 +27,7 @@ Template.Header.events({
 		else if(action=== "Group"){
 			Router.go('/group/'+itemId);
 		}
+		Rss.remove(id);
 	}
 });
 

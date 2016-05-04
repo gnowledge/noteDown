@@ -14,8 +14,6 @@ Meteor.methods({
 			};
 			var id = Documents.insert(doc);
 			return id; //return was missing. caused problem in method call.
-			//Meteor._reload.reload();
-			//Meteor.reload();
 		}
 	},
 	delDoc:function(doc){
@@ -91,7 +89,7 @@ Meteor.methods({
 			});
 
 			Rss.insert({
-                rss_title: user + "has created a new group " + gtitle,
+                rss_title: user + " has created a new group " + gtitle,
                 user: user,
                 createdAt: new Date(),
                 action: "Group",
@@ -223,8 +221,7 @@ Meteor.methods({
   		return id;
   	},
 
-  	removeMember: function(groupId, memberId, memberName){
-  		
+  	removeMember: function(groupId, memberId, memberName){  
   		var data= Groups.findOne(groupId);
   		var count= data.member_count;
   		if (!data) {
@@ -357,7 +354,7 @@ Meteor.methods({
 			};
 			var id = Posts.insert(doc);
 			Rss.insert({
-				rss_title: user + "has created a new note " + title,
+				rss_title: user + " has created a new note " + title,
 				user: user,
 				createdAt: new Date(),
 				action: "Post",
@@ -369,20 +366,28 @@ Meteor.methods({
 	},
 
 	editPost: function (postID, title, message, postBody) {
-				var id =Posts.update(postID,{
-						$set:{
-							Title: title,
-							Message: message,
-							Body: postBody	
-						}
-					});
-
-				return id;
+		var user=Meteor.user().profile.name;
+		var id =Posts.update(postID,{
+			$set:{
+				Title: title,
+				Message: message,
+				Body: postBody,
+				updatedAt: new Date(),
+				editedUser: user	
+			}
+		});
+		Rss.insert({
+			rss_title: user + " has edited a note " + title,
+			user: user,
+			createdAt: new Date(),
+			action: "Post",
+			id: postID
+		});
+		return id;
 	},
 	
 	deletePost: function (postID) {
 		Posts.remove(postID);
-			
 	}
 
 });
