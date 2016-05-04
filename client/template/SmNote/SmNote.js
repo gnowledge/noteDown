@@ -27,7 +27,7 @@ Template.SmNote.onRendered(function () {
 
 Template.ShowNotes.helpers({
 	posts: function() {
-		return Posts.find({ "owner.id": Meteor.userId()},{sort: {createdOn: 1}},{limit: 6});
+		return Posts.find({},{sort: {createdOn: 1}},{limit: 6});
 	}
 });
 
@@ -43,6 +43,13 @@ Template.SinglePost.helpers({
 		var id = Session.get('postId');
 		var post=Posts.findOne({_id: id});
 		return post;
+	},
+	owner: function(){
+		var id = Session.get('postId');
+		var post=Posts.findOne({_id: id});
+		var owner= post.owner.id;
+		if(owner=== Meteor.userId())
+			return owner;
 	}
 });
 
@@ -70,7 +77,7 @@ Template.EditPosts.events({
 		var postBody = $('#summernote').summernote('code');
 		Meteor.call('editPost',id, title, message, postBody, function (error) {
 			if(!error){
-				console.log('Successfully');
+				//console.log('Successfully');
 				Meteor.call('Successfully');
 			}
 		});

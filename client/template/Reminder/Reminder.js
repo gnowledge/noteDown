@@ -1,6 +1,27 @@
 Template.createReminder.onRendered(function() {
-	  	//this.$('.datetimepicker').datetimepicker();
-	  	this.$('.datetimepicker').datetimepicker();
+	var today = new Date(); 
+	
+	$(function() {
+	  $('input[name="datefilter"]').daterangepicker({
+	    "singleDatePicker": true,
+	    "autoApply": true,
+	    "linkedCalendars": false,
+	    "startDate": today,
+	    "endDate": "12/31/2016",
+	    "minDate": today,
+	    "maxDate": "12/31/2016",
+	    "timePicker": true
+	  });
+
+	  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+	      $(this).val(picker.endDate.format('MM/DD/YYYY h:mm A'));
+	  });
+
+	  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+	      $(this).val('');
+	  });
+
+	});
 });
 	
 Template.createReminder.onCreated(function(){
@@ -36,7 +57,7 @@ Template.createReminder.events({
 		// Get value from form element
 		var text = event.target.text.value;
 		var desc = event.target.desc.value;
-		var date= event.target.date.value;
+		var date= event.target.datefilter.value;
 		Meteor.call("createReminder",text, desc, date ,function(err,res){
 			if(!err){
 				console.log("callback recieved: "+res);
@@ -46,7 +67,7 @@ Template.createReminder.events({
 		// Clear form
 		event.target.text.value = "";
 		event.target.desc.value = "";
-		event.target.date.value = "";
+		event.target.datefilter.value = "";
 		},
 		"change .hide-completed input": function (event) {
 			Session.set("hideCompleted", event.target.checked);
@@ -63,7 +84,4 @@ Template.task.events({
 		//Tasks.remove(this._id);
 		Meteor.call("deleteReminder",this._id);
 	}
-});
-Template.task.helpers({
-
 });
