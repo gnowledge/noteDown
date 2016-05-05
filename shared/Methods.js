@@ -339,6 +339,11 @@ Meteor.methods({
 				action: "Post",
 				id: id
 			});
+			var postId= Meteor.users.update({ _id: this.userId },{
+				$addToSet: {
+					post_ids: id
+				}
+			});
 			return id;
 		}  
 		
@@ -367,6 +372,11 @@ Meteor.methods({
 	
 	deletePost: function (postID) {
 		Posts.remove(postID);
+		Meteor.users.update({ _id: this.userId },{ 
+				$pull: {
+					post_ids: postID 
+				}
+		});
 	}
 });
 
