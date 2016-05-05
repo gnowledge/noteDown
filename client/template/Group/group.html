@@ -79,22 +79,23 @@
 		<div class="row">
 			<div class="container-fluid">
 				<hr class="divider">
-				<h3 id="gname" style="margin-left:20px;">{{group.gname}}</h3> 
-				<span style="float: right;" id="privacy"><i>{{group.privacy}}-group...</i></span>
+				<h2 id="gname" style="margin-left:20px;" title="Group Name"><b><i>{{group.gname}}</i></b></h2> 
+				<span style="float: right; font-size: 14px;" id="privacy"><i>{{group.privacy}}-group...</i></span>
 				<hr class="divider">
-				<h3 id="gdesc" style="margin-left: 20px;">{{group.gdesc}}</h3>
+				<h3 id="gdesc" style="margin-left: 20px; font-size: 16px;" title="Group Descripton">{{group.gdesc}}</h3>
 				<hr class="divider">
 			</div>		
 		</div>
 
 		{{#if owner}}
+			{{> Media}}
 			{{> groupDiscuss}}
 		{{else}}
 			{{#if member}}
+				{{> Media}}
 				{{> groupDiscuss}}
 			{{/if}}
 		{{/if}}
-
 	</div>
 </template>
 
@@ -108,7 +109,7 @@
 					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 						<div class="thumbnail">
 							<div class="caption">
-								<h3 id="gname">{{gname}}</h3> 
+								<marquee behavior="scroll" direction="left"><h3 id="gname">{{gname}}</h3></marquee>
 		                	</div>
 								<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 		  						<hr class="divider">
@@ -135,7 +136,7 @@
 						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 							<div class="thumbnail">
 								<div class="caption">
-									<h3 id="gname">{{gname}}</h3> 
+									<marquee behavior="scroll" direction="left"><h3 id="gname">{{gname}}</h3></marquee> 
 			                	</div>
 									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 			  						<hr class="divider">

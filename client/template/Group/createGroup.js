@@ -44,6 +44,7 @@ Template.newGroup.events({
             // Clear form
             event.target.Title.value = "";
             event.target.Description.value = "";
+            event.target.Privacy.checked = false;
 	}  
 });
 

@@ -2,6 +2,7 @@ Template.groupdiscussion.onCreated(function(){
     var self= this;
     this.autorun( function() {
         self.subscribe('threads');
+        self.subscribe('groups');
     });
 });
 
@@ -9,33 +10,41 @@ Template.groupdiscussion.events({
     "submit .new-post": function(event){
         event.preventDefault();
         var text = event.target.commentbox.value;
-        //alert(text);
-        Meteor.call("addThread",text);
-        event.target.commentbox.value='';
-        
+        var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+        Meteor.call("addThread",text, groupId);
+        event.target.commentbox.value='';  
     }
 });
 
 Template.postMessage.helpers({
-    'message':function(){
-        //return Thread.find({},{sort : {createdAt:-1} }); 
-        return Thread.find();
-    },
     'count':function(){
-        return Thread.find().count();
+        var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+         return Thread.find({groupID: groupId}).count();
     },
-    'admin': function(){
-        return Thread.find({ "owner.id" : Meteor.user()._id });
+    gdPost: function(){   
+        var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+        return Thread.find({groupID: groupId});
+        //return Thread.find(group);
     }
 });
 
+Template.postMessage.onCreated(function(){
+    var self= this;
+    this.autorun( function() {
+        self.subscribe('threads');
+        self.subscribe('groups');
+    });
+});
+
 Template.postMessage.events({
-    'click #delete' : function(){
+    'click #deletePost' : function(){
         Thread.remove(this._id);
-    },
-    'click #rename' :function(event){
-        
-        //Meteor.call("editThread",edittext);
-        //event.target.commentbox.value = "hello";
     }
+    // 'click #edit' :function(text){
+    //  
+    //  var edittext = Thread.findOne({_id:this._id},{content:1,_id:0,createdAt:0});
+    //  Meteor.call("editThread",edittext);
+    //  console.log(edittext);
+    //  //event.target.commentbox.value = "hello";
+    // }
 });

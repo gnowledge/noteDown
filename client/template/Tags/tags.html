@@ -1,13 +1,20 @@
 <template name="Tags">
 	<div class="Container-fluid">
-		<div class="panel">
-			<form class="form" style="margin-left:10px;">
-				<h2>Tags :</h2>
-				<input type="text" id="tagsTxt" placeholder="Add some tags" style="width:70%;" required autofocus/>
-				<input type="submit" id="addTags" class="btn btn-success" value="Add" />
-				<h3 id ="showTags"></h3><br><br>
-				<br>
-			</form>
-		</div>
+		
+			<div class="panel">
+				<form class="form" style="margin-left:10px;">
+
+					<h2>Tags :</h2>
+
+					<h3 id ="showTags"></h3><br><br>
+
+					<input type="submit" id="addTags" class="btn btn-primary pull-right" value="Add" style="border-radius: 0px; height: 40px; width:80px;" />
+
+					<input type="text" class="input-group-addon pull-right" id="tagsTxt" placeholder="Add some tags" style="width:70%; border-radius: 0px; height: 40px;" required autofocus/>
+
+					<br><br>
+				</form>
+			</div>
+		
 	</div>	
 </template>

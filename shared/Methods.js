@@ -294,40 +294,21 @@ Meteor.methods({
 			Tasks.update({_id: taskId},{$set: {checked:setChecked}});
 		}
     },
-
-    //-----------------------------------------------------------------------
-    addThread : function(msg){
-    	var date= new Date();
-    	var h= date.getHours();
-    	var m= date.getMinutes();
-    	var s= date.getSeconds();
-    	var y= date.getFullYear();
-    	var mo= date.getMonth();
-    	var d= date.getDay();
-    	date=y + '/' + mo + '/' + d + ' ' + h + '-' + m + '-' + s;
+     //--------------------------------group Discussion--------------------------
+	addThread : function(msg, groupId){
 		var thread = {
 				content:msg,
+				groupID:groupId,
 				owner:{
 					"id":this.userId,
 					"name":Meteor.user().profile.name
 				},
-				publishedAt: date
+				publishedAt: new Date()
 		};
 		Thread.insert(thread);		
 	},
-	editThread : function(id,content){
-		var date= new Date();
-    	var h= date.getHours();
-    	var m= date.getMinutes();
-    	var s= date.getSeconds();
-    	var y= date.getFullYear();
-    	var mo= date.getMonth();
-    	var d= date.getDay();
-    	date=y + '/' + mo + '/' + d + ' ' + h + '-' + m + '-' + s;
-		Thread.update({_id: id}, {$set: { content: content, publishedAt: date }})
+	editThread : function(){	
 	},
-
-
 	//SummerNote------------------------------------
 	addPost: function (title, message, postBody, loc, tags) {
 		var doc;
@@ -353,6 +334,7 @@ Meteor.methods({
 			Rss.insert({
 				rss_title: user + " has created a new note " + title,
 				user: user,
+				owner: user,
 				createdAt: new Date(),
 				action: "Post",
 				id: id

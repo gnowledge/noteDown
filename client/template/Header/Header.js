@@ -7,7 +7,7 @@ Template.Header.onCreated(function(){
 
 Template.Header.helpers({
 	feed:function(){
-		var feed= Rss.find();
+		var feed= Rss.find({},{sort: {createdAt: -1}});
 		return feed;
 	},
 	feedCount:function(){
@@ -27,7 +27,6 @@ Template.Header.events({
 		else if(action=== "Group"){
 			Router.go('/group/'+itemId);
 		}
-		Rss.remove(id);
 	}
 });
 

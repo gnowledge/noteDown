@@ -4,7 +4,11 @@
     <nav id="headernav" class="navbar navbar-inverse navbar-fixed-top" style="border-radius:0px !important; margin-bottom:0px;">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-gNote" href=""><i>note</i>Down</a>
+          {{#if currentUser}}
+            <a class="navbar-gNote" href="{{pathFor route='User'}}"><i>note</i>Down</a>
+          {{else}}
+            <a class="navbar-gNote" href=""><i>note</i>Down</a>
+          {{/if}}
         </div>
         <div class="collapse navbar-collapse">
           <ul id="slides" class="nav navbar-nav pull-right push-bottom">

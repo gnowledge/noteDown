@@ -5,6 +5,8 @@ Template.getLocation.helpers({
   var a = _lat.get();
   var b = _lon.get();
   document.getElementById("textbox").value = "locations : "+ a + " : " + b ;  
+  
+
   reverseGeocode.getLocation(a, b, function(location){   
     //location is straight output from Google
     //or you can now access it from reverseGeocode object
