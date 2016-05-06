@@ -21,13 +21,21 @@ Template.postMessage.helpers({
         var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
          return Thread.find({groupID: groupId}).count();
     },
-    gdPost: function(){   
+    'gdPost': function(){   
         var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
-        return Thread.find({groupID: groupId});
-        //return Thread.find(group);
+        return Thread.find({groupID: groupId},{sort: { publishedAt: -1}});
+    },
+    admin: function(){
+        var groupId = Session.get('groupId');
+        var thread= Thread.find({groupID: groupId});
+        var 
+        for(var i=0;i<thread.owner.length;i++){
+            if(thread[i].owner.id === Meteor.userId())
+                return true;
+        }
     }
 });
-
+ 
 Template.postMessage.onCreated(function(){
     var self= this;
     this.autorun( function() {
@@ -38,13 +46,18 @@ Template.postMessage.onCreated(function(){
 
 Template.postMessage.events({
     'click #deletePost' : function(){
-        Thread.remove(this._id);
+        Meteor.call('deleteThread',this._id);
+    },
+
+    'click #likePost' :function(text){
+        var id= this._id;
+        console.log("id is: " +id);
+        var thread= Thread.find({_id: id});
+        var like = this.like;
+        console.log("like value " +like);
+        like++
+        console.log("like value " +like);
+        Meteor.call('likeThread',id,like);
+
     }
-    // 'click #edit' :function(text){
-    //  
-    //  var edittext = Thread.findOne({_id:this._id},{content:1,_id:0,createdAt:0});
-    //  Meteor.call("editThread",edittext);
-    //  console.log(edittext);
-    //  //event.target.commentbox.value = "hello";
-    // }
 });

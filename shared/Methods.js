@@ -303,12 +303,30 @@ Meteor.methods({
 					"id":this.userId,
 					"name":Meteor.user().profile.name
 				},
+				like: 0,
+				likedBy: [],
 				publishedAt: new Date()
 		};
 		Thread.insert(thread);		
 	},
-	editThread : function(){	
+
+	likeThread : function(id,like){
+		return Thread.update({ _id: id},
+		{
+			$set:{ like:like},
+			$addToSet:{ 
+				likedBy:{
+					name: Meteor.user().profile.name
+				}
+			}
+		});
+		
 	},
+
+	deleteThread: function(id){
+		Thread.remove(id);
+	},
+
 	//SummerNote------------------------------------
 	addPost: function (title, message, postBody, loc, tags) {
 		var doc;
@@ -349,7 +367,7 @@ Meteor.methods({
 		
 	},
 
-	editPost: function (postID, title, message, postBody) {
+	editPost: function (postID, title, message, postBody, tag) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{

@@ -16,10 +16,15 @@ Meteor.startup(function() {
 	Template.audio.events({
 	'change input.audioFile' : FS.EventHandlers.insertFiles(Collections.Audios,{
 		metadata : function(fileobj){
+			var groupId = Session.get('groupId');
 			return {
-				owner : Meteor.userId(),
-				dropped : false
-			};
+	          owner:{
+	            id: Meteor.userId(),
+	            name: Meteor.user().profile.name
+	          },
+	          groupID: groupId,
+	          dropped: false
+	        };
 		},
 
 		after : function (error,fileobj){
@@ -42,6 +47,7 @@ Meteor.startup(function() {
 
 Template.audio.helpers({
   uploadedAudios: function() {
-    return Collections.Audios.find({owner: Meteor.userId()});
+  	var groupId = Session.get('groupId');
+    return Collections.Audios.find({groupID: groupId});
   }
 });

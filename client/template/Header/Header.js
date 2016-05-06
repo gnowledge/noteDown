@@ -7,7 +7,7 @@ Template.Header.onCreated(function(){
 
 Template.Header.helpers({
 	feed:function(){
-		var feed= Rss.find({},{sort: {createdAt: -1}});
+		var feed= Rss.find({},{sort: {createdAt: -1}},{limit: 6});
 		return feed;
 	},
 	feedCount:function(){

@@ -15,9 +15,14 @@ Meteor.startup(function() {
 	Template.video.events({
 	'change input.videoFile' : FS.EventHandlers.insertFiles(Collections.Videos,{
 		metadata : function(fileobj){
+			var groupId = Session.get('groupId');
 			return {
-				owner : Meteor.userId(),
-				dropped : false
+				owner:{
+              		id: Meteor.userId(),
+             		name: Meteor.user().profile.name
+            	},
+            	groupID: groupId,
+            	dropped: false
 			};
 		},
 
@@ -40,6 +45,7 @@ Meteor.startup(function() {
 
 Template.video.helpers({
   uploadedVideos: function() {
-    return Collections.Videos.find({owner: Meteor.userId()});
+    var groupId = Session.get('groupId');
+    return Collections.Videos.find({groupID: groupId});
   }
 });

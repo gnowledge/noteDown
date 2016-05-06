@@ -15,8 +15,13 @@ Meteor.startup(function () {
   Template.files.events({
     'change input.any': FS.EventHandlers.insertFiles(Collections.Files, {
       metadata: function (fileObj) {
+        var groupId = Session.get('groupId');
         return {
-          owner: Meteor.userId(),
+          owner:{
+            id: Meteor.userId(),
+            name: Meteor.user().profile.name
+          },
+          groupID: groupId,
           foo: "bar",
           dropped: false
         };
@@ -39,7 +44,8 @@ Meteor.startup(function () {
 
 Template.files.helpers({
   uploadedFiles: function() {
-    return Collections.Files.find({owner: Meteor.userId()});
+    var groupId = Session.get('groupId');
+    return Collections.Files.find({groupID: groupId});
   }
   /*curl: function () {
     var ins = Template.instance(), filename = '';

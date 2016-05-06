@@ -8,59 +8,67 @@
 			{{#if owner}}
 				<li><input type="submit" class="btn btn-primary pull-right" id="edit" value=" Edit "></li>
 				<li><input type="submit" class="btn btn-danger pull-right" id="delete" value="Delete"></li>	
-				<li>{{#if members}}
-	 				<div class="dropdown">
-	  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
-		  					<span class="glyphicon glyphicon-user"></span>&nbsp;
-		  						Members
-		  					<span class="caret"></span>
-	  					</button>
-	  					<ul class="dropdown-menu dropdown-menu-right">
-	  						{{#each members}}
-						    	<li>
-						    		{{name}} <button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
-						    	</li>
-							{{/each}}
-	  					</ul>
-					</div>
-				{{else}}
-					<div class="dropdown">
-				  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
-				  			<span class="caret"></span></button>
-				  			<ul class="dropdown-menu dropdown-menu-right">
-							    <li><a href="#">No members</a></li>
-						</ul>
-					</div>
-				{{/if}}</li>
+				<li>
+					{{#if members}}
+		 				<div class="dropdown">
+		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+			  					<span class="glyphicon glyphicon-user"></span>&nbsp;
+			  						Members
+			  					<span class="caret"></span>
+		  					</button>
+		  					<ul class="dropdown-menu dropdown-menu-right">
+		  						{{#each members}}
+							    	<li>
+							    		{{name}} <button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
+							    	</li>
+								{{/each}}
+		  					</ul>
+						</div>
+					{{else}}
+						<div class="dropdown">
+					  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
+					  			<span class="caret"></span></button>
+					  			<ul class="dropdown-menu dropdown-menu-right">
+								    <li><a href="#">No members</a></li>
+							</ul>
+						</div>
+					{{/if}}
+				</li>
 				
-				<li>{{#if notificationCount}}
-	 				<div class="dropdown">
-	  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown">
-		  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
-		  						Notifications
-		  					<span class="caret"></span>
-	  					</button>
-	  					<ul class="dropdown-menu dropdown-menu-right">
-	  						{{#each notification}}
-					    	<li>
-					    		{{title}}&nbsp;&nbsp;&nbsp;&nbsp;
-					    		<input type="submit" class="btn btn-primary" id="accept" value=" Accept request">
-								<input type="submit" class="btn btn-danger" id="decline" value="Decline request">
-					    	</li>
-							{{/each}}
-	  					</ul>
-					</div>
+				{{#if private}}
+				
+					<li>
+						{{#if notificationCount}}
+			 				<div class="dropdown">
+			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+				  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
+				  						Notifications
+				  					<span class="caret"></span>
+			  					</button>
+			  					<ul class="dropdown-menu dropdown-menu-right">
+			  						{{#each notification}}
+							    	<li>
+							    		{{title}}&nbsp;&nbsp;&nbsp;&nbsp;
+							    		<input type="submit" class="btn btn-primary" id="accept" value=" Accept request">
+										<input type="submit" class="btn btn-danger" id="decline" value="Decline request">
+							    	</li>
+									{{/each}}
+			  					</ul>
+							</div>
+						{{else}}
+							<div class="dropdown">
+						  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+						  			<span class="glyphicon glyphicon-bell"></span>&nbsp;
+						  			Notifications
+						  			<span class="caret"></span></button>
+						  			<ul class="dropdown-menu dropdown-menu-right">
+									    <li><a href="#">No notifications</a></li>
+						  			</ul>
+							</div>
+						{{/if}}
+					</li>
 				{{else}}
-					<div class="dropdown">
-				  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">
-				  			<span class="glyphicon glyphicon-bell"></span>&nbsp;
-				  			Notifications
-				  			<span class="caret"></span></button>
-				  			<ul class="dropdown-menu dropdown-menu-right">
-							    <li><a href="#">No notifications</a></li>
-				  			</ul>
-					</div>
-				{{/if}}	</li>
+				{{/if}}
 			{{else}}
 				{{#if member}}
 					<li><input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;"></li>

@@ -1,10 +1,15 @@
 function getHandler(dropped) {
   return FS.EventHandlers.insertFiles(Collections.Images, {
     metadata: function (fileObj) {
+      var groupId = Session.get('groupId');
       return {
-        owner: Meteor.userId(),
-        foo: "bar",
-        dropped: dropped
+            owner:{
+              id: Meteor.userId(),
+              name: Meteor.user().profile.name
+            },
+            groupID: groupId,
+            foo: "bar",
+            dropped: false
       };
     },
     after: function (error, fileObj) {
@@ -27,7 +32,8 @@ Meteor.startup(function () {
 });
 
 Template.images.uploadedImages = function() {
-  return Collections.Images.find({owner: Meteor.userId()});
+  var groupId = Session.get('groupId');
+  return Collections.Images.find({groupID: groupId});
 };
 
 Template.images.onCreated(function(){
