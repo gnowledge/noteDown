@@ -1,13 +1,10 @@
 .navbar-item{
-	height:35px;
+	height:60px;
 	width:100%;
-	background:#D91E18;
-	-webkit-transition:0.2s;
-	-moz-transition:0.2s;
-	-o-transition:0.2s;
-	transition:0.2s;
+	background:#fafafa;
+	
 }
 
 a#list{
-	color:white;
+	color:rgb(34, 34, 34);
 }

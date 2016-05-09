@@ -1,5 +1,5 @@
 <template name="Search">
-  <div class="input-group">
+  <!--<div class="input-group">
       <div class="input-group-btn search-panel">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span id="search_concept">Filter by</span> <span class="caret"></span>
@@ -28,5 +28,9 @@
       <span class="input-group-btn">
           <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
       </span>
-  </div>  
+  </div>  -->
+  <input id="search_text" name="search_text" placeholder=" " required type="text"/>
+  <button id="search_submit" class="tiny button" type="submit" value="">
+    <span class="glyphicon glyphicon-search"></span>   
+  </button>
 </template>

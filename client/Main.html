@@ -4,15 +4,18 @@
 </head>
 
 <template name="Main">
-	<div class="top">
-		{{> yield region="header"}}
-	</div>
 	<div id="body">
+		<div class="top">
+			{{> yield region="header"}}
+		</div>
+
 		{{> yield }}
+
+		<div class="bottom">
+			{{> yield region="footer"}}
+		</div>
 	</div>
-	<div class="bottom">
-		{{> yield region="footer"}}
-	</div>
+	
 </template>
 
 

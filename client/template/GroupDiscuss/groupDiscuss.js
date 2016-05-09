@@ -26,13 +26,9 @@ Template.postMessage.helpers({
         return Thread.find({groupID: groupId},{sort: { publishedAt: -1}});
     },
     admin: function(){
-        var groupId = Session.get('groupId');
-        var thread= Thread.find({groupID: groupId});
-        var 
-        for(var i=0;i<thread.owner.length;i++){
-            if(thread[i].owner.id === Meteor.userId())
-                return true;
-        }
+       var owner= this.owner.id;
+       if(owner === Meteor.userId())
+        return true;
     }
 });
  
@@ -46,18 +42,23 @@ Template.postMessage.onCreated(function(){
 
 Template.postMessage.events({
     'click #deletePost' : function(){
-        Meteor.call('deleteThread',this._id);
+        var group_id= Session.get('groupId');
+        Meteor.call('deleteThread',this._id,group_id);
     },
-
     'click #likePost' :function(text){
-        var id= this._id;
-        console.log("id is: " +id);
-        var thread= Thread.find({_id: id});
-        var like = this.like;
-        console.log("like value " +like);
-        like++
-        console.log("like value " +like);
-        Meteor.call('likeThread',id,like);
-
+        var owner=this.owner.id;
+        var thread= Thread.findOne({_id: this._id});
+        var likedBy= thread.likedBy;
+        var like = thread.like;
+        var user= Meteor.user().profile.name;
+        var group_id= Session.get('groupId');
+        for(var i=0;i<likedBy.length;i++){
+            //console.log(likedBy[i]);
+            if(likedBy[i]===Meteor.user().profile.name){
+                return false;
+            }
+        }
+        like++;
+        Meteor.call('likeThread',this._id,like,owner,group_id);
     }
 });

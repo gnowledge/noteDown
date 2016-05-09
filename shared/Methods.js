@@ -307,24 +307,44 @@ Meteor.methods({
 				likedBy: [],
 				publishedAt: new Date()
 		};
-		Thread.insert(thread);		
+		var id=Thread.insert(thread);	
+		var postsId= Groups.update({ _id: groupId },{
+				$addToSet: {
+					posts_ids: id
+				}
+		});	
+		return id;
 	},
 
-	likeThread : function(id,like){
-		return Thread.update({ _id: id},
+	likeThread : function(nid,like,owner,group_id){
+		var user= Meteor.user().profile.name;
+		var id= Thread.update({ _id: nid},
 		{
-			$set:{ like:like},
+			$set:{ like:like, likedAt: new Date()},
 			$addToSet:{ 
-				likedBy:{
-					name: Meteor.user().profile.name
-				}
+				likedBy: Meteor.user().profile.name
 			}
 		});
+		Rss.insert({
+			rss_title: user + " has liked your post",
+			user: user,
+			owner: owner,
+			createdAt: new Date(),
+			action: "Group",
+			id: group_id
+		});
+		return id;
 		
 	},
 
-	deleteThread: function(id){
-		Thread.remove(id);
+	deleteThread: function(id,group_id){
+		var did=Thread.remove(id);
+		Groups.update({ _id: group_id },{ 
+				$pull: {
+					posts_ids: id 
+				}
+		});
+		return did;
 	},
 
 	//SummerNote------------------------------------
@@ -367,7 +387,7 @@ Meteor.methods({
 		
 	},
 
-	editPost: function (postID, title, message, postBody, tag) {
+	editPost: function (postID, title, message, postBody, owner) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{
@@ -381,6 +401,7 @@ Meteor.methods({
 		Rss.insert({
 			rss_title: user + " has edited a note " + title,
 			user: user,
+			owner: owner,
 			createdAt: new Date(),
 			action: "Post",
 			id: postID

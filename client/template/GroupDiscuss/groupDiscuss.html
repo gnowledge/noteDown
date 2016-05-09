@@ -35,15 +35,20 @@
     {{#each gdPost}}
       <div class="well well-lg" style="width:100%;display: inline-block;">  
         <li> 
-          <span style="font-size:16px;"><b><u>{{owner.name}}</u> : </b></span>
+          <span style="font-size:16px;"><b><u>{{owner.name}}</u> : {{content}}</b></span>
               {{#if admin}}
                 <span class="glyphicon glyphicon-trash pull-right" id="deletePost" style="cursor: pointer;" title="Delete"></span>
                 {{else}}
                 <span class="glyphicon glyphicon-thumbs-up pull-right" id="likePost" style="margin-right:10px; cursor: pointer;" title="Like"></span>
               {{/if}}
         </li>
-        <li><span style="font-size:16px;">{{content}}</span></li>
-        <span style="float: right; font-size:12px;">{{publishedAt}}</span>
+        <li>
+          <h5><b>Likes :</b></h5>
+            <span class="badge">Total : {{like}}</span>&nbsp;<i>{{likedBy}} liked your comment</i>
+        </li>
+        <li>
+          <span style="float: right; font-size:12px;">{{publishedAt}}</span>
+        </li>
       </div>
     {{/each}}
   </div>

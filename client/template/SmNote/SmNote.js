@@ -74,8 +74,10 @@ Template.EditPosts.events({
 		var id = Session.get('postId');
 		var title = event.target.postTitle.value;
 		var message = event.target.postMessage.value;
+		var post= Posts.findOne({_id: id});
+		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
-		Meteor.call('editPost',id, title, message, postBody, function (error) {
+		Meteor.call('editPost',id, title, message, postBody, owner, function (error) {
 			if(!error){
 				//console.log('Successfully');
 				Meteor.call('Successfully');
