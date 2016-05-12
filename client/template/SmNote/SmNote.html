@@ -52,11 +52,11 @@
 					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 						<div class="thumbnail">
 							<div class="caption">
-								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 
-		                	</div>
-								<marquee behavior="scroll" direction="left"><span style="" id="showMsg"><i>{{Message}} </i></span></marquee>
+								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee>
 								<hr class="divider">
-		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a>
+		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a> 
+		                	</div>
+								
 		  				</div>
 	  				</div>
 	            {{/each}}
@@ -71,30 +71,30 @@
 <template name="SinglePost">
 	{{> Navbar}}
 	<div class="container-fluid">
-	<div class="col-xs-12">
-		<div class="panel-group">
-			{{#if post}}
-				<div class="panel panel-title" style="margin-top:20px; margin-bottom: 20px;">
-					<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-					{{#if owner}}
-						<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-					{{/if}}</div><br>
-				<div class="panel panel-title">
-					<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
-				</div>
-				<div class="panel panel-body">
-					<p class="text-center">Body : {{{post.Body}}}</p>
-					<p class="text-center">Tags: <b>{{post.tagsName}}</b></p>
-					<p class="text-center">Edited User: {{post.editedUser}}</p>
-					<p class="text-center">Updated At: {{post.updatedAt}}</p>
-				</div>
-				
-			{{else}}
-				<h2>No Such Note</h2>
-				<a href="{{pathFor route='SmNote'}}">Create Note</a>
-			{{/if}}
+		<div class="col-xs-12">
+			<div class="panel-group">
+				{{#if post}}
+					<div class="panel panel-title" style="margin-top:20px; margin-bottom: 20px;">
+						<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+						{{#if owner}}
+							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+						{{/if}}
+					</div><br>
+					<div class="panel panel-title">
+						<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
+					</div>
+					<div class="panel panel-body">
+						<p class="text-center">Body : {{{post.Body}}}</p>
+						<p class="text-center">Tags: <b>{{post.tagsName}}</b></p>
+						<p class="text-center">Edited User: {{post.editedUser}}</p>
+						<p class="text-center">Updated At: {{post.updatedAt}}</p>
+					</div>
+				{{else}}
+					<h2>No Such Note</h2>
+					<a href="{{pathFor route='SmNote'}}">Create Note</a>
+				{{/if}}
+			</div>
 		</div>
-	</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br>
 </template>
@@ -124,4 +124,46 @@
 		</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br>
+</template>
+
+<template name="ShareNotes">
+	<div class="container-fluid">
+		<pre>Want to share the notes in the group ? </pre>
+			<div class="row">
+				{{#if Template.subscriptionsReady}}
+					{{#each posts}}
+						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+							<div class="thumbnail">
+								<div class="caption">
+									<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 
+			                	</div>
+									<button class="btn btn-default" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
+								</div>
+						</div>
+					{{/each}}
+				{{/if}}
+			</div>
+	</div>
+</template>
+
+<template name="SharedNotes">
+	<div class="container-fluid">
+		<h3>Shared Notes </h3>
+			<div class="row">
+				{{#if Template.subscriptionsReady}}
+					{{#each posts}}
+						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+							<div class="thumbnail">
+								<div class="caption">
+									<h3>{{Title}}</h3> 
+			                	</div>
+									<hr class="divider">
+		  							<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a> 
+								</div>
+						</div>
+					{{/each}}
+
+				{{/if}}
+			</div>
+	</div>
 </template>

@@ -20,7 +20,7 @@
 		  					<ul class="dropdown-menu dropdown-menu-right">
 		  						{{#each members}}
 							    	<li>
-							    		{{name}}<button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
+							    	{{name}}<button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
 							    	</li>
 								{{/each}}
 		  					</ul>
@@ -98,11 +98,15 @@
 
 		{{#if owner}}
 		<br>
+			{{> ShareNotes}}
 			{{> Media}}
+			{{> SharedNotes}}
 			{{> groupDiscuss}}
 		{{else}}
 			{{#if member}}
+				{{> ShareNotes}}
 				{{> Media}}
+				{{> SharedNotes}}
 				{{> groupDiscuss}}
 			{{/if}}
 		{{/if}}

@@ -427,7 +427,14 @@ Meteor.methods({
 					post_ids: postID 
 				}
 		});
-	}
+	},
+  	shareNotes:function(note_id,group_id){
+  		return Posts.update({ _id: note_id},{
+  				$set:{
+  	  				groupid: group_id
+  				}
+  			});
+  	}
 });
 
 
