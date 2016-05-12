@@ -2,6 +2,7 @@
 	{{> Navbar }}
 	<!--Start Container-->
 	<div class="container-fluid "><br>
+		{{#if group}}
 		<div class="row">
 		
 		<ul class="nav navbar-nav navbar-left push-top">
@@ -19,7 +20,7 @@
 		  					<ul class="dropdown-menu dropdown-menu-right">
 		  						{{#each members}}
 							    	<li>
-							    		{{name}} <button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
+							    		{{name}}<button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
 							    	</li>
 								{{/each}}
 		  					</ul>
@@ -96,6 +97,7 @@
 		</div>
 
 		{{#if owner}}
+		<br>
 			{{> Media}}
 			{{> groupDiscuss}}
 		{{else}}
@@ -104,7 +106,12 @@
 				{{> groupDiscuss}}
 			{{/if}}
 		{{/if}}
+	{{else}}
+		<h2>No Such Group</h2>
+		<a href="{{pathFor route='newGroup'}}">Create Group</a>
+	{{/if}}
 	</div>
+	
 </template>
 
 <template name="yourGroup">

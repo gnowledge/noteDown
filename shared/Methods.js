@@ -87,10 +87,11 @@ Meteor.methods({
 				}
 			});
 			Rss.insert({
-                rss_title: user + " has created a new group " + gtitle,
+                rss_title: "'" +user+ "' has created a new group",
+                title:gtitle,
                 user: user,
                 createdAt: new Date(),
-                action: "Group",
+                action: "/group/"+id,
                 id: id
           	});
 			return id;
@@ -296,6 +297,7 @@ Meteor.methods({
     },
      //--------------------------------group Discussion--------------------------
 	addThread : function(msg, groupId){
+		var user= Meteor.user().profile.name;
 		var thread = {
 				content:msg,
 				groupID:groupId,
@@ -313,10 +315,18 @@ Meteor.methods({
 					posts_ids: id
 				}
 		});	
+		Rss.insert({
+			rss_title: user + " has posted a comment",
+			title:msg,
+			user: user,
+			createdAt: new Date(),
+			action: "/group/"+groupId,
+			id: groupId
+		});
 		return id;
 	},
 
-	likeThread : function(nid,like,owner,group_id){
+	likeThread : function(nid,like,owner,group_id,content){
 		var user= Meteor.user().profile.name;
 		var id= Thread.update({ _id: nid},
 		{
@@ -327,10 +337,11 @@ Meteor.methods({
 		});
 		Rss.insert({
 			rss_title: user + " has liked your post",
+			title:content,
 			user: user,
 			owner: owner,
 			createdAt: new Date(),
-			action: "Group",
+			action: "/group/"+group_id,
 			id: group_id
 		});
 		return id;
@@ -370,11 +381,11 @@ Meteor.methods({
 			};
 			var id = Posts.insert(doc);
 			Rss.insert({
-				rss_title: user + " has created a new note " + title,
+				rss_title: user + " has created a note",
+				title:title,
 				user: user,
-				owner: user,
 				createdAt: new Date(),
-				action: "Post",
+				action: "/posts/"+id,
 				id: id
 			});
 			var postId= Meteor.users.update({ _id: this.userId },{
@@ -394,16 +405,16 @@ Meteor.methods({
 				Title: title,
 				Message: message,
 				Body: postBody,
-				updatedAt: new Date(),
-				editedUser: user	
-			}
+				updatedAt: new Date()
+			},
+			$addToSet:{ editedUser: user }
 		});
 		Rss.insert({
-			rss_title: user + " has edited a note " + title,
+			rss_title: user + " has edited a note",
+			title:title,
 			user: user,
-			owner: owner,
 			createdAt: new Date(),
-			action: "Post",
+			action: "/posts/"+postID,
 			id: postID
 		});
 		return id;

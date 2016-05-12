@@ -2,11 +2,12 @@
 	<div class="container-fluid">
 		<nav id="navbar-menu" class="navbar-item" style="border-radius:0px !important; margin-top:0px;">
 			<ul class="nav nav-tabs navbar-left push-top">
-				<li><a id="list" href="{{pathFor route='User'}}">Home Page</a></li>&nbsp;
+				<li><a id="list" href="{{pathFor route='User'}}">Home</a></li>&nbsp;
 				<li><a id="list" href="{{pathFor route='SmNote'}}">Create Notes</a></li>&nbsp;
 				<li><a id="list" href="{{pathFor route='newGroup'}}">Create Groups</a></li>&nbsp;	
 			   	<li><a id="list" href="{{pathFor route='createReminder'}}">Create Reminder</a></li>&nbsp;
-			   	<li style="">{{> Search}}</li>
+			   	<li><a id="list" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
+			   	<li style="list">{{> Search}}</li>&nbsp;
 			</ul>
 		</nav>
 	</div>

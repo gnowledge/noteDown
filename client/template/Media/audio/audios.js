@@ -12,7 +12,6 @@ Template.audio.onCreated(function(){
 
 
 Meteor.startup(function() {
-
 	Template.audio.events({
 	'change input.audioFile' : FS.EventHandlers.insertFiles(Collections.Audios,{
 		metadata : function(fileobj){
@@ -29,7 +28,6 @@ Meteor.startup(function() {
 
 		after : function (error,fileobj){
 			if(!error){
-				console.log("Inserted",fileobj.name());
 			}
 		}
 	}),

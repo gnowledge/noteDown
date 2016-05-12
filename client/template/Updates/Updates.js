@@ -7,8 +7,8 @@ Template.Updates.onCreated(function(){
 
 Template.Updates.helpers({
 	feed:function(){
-		var feed= Rss.find({}			
-			,{sort: {createdAt: -1}},{limit: 6});
+		var feed= Rss.find({},
+			{sort: {createdAt: -1}},{limit: 6});
 		return feed;
 	},
 	feedCount:function(){
@@ -28,5 +28,6 @@ Template.Updates.events({
 		else if(action=== "Group"){
 			Router.go('/group/'+itemId);
 		}
+		
 	}
 });

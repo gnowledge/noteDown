@@ -79,7 +79,6 @@ Template.EditPosts.events({
 		var postBody = $('#summernote').summernote('code');
 		Meteor.call('editPost',id, title, message, postBody, owner, function (error) {
 			if(!error){
-				//console.log('Successfully');
 				Meteor.call('Successfully');
 			}
 		});
