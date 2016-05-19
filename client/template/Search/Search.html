@@ -1,20 +1,25 @@
 <template name="Search">
- <!--{{> EasySearch.Input indexes=searchIndexes }}
+  {{> Navbar}}
+  <br>
+  <div class="container">
+    <div class="dropdown">
+      <h3>Search:</h3> 
+      <pre>{{> EasySearch.Input indexes=searchIndexes }}</pre>
+      {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
+              <div>No search results found</div>
+            {{/EasySearch.IfNoResults}}
 
- {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
-    <div>No search results found</div>
-  {{/EasySearch.IfNoResults}}
+            {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
+              <div>Indexes are searching...</div>
+            {{/EasySearch.IfSearching}}
 
-  {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
-    <div>Indexes are searching...</div>
-  {{/EasySearch.IfSearching}}
+            {{#EasySearch.Each index=groupIndex }}
+              <h4>Group name: <a href="/group/{{__originalId}}"><u>{{gname}}</u></a></h4>
+            {{/EasySearch.Each}}
 
- {{#EasySearch.Each index=groupIndex }}
-     <h3>Name of the group</h3>{{gname}}
-  {{/EasySearch.Each}}
-
-  {{#EasySearch.Each index=postIndex }}
-    <h3>Name of the post</h3> {{Title}}
-  {{/EasySearch.Each}}
- -->
+            {{#EasySearch.Each index=postIndex }}
+              <h4>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h4>
+            {{/EasySearch.Each}}
+    </div>
+  </div>
 </template>

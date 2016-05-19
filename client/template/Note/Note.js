@@ -1,4 +1,4 @@
-Meteor.subscribe("documents");
+/*Meteor.subscribe("documents");
 Meteor.subscribe("editingUsers");
 
 Template.editor.helpers({
@@ -14,7 +14,7 @@ Template.editor.helpers({
 			editor.on("change",function(cm_editor,info){
 				/*console.log(cm_editor.getValue());
 				$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());*/
-				Meteor.call("addEditingUser", Session.get("docid"));
+				/*Meteor.call("addEditingUser", Session.get("docid"));
 			});
 		}
 	}
@@ -145,3 +145,4 @@ function fixObjectKeys(obj){
   }
   return newObj;
 }
+*/

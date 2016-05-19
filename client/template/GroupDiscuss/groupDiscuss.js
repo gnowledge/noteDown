@@ -3,27 +3,29 @@ Template.groupdiscussion.onCreated(function(){
     this.autorun( function() {
         self.subscribe('threads');
         self.subscribe('groups');
+        self.subscribe('groups');
     });
 });
 
 Template.groupdiscussion.events({
     "submit .new-post": function(event){
         event.preventDefault();
+        var post_id= this._id;
         var text = event.target.commentbox.value;
         var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
-        Meteor.call("addThread",text, groupId);
+        Meteor.call("addThread",text, groupId,post_id);
         event.target.commentbox.value='';  
     }
 });
 
 Template.postMessage.helpers({
     'count':function(){
-        var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
-         return Thread.find({groupID: groupId}).count();
+        var postid= this._id;
+         return Thread.find({ postId:postid}).count();
     },
     'gdPost': function(){   
-        var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
-        return Thread.find({groupID: groupId},{sort: { publishedAt: -1}});
+        var postid= this._id;
+        return Thread.find({ postId:postid});
     },
     admin: function(){
        var owner= this.owner.id;
@@ -37,13 +39,16 @@ Template.postMessage.onCreated(function(){
     this.autorun( function() {
         self.subscribe('threads');
         self.subscribe('groups');
+        self.subscribe('posts');
     });
 });
 
 Template.postMessage.events({
     'click #deletePost' : function(){
-        var group_id= Session.get('groupId');
-        Meteor.call('deleteThread',this._id,group_id);
+        var thread_id= this._id;
+        var note=Posts.findOne({ threads: thread_id},{ _id:1});
+        var note_id= note._id;
+        Meteor.call('deleteThread',thread_id, note_id);
     },
     'click #likePost' :function(text){
         var owner=this.owner.id;

@@ -14,33 +14,8 @@
             </div>
           {{/each}}
         </ul>
+        {{else}}
+          <h2>No updates</h2>
      {{/if}}
   </div>
-	<!--{{#if feedCount}}
-        <div class="dropdown">
-          	<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">
-            	<span class="glyphicon glyphicon-globe"></span>&nbsp;
-              	Updates
-            	<span class="caret"></span>
-          	</button>
-          	<ul class="dropdown-menu dropdown-menu-right">
-            	{{#each feed}}
-            		<li>
-                  {{rss_title}} <button id="check" type="submit">Check</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            		</li>
-          		{{/each}}
-          	</ul>
-        </div>
-  {{else}}
-        <div class="dropdown">
-          	<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
-            	<span class="glyphicon glyphicon-globe"></span>&nbsp;
-            	Updates
-            	<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right">
-              	<li><a href="#">No updates</a></li>
-            </ul>
-        </div>
-  {{/if}}-->
 </template>

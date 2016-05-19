@@ -108,14 +108,17 @@ Rss.allow({
 Posts.allow({
   insert: function (userId,loc) {
     return true;
+  },
+  remove:function (userId, doc) {
+    return true;
   }
 });
 
-Documents.allow({
+/*Documents.allow({
   insert: function (userId, doc) {
     return true;
   },
   update:function (userId, doc) {
     return true;
   }
-});
+});*/

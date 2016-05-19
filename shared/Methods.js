@@ -1,5 +1,5 @@
 Meteor.methods({
-	addDoc:function(loc,tags){		//, tags
+/*	addDoc:function(loc,tags){		//, tags
 		var doc;
 		if(!this.userId){// NOt logged in
 			return;
@@ -56,7 +56,7 @@ Meteor.methods({
 		user.lastEdit = new Date();
 		eusers.users[this.userId] = user;
 		EditingUsers.upsert({_id:eusers._id},eusers);
-	},
+	},*/
 
 	//---------------Group Function--------------------------------------------
 	addGroup: function(gtitle,gdesc, privacy) {
@@ -296,25 +296,28 @@ Meteor.methods({
 		}
     },
      //--------------------------------group Discussion--------------------------
-	addThread : function(msg, groupId){
+	addThread : function(msg, groupId,post_id){
 		var user= Meteor.user().profile.name;
+		var group= Groups.findOne({_id: groupId});
+		var group_name= group.gname;
 		var thread = {
 				content:msg,
-				groupID:groupId,
 				owner:{
 					"id":this.userId,
 					"name":Meteor.user().profile.name
 				},
 				like: 0,
 				likedBy: [],
-				publishedAt: new Date()
+				publishedAt: new Date(),
+				postId: post_id
+
 		};
-		var id=Thread.insert(thread);	
-		var postsId= Groups.update({ _id: groupId },{
-				$addToSet: {
-					posts_ids: id
-				}
-		});	
+		var id=Thread.insert(thread);
+		Posts.update({ _id: post_id},{
+			$addToSet: {
+				threads: id
+			}
+		});
 		Rss.insert({
 			rss_title: user + " has posted a comment",
 			title:msg,
@@ -348,12 +351,12 @@ Meteor.methods({
 		
 	},
 
-	deleteThread: function(id,group_id){
-		var did=Thread.remove(id);
-		Groups.update({ _id: group_id },{ 
-				$pull: {
-					posts_ids: id 
-				}
+	deleteThread: function(thread_id,note_id){
+		var did=Thread.remove(thread_id);
+		Posts.update({_id: note_id},{
+			$pull: {
+				threads: thread_id
+			}
 		});
 		return did;
 	},
@@ -429,6 +432,11 @@ Meteor.methods({
 		});
 	},
   	shareNotes:function(note_id,group_id){
+  		Groups.update({ _id: group_id},{
+  				$addToSet:{
+  	  				notes: note_id
+  				}
+  			});
   		return Posts.update({ _id: note_id},{
   				$set:{
   	  				groupid: group_id

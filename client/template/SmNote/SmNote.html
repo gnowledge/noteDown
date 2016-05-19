@@ -52,10 +52,8 @@
 					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 						<div class="thumbnail">
 							<div class="caption">
-								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee>
-								<hr class="divider">
-		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a> 
-		                	</div>
+								<a class="btn btn-default" href="/posts/{{_id}}"><marquee behavior="scroll" direction="left"><h2 id="gname">{{Title}}</h2></marquee></a>
+							</div>
 								
 		  				</div>
 	  				</div>
@@ -76,6 +74,8 @@
 				{{#if post}}
 					<div class="panel panel-title" style="margin-top:20px; margin-bottom: 20px;">
 						<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+
+
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
 						{{/if}}
@@ -96,7 +96,6 @@
 			</div>
 		</div>
 	</div>
-	<br><br><br><br><br><br><br><br><br>
 </template>
 
 <template name="EditPosts">
@@ -123,11 +122,11 @@
 			</form>
 		</div>
 	</div>
-	<br><br><br><br><br><br><br><br><br>
+
 </template>
 
 <template name="ShareNotes">
-	<div class="container-fluid">
+	<div class="container">
 		<pre>Want to share the notes in the group ? </pre>
 			<div class="row">
 				{{#if Template.subscriptionsReady}}
@@ -136,9 +135,10 @@
 							<div class="thumbnail">
 								<div class="caption">
 									<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 
-			                	</div>
-									<button class="btn btn-default" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
-								</div>
+									
+			                	</div>	
+			                		<button class="btn btn-default" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
+							</div>
 						</div>
 					{{/each}}
 				{{/if}}
@@ -147,23 +147,21 @@
 </template>
 
 <template name="SharedNotes">
-	<div class="container-fluid">
+	<div class="container" >
 		<h3>Shared Notes </h3>
-			<div class="row">
-				{{#if Template.subscriptionsReady}}
-					{{#each posts}}
-						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-							<div class="thumbnail">
-								<div class="caption">
-									<h3>{{Title}}</h3> 
-			                	</div>
-									<hr class="divider">
-		  							<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a> 
-								</div>
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				{{#each posts}}
+						<div class="thumbnail" >
+							<div class="caption" style="margin-left:30px;">
+								<h2>{{Title}}</h2>
+								<h4>{{Message}}</h4>
+								<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span>Read More</a>
+							</div>
+							{{> groupDiscuss}}	
 						</div>
-					{{/each}}
-
-				{{/if}}
-			</div>
+				{{/each}}
+			{{/if}}
+		</div>
 	</div>
 </template>

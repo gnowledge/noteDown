@@ -71,7 +71,7 @@ Template.SinglePost.events({
 		var id = Session.get('postId');
 		console.log(id);
 		Meteor.call('deletePost', id);
-		Meteor.call('Successfully');
+		Router.go('User');
 	}
 });
 
@@ -86,7 +86,7 @@ Template.EditPosts.events({
 		var postBody = $('#summernote').summernote('code');
 		Meteor.call('editPost',id, title, message, postBody, owner, function (error) {
 			if(!error){
-				Meteor.call('Successfully');
+				Router.go('/posts/'+id);
 			}
 		});
 	}

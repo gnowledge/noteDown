@@ -64,7 +64,7 @@ Template.singleGroup.events({
 				if(!err){//all good
 					//console.log("group deleted: "+res);
 	                alert('Group deleted succesfully');
-	                Meteor.call('Successfully');
+	                Router.go('User');
 				}
 			});
 		}
@@ -96,7 +96,7 @@ Template.singleGroup.events({
 			var name= data.gname;
 			Meteor.call('leaveGroup',groupId, function(err,res){
 				if(!err){//all good
-	                Meteor.call('Successfully');
+	               Router.go('User');
 				}
 			});	
 		}			
@@ -166,7 +166,7 @@ Template.singleGroup.events({
 			Meteor.call("requestJoin", groupId, owner,ownerName, currentUser, currentUserName, function(err,res){
 				if(!err){//all good)
 					alert("Request sent succesfully");
-					Meteor.call('Successfully');
+					Router.go('User');
 				}
 			});
 		}
@@ -212,7 +212,9 @@ Template.yourGroup.onCreated(function(){
 	this.autorun( function() {
 		self.subscribe('groups');
 	});
+	
 });
+
 
 Template.yourGroup.helpers({
 	groups : function(){

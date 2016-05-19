@@ -7,17 +7,20 @@
 				<li><a id="list" href="{{pathFor route='newGroup'}}">Create Groups</a></li>&nbsp;	
 			   	<li><a id="list" href="{{pathFor route='createReminder'}}">Create Reminder</a></li>&nbsp;
 			   	<li><a id="list" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
-			   	<li style="list">{{> Search}}</li>&nbsp;
+			   	<li> <a id="list" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;
 			</ul>
 		</nav>
 	</div>
 </template>		
 
-<template name="Navbar-group">
+<template name="navbarGroup">
 	<div class="container-fluid">
 		<nav id="navbar-menu" class="navbar-item" style="border-radius:0px !important; margin-top:0px;">
-			<ul class="nav nav-tabs navbar-right push-top">
-				<li></li>
+			<ul class="nav nav-tabs navbar-left push-top">.
+				<li><a id="list" href="{{pathFor route='User'}}">Home</a></li>&nbsp;
+				<li><a id="list" href="{{pathFor route='singleGroup'}}">Group</a></li>&nbsp;
+				<li><a id="list" href="">Shared Notes</a></li>
+				<li><a id="list" href="">Shared Media</a></li>
 			</ul>
 		</nav>
 	</div>
