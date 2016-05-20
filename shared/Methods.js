@@ -26,7 +26,7 @@ Meteor.methods({
 			}
 			
 		}
-	},
+	},*/
 	updateDocPrivacy:function(doc){
 		console.log("updateDocPrivacy Method");
 		var realDoc=Documents.findOne({_id:doc._id, owner:this.userId});
@@ -40,13 +40,14 @@ Meteor.methods({
 	addEditingUser:function(docid){
 		var doc, user, eusers;
 
-		doc = Documents.findOne({_id:docid});
+		doc = Posts.findOne({_id:docid});
 		if(!doc){return;} //No Doc Give up.
+		
 		if(!this.userId){return;}// No Loggen in user Give up.
 		//NOw i have a doc anf possibly a user.
 
 		user=Meteor.user().profile;
-		eusers=EditingUsers.findOne({docid:doc._id});
+		eusers=EditingUsers.findOne({ docid:doc._id});
 		if(!eusers){
 			eusers={
 				docid:doc._id,
@@ -56,7 +57,7 @@ Meteor.methods({
 		user.lastEdit = new Date();
 		eusers.users[this.userId] = user;
 		EditingUsers.upsert({_id:eusers._id},eusers);
-	},*/
+	},
 
 	//---------------Group Function--------------------------------------------
 	addGroup: function(gtitle,gdesc, privacy) {
@@ -409,16 +410,7 @@ Meteor.methods({
 				Message: message,
 				Body: postBody,
 				updatedAt: new Date()
-			},
-			$addToSet:{ editedUser: user }
-		});
-		Rss.insert({
-			rss_title: user + " has edited a note",
-			title:title,
-			user: user,
-			createdAt: new Date(),
-			action: "/posts/"+postID,
-			id: postID
+			}
 		});
 		return id;
 	},

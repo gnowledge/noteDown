@@ -31,7 +31,7 @@
 				</div>
 
 				<div class="form-group">
-					<button type="submit" class="form-control btn btn-success" style="border-radius: 0px;">Edit/Save Post</button>
+					<button type="submit" class="form-control btn btn-success" style="border-radius: 0px;">Save Post</button>
 				</div>
 
 				<div class="form-group" style="margin-top: 20px;">
@@ -73,11 +73,11 @@
 			<div class="panel-group">
 				{{#if post}}
 					<div class="panel panel-title" style="margin-top:20px; margin-bottom: 20px;">
-						<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
-
+						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
 
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+							<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
 						{{/if}}
 					</div><br>
 					<div class="panel panel-title">
@@ -85,9 +85,9 @@
 					</div>
 					<div class="panel panel-body">
 						<p class="text-center">Body : {{{post.Body}}}</p>
-						<p class="text-center">Tags: <b>{{post.tagsName}}</b></p>
-						<p class="text-center">Edited User: {{post.editedUser}}</p>
-						<p class="text-center">Updated At: {{post.updatedAt}}</p>
+						{{#if tags }}
+							<p class="text-center">Tags: <b>{{post.tagsName}}</b></p>
+						{{/if}}
 					</div>
 				{{else}}
 					<h2>No Such Note</h2>

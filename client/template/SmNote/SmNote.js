@@ -9,6 +9,16 @@ Template.SmNote.events({
 	'submit #addPost' : function (event) {
 		event.preventDefault();
 		var title = event.target.postTitle.value;
+		if(title.length<=5){
+			alert("should be maximum then 5 letters");
+			return false;
+		}
+		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
+        if (result) {
+              alert("Post name already exists");
+              event.target.postTitle.value = "";
+              return false;
+        }
 		var message = event.target.postMessage.value;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
@@ -56,6 +66,12 @@ Template.SinglePost.helpers({
 		var owner= post.owner.id;
 		if(owner=== Meteor.userId())
 			return owner;
+	},
+	tags:function(){
+		var id = Session.get('postId');
+		var post=Posts.findOne({_id: id});
+		if(post.tagsName)
+			return true;
 	}
 });
 
@@ -72,6 +88,11 @@ Template.SinglePost.events({
 		console.log(id);
 		Meteor.call('deletePost', id);
 		Router.go('User');
+	},
+	'click #publishNote': function () {
+		var id = Session.get('postId');
+		Session.set('note_id',id);
+		Router.go('publishNote');
 	}
 });
 

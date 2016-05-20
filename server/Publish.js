@@ -14,11 +14,11 @@ Meteor.publish("documents", function(){
 		]
 	});
 })
-
+*/
 Meteor.publish("editingUsers",function(){
 	return EditingUsers.find({});
 });
-*/
+
 Meteor.publish("groups", function(){
   return Groups.find({},{sort: {createdAt: -1}});
 });  
