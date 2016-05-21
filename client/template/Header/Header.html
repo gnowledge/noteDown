@@ -4,18 +4,26 @@
     <nav id="headernav" class="navbar navbar-inverse navbar-fixed-top" style="border-radius:0px !important; margin-bottom:0px;">
       <div class="container-fluid">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+
           {{#if currentUser}}
             <a class="navbar-noteDown" style="color:rgb(236, 236, 236);" href="{{pathFor route='User'}}"><i>note</i>Down</a>
           {{else}}
             <a class="navbar-noteDown" style="color:rgb(236, 236, 236);" href=""><i>note</i>Down</a>
           {{/if}}
+
         </div>
-        <div class="collapse navbar-collapse">
+
+        <div class="collapse navbar-collapse" id="myNavbar">
           <ul id="slides" class="nav navbar-nav pull-right push-bottom">
             <li><a class="Login" href="#" title=""><i class="fi-key"></i> {{> Login}}</a></li>
           </ul>
-
         </div><!--/.nav-collapse -->
+        
       </div>
     </nav>
   </header>

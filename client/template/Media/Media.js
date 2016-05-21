@@ -40,3 +40,32 @@ $(document).ready(function () {
     $('.panel-heading span.clickable').click();
     $('.panel div.clickable').click();
 });
+
+Template.SharedMediaInGroup.helpers({
+    images: function() {
+        var group_id= Session.get('groupId');
+        return Collections.Images.find({groupID: group_id});
+    },
+    videos: function() {
+        var group_id= Session.get('groupId');
+        return Collections.Videos.find({groupID: group_id});
+    },
+    audios: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Audios.find({groupID: group_id});
+    },
+    files: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Files.find({groupID: group_id});
+    },
+});
+
+Template.SharedMediaInGroup.onCreated(function(){
+    var self= this;
+    this.autorun( function() {
+        self.subscribe('images');
+        self.subscribe('audios');
+        self.subscribe('files');
+        self.subscribe('videos');
+    });
+});

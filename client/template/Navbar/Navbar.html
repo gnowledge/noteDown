@@ -2,12 +2,12 @@
 	<div class="container-fluid">
 		<nav id="navbar-menu" class="navbar-item" style="border-radius:0px !important; margin-top:0px;">
 			<ul class="nav nav-tabs navbar-left push-top">
-				<li><a id="list" href="{{pathFor route='User'}}">Home</a></li>&nbsp;
-				<li><a id="list" href="{{pathFor route='SmNote'}}">Create Notes</a></li>&nbsp;
-				<li><a id="list" href="{{pathFor route='newGroup'}}">Create Groups</a></li>&nbsp;	
+				<li><a id="list" href="{{pathFor route='SmNote'}}">Create Note</a></li>&nbsp;
+				<li><a id="list" href="{{pathFor route='newGroup'}}">Create Group</a></li>&nbsp;	
 			   	<li><a id="list" href="{{pathFor route='createReminder'}}">Create Reminder</a></li>&nbsp;
 			   	<li><a id="list" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
 			   	<li> <a id="list" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;
+			   	<li></li>
 			</ul>
 		</nav>
 	</div>
@@ -17,10 +17,8 @@
 	<div class="container-fluid">
 		<nav id="navbar-menu" class="navbar-item" style="border-radius:0px !important; margin-top:0px;">
 			<ul class="nav nav-tabs navbar-left push-top">.
-				<li><a id="list" href="{{pathFor route='User'}}">Home</a></li>&nbsp;
-				<li><a id="list" href="{{pathFor route='singleGroup'}}">Group</a></li>&nbsp;
-				<li><a id="list" href="">Shared Notes</a></li>
-				<li><a id="list" href="">Shared Media</a></li>
+				<li><a id="list" href="{{pathFor route='SharedNotesInGroup'}}">Shared Notes</a></li>
+				<li><a id="list" href="{{pathFor route='SharedMediaInGroup'}}">Shared Media</a></li>
 			</ul>
 		</nav>
 	</div>

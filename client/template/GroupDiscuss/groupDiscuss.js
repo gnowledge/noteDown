@@ -58,6 +58,7 @@ Template.postMessage.events({
         var content=this.content
         var user= Meteor.user().profile.name;
         var group_id= Session.get('groupId');
+        var owner_name= this.owner.name;
         for(var i=0;i<likedBy.length;i++){
             //console.log(likedBy[i]);
             if(likedBy[i]===Meteor.user().profile.name){
@@ -65,6 +66,6 @@ Template.postMessage.events({
             }
         }
         like++;
-        Meteor.call('likeThread',this._id,like,owner,group_id,content);
+        Meteor.call('likeThread',this._id,like,owner,owner_name,group_id,content);
     }
 });

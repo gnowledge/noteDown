@@ -172,3 +172,17 @@ Template.SharedNotes.onCreated(function(){
 		self.subscribe('posts');
 	});
 });
+
+Template.SharedNotesInGroup.helpers({
+	posts: function() {
+		var group_id= Session.get('groupId');
+		return Posts.find({ groupid: group_id});
+	}
+});
+
+Template.SharedNotesInGroup.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});

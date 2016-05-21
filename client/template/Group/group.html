@@ -128,8 +128,11 @@
 					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 						<div class="thumbnail">
 							<div class="caption">
-								<a class="btn btn-default" href="/group/{{_id}}"><marquee behavior="scroll" direction="left"><h2 id="gname">{{gname}}</h2></marquee></a>
-							</div>
+								<marquee behavior="scroll" direction="left"><h3 id="gname">{{gname}}</h3></marquee> 
+		                	</div>
+								<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+		  						<hr class="divider">
+		  						<a class="btn btn-default" href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 		  				</div>
 	  				</div>
 	            {{/each}}
@@ -152,10 +155,13 @@
 						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 							<div class="thumbnail">
 								<div class="caption">
-									<a class="btn btn-default" href="/group/{{_id}}"><marquee behavior="scroll" direction="left"><h2 id="gname">{{gname}}</h2></marquee></a>
-								</div>
+									<marquee behavior="scroll" direction="left"><h3 id="gname">{{gname}}</h3></marquee> 
+			                	</div>
+									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+			  						<hr class="divider">
+			  						<a class="btn btn-default" href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 			  				</div>
-		  				</div>
+	  					</div>	
 		            {{/each}}
 	        	{{else}}
 	        		<p>Loading</p>

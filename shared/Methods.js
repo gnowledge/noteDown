@@ -320,7 +320,7 @@ Meteor.methods({
 			}
 		});
 		Rss.insert({
-			rss_title: user + " has posted a comment",
+			rss_title:"'" + user + "' has posted a comment",
 			title:msg,
 			user: user,
 			createdAt: new Date(),
@@ -330,7 +330,7 @@ Meteor.methods({
 		return id;
 	},
 
-	likeThread : function(nid,like,owner,group_id,content){
+	likeThread : function(nid,like,owner, owner_name ,group_id,content){
 		var user= Meteor.user().profile.name;
 		var id= Thread.update({ _id: nid},
 		{
@@ -340,7 +340,7 @@ Meteor.methods({
 			}
 		});
 		Rss.insert({
-			rss_title: user + " has liked your post",
+			rss_title: user + " has liked " + owner_name +" post",
 			title:content,
 			user: user,
 			owner: owner,
@@ -385,7 +385,7 @@ Meteor.methods({
 			};
 			var id = Posts.insert(doc);
 			Rss.insert({
-				rss_title: user + " has created a note",
+				rss_title: "'" +user + "' has created a note",
 				title:title,
 				user: user,
 				createdAt: new Date(),
