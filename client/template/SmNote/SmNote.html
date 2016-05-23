@@ -129,22 +129,22 @@
 
 <template name="ShareNotes">
 	<div class="container">
-		<pre>Want to share the notes in the group ? </pre>
-			<div class="row">
-				{{#if Template.subscriptionsReady}}
-					{{#each posts}}
-						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-							<div class="thumbnail">
-								<div class="caption">
-									<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 
-									
-			                	</div>	
-			                		<button class="btn btn-default" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
-							</div>
+		
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				<pre>Want to share the notes in the group ? </pre>
+				{{#each posts}}
+					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+						<div class="thumbnail">
+							<div class="caption">
+								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 	
+		                	</div>	
+		                		<button class="btn btn-default" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
 						</div>
-					{{/each}}
-				{{/if}}
-			</div>
+					</div>
+				{{/each}}
+			{{/if}}
+		</div>
 	</div>
 </template>
 
@@ -175,13 +175,16 @@
 		<div class="row">
 			{{#if Template.subscriptionsReady}}
 				{{#each posts}}
-						<div class="thumbnail" >
-							<div class="caption" style="margin-left:30px;">
-								<h2>{{Title}}</h2>
-								<h4>{{Message}}</h4>
-								<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span>Read More</a>
-							</div>
-						</div>
+					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+						<div class="thumbnail">
+							<div class="caption">
+								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3> </marquee>
+		                	</div>
+								<span style="float: right;" id="showMsg"><i>{{Message}} </i></span>
+								<hr class="divider">
+		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a>
+		  				</div>
+	  				</div>
 				{{/each}}
 			{{/if}}
 		</div>

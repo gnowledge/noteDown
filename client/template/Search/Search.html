@@ -13,13 +13,15 @@
         {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
           <div>Indexes are searching...</div>
         {{/EasySearch.IfSearching}}
+
         <div class="well well-lg" style="width:100%;display: inline-block;">
           {{#EasySearch.Each index=groupIndex }}
-            <h4>Group name: <a href="/group/{{__originalId}}">{{gname}}</a></h4>
+            <h3>Group name: <a href="/group/{{__originalId}}">{{gname}}</a></h3>
+            <h4>Privacy: {{privacy}}</h4>
           {{/EasySearch.Each}}
 
           {{#EasySearch.Each index=postIndex }}
-            <h4>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h4>
+            <h3>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h3>
           {{/EasySearch.Each}}
         </div>
       </div>

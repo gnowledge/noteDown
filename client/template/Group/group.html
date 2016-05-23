@@ -72,12 +72,30 @@
 				{{/if}}
 			{{else}}
 				{{#if member}}
-					<li><input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;"></li>
+					<li><input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" ></li>
+					<li>
+					{{#if members}}
+		 				<div class="dropdown">
+		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+			  					<span class="glyphicon glyphicon-user"></span>&nbsp;
+			  						Members
+			  					<span class="caret"></span>
+		  					</button>
+		  					<ul class="dropdown-menu dropdown-menu-right">
+		  						{{#each members}}
+							    	<li>
+							    		{{name}}
+							    	</li>
+								{{/each}}
+		  					</ul>
+						</div>
+					{{/if}}
+					</li>
 				{{else}}
 					{{#if private}}
-						<li><input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;"></li>
+						<li><input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" ></li>
 					{{else}}
-						<li><input type="submit" class="btn btn-success pull-right" id="join" value="Join" style="margin-right:20px;"></li>
+						<li><input type="submit" class="btn btn-success pull-right" id="join" value="Join" ></li>
 					{{/if}}
 				{{/if}}
 			{{/if}}
@@ -93,20 +111,18 @@
 				<hr class="divider">
 				<h3 id="gdesc" style="margin-left: 20px; font-size: 16px;" title="Group Descripton">{{group.gdesc}}</h3>
 				<hr class="divider">
-				{{> Media}}
-				<hr class="divider">
 			</div>		
 		</div>
 
 		{{#if owner}}
 		<br>
+			{{> Media}}
 			{{> ShareNotes}}
-			
 			{{> SharedNotes}}	
 		{{else}}
 			{{#if member}}
+				{{> Media}}
 				{{> ShareNotes}}
-		
 				{{> SharedNotes}}
 			{{/if}}
 		{{/if}}

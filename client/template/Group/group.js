@@ -2,36 +2,34 @@ Template.singleGroup.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('groups');
+		self.subscribe('notify');
 	});
 });
 
-Meteor.subscribe('notify');
 Template.singleGroup.helpers({
 	group : function(){
-		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
         return group;
 	},
 	owner: function(){
-		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
         var owner= group.owner.id;
-        //console.log("Owner is: " +owner);
         if(owner=== Meteor.user()._id)
         	return owner;
         
 	},
 	private:function(){
-		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
         var private= group.privacy;
         	if(private === "private")
         		return true;
 	},
 	member: function(){
-		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
-        //var member= Groups.find({ _id: groupId },{ "members.id":1, _id: 0 });
         var userId = Meteor.userId();
         for (var i = 0; i < group.members.length; i++) {
       		if (group.members[i].id === userId) {
@@ -40,7 +38,7 @@ Template.singleGroup.helpers({
     	}
     },
     members: function(){
-    	var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+    	var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
         var members= group.members;
         return members;
@@ -62,7 +60,6 @@ Template.singleGroup.events({
 			var groupId = Session.get('groupId');
 			Meteor.call('deleteGroup', groupId, function(err,res){
 				if(!err){//all good
-					//console.log("group deleted: "+res);
 	                alert('Group deleted succesfully');
 	                Router.go('User');
 				}
@@ -194,7 +191,7 @@ Template.singleGroup.events({
 	    return nid;
 	},
 	"click .delete": function(event) {
-		var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
+		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
 		var memberId= this.id;
 		var memberName= this.name;
@@ -238,8 +235,8 @@ Template.allGroup.helpers({
 		return Groups.find({
 			$and:[ 
 				{ "owner.id": {$ne: Meteor.userId() } },
-				{"members.id": {$ne:  Meteor.userId() } }/*,
-				{ "privacy" : { $ne: "private"}}*/
+				{"members.id": {$ne:  Meteor.userId() } },
+				{ "privacy" : { $ne: "private"}}
 			]
 		},{sort: {createdAt: 1}},{limit: 6});
 	}

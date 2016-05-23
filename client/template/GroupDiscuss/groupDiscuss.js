@@ -50,7 +50,7 @@ Template.postMessage.events({
         var note_id= note._id;
         Meteor.call('deleteThread',thread_id, note_id);
     },
-    'click #likePost' :function(text){
+    'click #likePost':function(text){
         var owner=this.owner.id;
         var thread= Thread.findOne({_id: this._id});
         var likedBy= thread.likedBy;
