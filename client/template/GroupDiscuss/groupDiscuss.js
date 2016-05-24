@@ -3,7 +3,6 @@ Template.groupdiscussion.onCreated(function(){
     this.autorun( function() {
         self.subscribe('threads');
         self.subscribe('groups');
-        self.subscribe('groups');
     });
 });
 

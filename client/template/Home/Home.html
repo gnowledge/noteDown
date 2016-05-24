@@ -3,9 +3,10 @@
 	<div id="body">
 	{{#if currentUser}}
 		{{> User}}
+	{{else}}
+		{{> getLocation}}
 	{{/if}}
 	<br><br>
-	{{> getLocation }}
 	<br>
 	</div>
 <!-- End Container-->

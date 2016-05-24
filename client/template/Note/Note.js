@@ -20,8 +20,8 @@ Template.editor.helpers({
 			editor.setOption("lineNumbers",true);
 			editor.setOption("theme","cobalt");
 			editor.on("change",function(cm_editor,info){
-				console.log(cm_editor.getValue());
-				$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());
+				//console.log(cm_editor.getValue());
+				//$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());
 				Meteor.call("addEditingUser", Session.get("note_id"));
 			});
 		}
