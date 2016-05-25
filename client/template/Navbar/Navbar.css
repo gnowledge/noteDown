@@ -1,10 +1,12 @@
-.navbar-item{
-	height:60px;
-	width:100%;
-	background:#fafafa;
-	
-}
-
 a#list{
 	color:rgb(34, 34, 34);
+}
+
+li#navli{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.navbar-toggle{
+	background: #000000;
 }

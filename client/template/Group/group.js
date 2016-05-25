@@ -115,8 +115,9 @@ Template.singleGroup.events({
 
 			//Change button text
 			$("#edit").prop('value', 'Save');
-			$("#edit").prop('class', 'btn btn-success');
+			$("#edit").prop('class', 'btn btn-success pull-right glyphicon glyphicon-file');
 			$("#edit").prop('id', 'save');	
+			$("#edit").prop('title', 'Save');
 			
 		}			
 	},
@@ -146,8 +147,9 @@ Template.singleGroup.events({
 				$('#gname').text(gtitle);
 				$('#gdesc').text(gdesc);
                 $("#save").prop('value', 'Edit');
-                $("#save").prop('class', 'btn btn-primary');
+                $("#save").prop('class', 'btn btn-primary pull-right glyphicon glyphicon-pencil');
 				$("#save").prop('id', 'edit');
+				$("#save").prop('title', 'Edit');
 			}
 		});
 	},

@@ -70,7 +70,7 @@ Template.SinglePost.helpers({
 	tags:function(){
 		var id = Session.get('postId');
 		var post=Posts.findOne({_id: id});
-		if(post.tagsName)
+		if(post.Tags)
 			return true;
 	}
 });
@@ -105,7 +105,9 @@ Template.EditPosts.events({
 		var post= Posts.findOne({_id: id});
 		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
-		Meteor.call('editPost',id, title, message, postBody, owner, function (error) {
+		var loc = Session.get('location');
+		var tags = Session.get('tag');
+		Meteor.call('editPost',id, title, message, postBody, owner, loc, tags, function (error) {
 			if(!error){
 				Router.go('/posts/'+id);
 			}

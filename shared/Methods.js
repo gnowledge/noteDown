@@ -26,7 +26,7 @@ Meteor.methods({
 			}
 			
 		}
-	},*/
+	}
 	updateDocPrivacy:function(doc){
 		console.log("updateDocPrivacy Method");
 		var realDoc=Documents.findOne({_id:doc._id, owner:this.userId});
@@ -36,7 +36,7 @@ Meteor.methods({
 		}
 
 	},
-
+	*/
 	addEditingUser:function(docid){
 		var doc, user, eusers;
 
@@ -379,8 +379,8 @@ Meteor.methods({
 					id:this.userId, 
 					name:Meteor.user().profile.name
 				},
-				getLocation:loc,
-				tagsName:tags,
+				Location:loc,
+				Tags:tags,
 				createdOn:new Date(), 
 			};
 			var id = Posts.insert(doc);
@@ -402,18 +402,21 @@ Meteor.methods({
 		
 	},
 
-	editPost: function (postID, title, message, postBody, owner) {
+	editPost: function (postID, title, message, postBody, owner, loc, tags) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{
 				Title: title,
 				Message: message,
 				Body: postBody,
+				Location: loc,
+				Tags:tags,
 				updatedAt: new Date()
 			}
 		});
 		return id;
 	},
+		
 	
 	deletePost: function (postID) {
 		Posts.remove(postID);

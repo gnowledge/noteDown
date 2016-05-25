@@ -4,15 +4,13 @@
 	<div class="container-fluid "><br>
 		{{#if group}}
 		<div class="row">
-		
-		<ul class="nav navbar-nav navbar-left push-top">
 			{{#if owner}}
-				<li><input type="submit" class="btn btn-primary pull-right" id="edit" value=" Edit "></li>
-				<li><input type="submit" class="btn btn-danger pull-right" id="delete" value="Delete"></li>	
-				<li>
-					{{#if members}}
+				<button class="btn btn-success pull-right glyphicon glyphicon-pencil" id="edit" style="margin-right: 5px;" title="Edit"></button>
+				<button class="btn btn-danger pull-right glyphicon glyphicon-remove" id="delete" style="margin-right: 5px;" title="Delete"></button>
+
+				{{#if members}}
 		 				<div class="dropdown">
-		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
 			  					<span class="glyphicon glyphicon-user"></span>&nbsp;
 			  						Members
 			  					<span class="caret"></span>
@@ -27,26 +25,25 @@
 						</div>
 					{{else}}
 						<div class="dropdown">
-					  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
+					  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
 					  			<span class="caret"></span></button>
 					  			<ul class="dropdown-menu dropdown-menu-right">
 								    <li><a href="#">No members</a></li>
 							</ul>
 						</div>
-					{{/if}}
-				</li>
-				
+				{{/if}}
+
+
 				{{#if private}}
-				
-					<li>
-						{{#if notificationCount}}
+
+					{{#if notificationCount}}
 			 				<div class="dropdown">
-			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
 				  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
 				  						Notifications
 				  					<span class="caret"></span>
 			  					</button>
-			  					<ul class="dropdown-menu dropdown-menu-right">
+			  					<ul class="dropdown-menu notify">
 			  						{{#each notification}}
 							    	<li>
 							    		{{title}}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -58,48 +55,51 @@
 							</div>
 						{{else}}
 							<div class="dropdown">
-						  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+						  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
 						  			<span class="glyphicon glyphicon-bell"></span>&nbsp;
 						  			Notifications
 						  			<span class="caret"></span></button>
-						  			<ul class="dropdown-menu dropdown-menu-right">
+						  			<ul class="dropdown-menu notify">
 									    <li><a href="#">No notifications</a></li>
 						  			</ul>
 							</div>
-						{{/if}}
-					</li>
+					{{/if}}
+
 				{{else}}
 				{{/if}}
 			{{else}}
 				{{#if member}}
-					<li><input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" ></li>
-					<li>
+					<input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;">
 					{{#if members}}
 		 				<div class="dropdown">
-		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
 			  					<span class="glyphicon glyphicon-user"></span>&nbsp;
 			  						Members
 			  					<span class="caret"></span>
 		  					</button>
 		  					<ul class="dropdown-menu dropdown-menu-right">
 		  						{{#each members}}
-							    	<li>
-							    		{{name}}
-							    	</li>
+							    	<li>{{name}}</li>
 								{{/each}}
 		  					</ul>
 						</div>
+					{{else}}
+						<div class="dropdown">
+					  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
+					  			<span class="caret"></span></button>
+					  			<ul class="dropdown-menu dropdown-menu-right">
+								    <li><a href="#">No members</a></li>
+							</ul>
+						</div>
 					{{/if}}
-					</li>
 				{{else}}
 					{{#if private}}
-						<li><input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" ></li>
+						<input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;">
 					{{else}}
-						<li><input type="submit" class="btn btn-success pull-right" id="join" value="Join" ></li>
+						<input type="submit" class="btn btn-success pull-right" id="join" value="Join" style="margin-right:20px;">
 					{{/if}}
 				{{/if}}
 			{{/if}}
-			</ul>
 			
 		</div>
 
@@ -118,11 +118,13 @@
 		<br>
 			{{> Media}}
 			{{> ShareNotes}}
+			
 			{{> SharedNotes}}	
 		{{else}}
 			{{#if member}}
 				{{> Media}}
 				{{> ShareNotes}}
+		
 				{{> SharedNotes}}
 			{{/if}}
 		{{/if}}

@@ -47,22 +47,25 @@
 	<div class="container">
 		<h2>All Notes</h2>
 		<div class="row">
+		<div style="width:100%;height:220px;line-height:3em;overflow-x:hidden;overflow-y:scroll;padding:5px;">
 			{{#if Template.subscriptionsReady}}
 				{{#each posts}}
-					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-						<div class="thumbnail">
-							<div class="caption">
-								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3> </marquee>
-		                	</div>
-								<span style="float: right;" id="showMsg"><i>{{Message}} </i></span>
+					<div class="col-xs-12 col-md-6 col-lg-3">
+						<div class="thumbnail" style="height:200px;">
+
+								<marquee behavior="scroll" direction="left"><h2 id="showTitle" class="text-capitalize text-center">{{Title}}</h2></marquee>
 								<hr class="divider">
-		  						<a href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a>
+
+		  						<center><p id="showMsg">{{Message}}</p></center>
+
+		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
 		  				</div>
 	  				</div>
 	            {{/each}}
 	        {{else}}
 	        	<p>Loading... {{> spinner}}</p>
 	        {{/if}}
+      	</div>
       	</div>
       	<hr class="divider">
    	</div>
@@ -74,21 +77,21 @@
 		<div class="col-xs-12">
 			<div class="panel-group">
 				{{#if post}}
-					<div class="panel panel-title" style="margin-top:20px; margin-bottom: 20px;">
-						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
+						<!--button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button-->
 
 						{{#if owner}}
-							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-							<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit </button></a>
+							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+
+							<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
 						{{/if}}
-					</div><br>
+					<br><br><br>
 					<div class="panel panel-title">
 						<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
 					</div>
 					<div class="panel panel-body">
 						<p class="text-center">Body : {{{post.Body}}}</p>
 						{{#if tags }}
-							<p class="text-center">Tags: <b>{{post.tagsName}}</b></p>
+							<p class="text-center">Tags: <b>{{post.Tags}}</b></p>
 						{{/if}}
 					</div>
 				{{else}}
@@ -106,20 +109,34 @@
 		<div class="col-xs-12">
 			<h2>Edit Note</h2>
 			<form role="form" id ="editPost">
-				<div class="form-group">
+				<div class="form-group container-fluid">
 					<!--label for="postTitle">Post Title: </label-->
-					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..." style="width:100%">
+					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
+
 				</div>
-				<div class="form-group">
+
+				<div class="form-group container-fluid">
 					<!--label for="postMessage">Post Message: </label-->
-					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..." style="width:100%"></textarea>
+					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
 				</div>
+
 				<div id="summernote" class="form-group">
 					{{{edit.Body}}}
 				</div>
-				Updated At: {{edit.updatedAt}}
+
+				<div class="form-group">
+					<h4 class="pull-right" style="margin-right: 20px; margin-left: 20px;"><b> {{edit.Tags}} </b></h4>
+					{{> Tags}}
+				</div>
+
+				<p class="pull-right"><b> Updated At: {{edit.updatedAt}}</b></p><br>
+
 				<div class="form-group">
 					<button type="submit" class="form-control btn btn-success">Save Post</button>
+				</div>
+
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
 				</div>
 			</form>
 		</div>
@@ -134,12 +151,12 @@
 			{{#if Template.subscriptionsReady}}
 				<pre>Want to share the notes in the group ? </pre>
 				{{#each posts}}
-					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+					<div class="col-sm-6 col-xs-4 col-md-3 col-lg-2">
 						<div class="thumbnail">
 							<div class="caption">
 								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 	
 		                	</div>	
-		                		<button class="btn btn-default" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
+		                		<button class="btn btn-success btn-xs" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
 						</div>
 					</div>
 				{{/each}}
@@ -158,7 +175,7 @@
 							<div class="caption" style="margin-left:30px;">
 								<h2>{{Title}}</h2>
 								<h4>{{Message}}</h4>
-								<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span>Read More</a>
+								<a class="s" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span>Read More</a>
 							</div>
 							{{> groupDiscuss}}	
 						</div>
@@ -175,18 +192,20 @@
 		<div class="row">
 			{{#if Template.subscriptionsReady}}
 				{{#each posts}}
-					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-						<div class="thumbnail">
-							<div class="caption">
-								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3> </marquee>
-		                	</div>
-								<span style="float: right;" id="showMsg"><i>{{Message}} </i></span>
-								<hr class="divider">
-		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a>
+					<div class="col-xs-12 col-md-6 col-lg-3">
+						<div class="thumbnail" style="height:220px;">
+							
+								<marquee behavior="scroll" direction="left"><h3 id="showTitles">{{Title}}</h3> </marquee>
+		                		<hr class="divider">
+								<span style="float: right;" id="showMsgs"><i>{{Message}} </i></span>
+								
+		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center>
 		  				</div>
 	  				</div>
 				{{/each}}
-			{{/if}}
+			{{else}}
+	        	<p>Loading... {{> spinner}}</p>
+	        {{/if}}
 		</div>
 	</div>
 </template>
