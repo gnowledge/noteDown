@@ -420,6 +420,7 @@ Meteor.methods({
 	
 	deletePost: function (postID) {
 		Posts.remove(postID);
+<<<<<<< HEAD
 		Meteor.users.update({ _id: this.userId },{ 
 				$pull: {
 					post_ids: postID 
@@ -442,3 +443,7 @@ Meteor.methods({
 
 
 
+=======
+	}
+});
+>>>>>>> master
