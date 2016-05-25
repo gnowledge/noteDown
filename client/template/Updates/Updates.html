@@ -1,0 +1,21 @@
+<template name="Updates">
+  {{> Navbar}}
+  <div class="container-fluid">
+    {{#if feedCount}}
+        <ul>
+          {{#each feed}}
+            <div class="well well-lg" style="width:100%;display: inline-block;">
+              <table>
+              <col width="1200">
+                <tr>
+                  <td>{{rss_title}} <a href="{{action}}">{{title}}</a> at ({{createdAt}})</td>
+                </tr>
+              </table>
+            </div>
+          {{/each}}
+        </ul>
+        {{else}}
+          <p>Loading... {{> spinner}}</p>
+     {{/if}}
+  </div>
+</template>

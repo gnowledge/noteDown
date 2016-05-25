@@ -1,4 +1,4 @@
-Meteor.startup(function () {
+/*Meteor.startup(function () {
   // code to run on server at startup
   if(!Documents.findOne()){
   	//No Docs yet
@@ -14,7 +14,7 @@ Meteor.publish("documents", function(){
 		]
 	});
 })
-
+*/
 Meteor.publish("editingUsers",function(){
 	return EditingUsers.find({});
 });

@@ -29,3 +29,23 @@ h3#gdesc{
 	    		-o-transform:scale(1.25); /* Opera */
 	     		transform:scale(1.25);
 		}
+
+.dropdown{
+ 	/*position: relative;
+    display: inline-block;*/
+}
+.dropdown .dropdown-menu {
+    right:0;
+    margin:40px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown .notify {
+	left:50%;
+    right:9%;
+    margin:40px;
+}
+.dropdown:hover .notify {
+    display: block;
+}

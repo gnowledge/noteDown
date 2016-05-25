@@ -6,7 +6,7 @@
   </div>
   <div class="imageArea clearfix">
     {{#each uploadedImages}}
-    {{> uploadedImage}}
+      {{> uploadedImage}}
     {{/each}}
   </div>
 </template>
@@ -24,14 +24,13 @@
         </p>
     
           {{#if this.isUploaded}}
-          {{#if this.hasStored 'images'}}
-          {{#with this.url download=true}}
-              <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
-          {{/with}}
-              <input type="button" value="Preview" id="preview" class="btn btn-primary btn-xs"/>
-          {{else}}
-            Storing...
-          {{/if}}
+            {{#if this.hasStored 'images'}}
+              {{#with this.url download=true}}
+                  <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
+              {{/with}}
+            {{else}}
+              Storing...
+            {{/if}}
           {{else}}
           Uploading: {{this.uploadProgress}}%
             <p>{{> FS.UploadProgressBar}}</p>

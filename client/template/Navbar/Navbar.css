@@ -1,13 +1,12 @@
-.navbar-item{
-	height:35px;
-	width:100%;
-	background:#D91E18;
-	-webkit-transition:0.2s;
-	-moz-transition:0.2s;
-	-o-transition:0.2s;
-	transition:0.2s;
+a#list{
+	color:rgb(34, 34, 34);
 }
 
-a#list{
-	color:white;
+li#navli{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.navbar-toggle{
+	background: #000000;
 }

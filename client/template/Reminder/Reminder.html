@@ -1,46 +1,44 @@
 <template name="Reminder">
 	<div class="container">  
 		<h2>Todo <a href="{{pathFor route='createReminder'}}"><img src="images/add.png"  height="50" title="Create todo"></a></h2>
-		<hr class="divider">
 	</div>
 </template>
 
 <template name="createReminder">
 	{{> Navbar}}
-	<div class="container-fluid">
-	  	<div class="container" id="container">
-	    	<h1>Todo ({{incompleteCount}})</h1>
-	       	<label class="hide-completed" id="hide">
-	        <input type="checkbox" checked= "{{hideCompleted}}" />
-	          Hide Completed Tasks
-	       	</label>
-	       		<form  class="new-task" id="form">
-	         		<ul>
-	         			<input type="text" name="text" placeholder="Type to add new tasks" required />
-	         			<li>
-	         				<input type="text" name="desc" placeholder="Type to add a description" required/>
-	         				<li>
-		         				<!--<div class="input-group datetimepicker">
-								    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-								    <input class="set-due-date form-control" id="date" type="text" placeholder="Select a date" required/>
-					  			</div>-->
-					  			<input type="text" name="datefilter" value="" placeholder="Select a date" required/>
-					  		</li>
-	         			</li>
-	         			
-	         			<li>
-	         				<input type="submit" class="btn btn-primary" value="Create">
-	         			</li>
-	         		</ul>
-	         		
-	       		</form>
-		  	<ul>
+	<div class="container">
+	    <h1>Todo ({{incompleteCount}})</h1>
+       	<label class="hide-completed" id="hide">
+        <input type="checkbox" checked= "{{hideCompleted}}" />
+          Hide Completed Tasks
+       	</label>
+   		<form  class="new-task" id="form">
+     		<ul>
+     			<input type="text" name="text" placeholder="Type to add new tasks" required />
+     			<li>
+     				<input type="text" name="desc" placeholder="Type to add a description" required/>
+     				<li>
+         				<div class="input-group datetimepicker">
+						    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						    <input class="set-due-date form-control" name="datefilter" type="text" placeholder="Select a date" required/>
+			  			</div>
+			  			<!--<input type="text" name="datefilter" value="" placeholder="Select a date" required/><span class="glyphicon glyphicon-calendar"></span>-->
+			  		</li>
+     			</li>
+     			<li>
+     				<input type="submit" class="btn btn-primary" value="Create">
+     			</li>
+     		</ul>
+   		</form>
+	     
+	   	<div class="jumbotron" id="container">
+		  	<ul>	
 				{{#each tasks}}
 		  			{{>task}}
-				{{/each}}
+				{{/each}}	
 		  	</ul>
-	  	</div>
-	</div>
+		</div>
+	 </div>	
 </template>
 
 <template name="task">
@@ -52,4 +50,3 @@
 	    </span>
 	</li>
 </template>
-

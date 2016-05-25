@@ -64,3 +64,61 @@ Collections.Videos.deny({
   remove: falseFunc,
   download: falseFunc
 });
+
+Groups.allow({
+  insert: function (userId, doc) {
+    return true;
+  }
+});
+
+Notify.allow({ 
+  insert: function(userId, doc) {
+    // only allow posting if you are logged in    
+    return true;  
+  },
+  remove:function (userId, doc) {
+    return true;
+  }
+});
+
+Tasks.allow({
+  insert: function (userId, doc) {
+    return true;
+  }
+});
+
+Thread.allow({
+  insert: function (userId, doc) {
+    return userId;
+  },
+  remove:function (userId, doc) {
+    return true;
+  }
+});
+
+Rss.allow({
+  insert: function (userId,loc) {
+    return true;
+  },
+  remove:function (userId, doc) {
+    return true;
+  }
+});
+
+Posts.allow({
+  insert: function (userId,loc) {
+    return true;
+  },
+  remove:function (userId, doc) {
+    return true;
+  }
+});
+
+/*Documents.allow({
+  insert: function (userId, doc) {
+    return true;
+  },
+  update:function (userId, doc) {
+    return true;
+  }
+});*/

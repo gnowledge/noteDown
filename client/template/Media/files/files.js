@@ -15,15 +15,19 @@ Meteor.startup(function () {
   Template.files.events({
     'change input.any': FS.EventHandlers.insertFiles(Collections.Files, {
       metadata: function (fileObj) {
+        var groupId = Session.get('groupId');
         return {
-          owner: Meteor.userId(),
+          owner:{
+            id: Meteor.userId(),
+            name: Meteor.user().profile.name
+          },
+          groupID: groupId,
           foo: "bar",
           dropped: false
         };
       },
       after: function (error, fileObj) {
         if (!error) {
-          console.log("Inserted", fileObj.name());
         }
       }
     }),
@@ -37,28 +41,11 @@ Meteor.startup(function () {
 
 });
 
+
+
 Template.files.helpers({
   uploadedFiles: function() {
-    return Collections.Files.find({owner: Meteor.userId()});
+    var groupId = Session.get('groupId');
+    return Collections.Files.find({groupID: groupId});
   }
-  /*curl: function () {
-    var ins = Template.instance(), filename = '';
-    if (ins) {
-      filename = ins.filename.get();
-    }
-
-    if (filename.length === 0) {
-      filename = 'example.txt';
-    }
-
-    var authObject = {
-      authToken: Accounts._storedLoginToken() || '',
-    };
-
-    // Set the authToken
-    var authString = JSON.stringify(authObject);
-    var authToken = FS.Utility.btoa(authString);
-
-    return 'curl "' + Meteor.absoluteUrl('cfs/files/' + Collections.Files.name) + '?filename=' + filename + '&token=' + authToken + '" -H "Content-Type: text/plain" -T "' + filename + '"';
-  }*/
 });

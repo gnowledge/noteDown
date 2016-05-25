@@ -1,27 +1,43 @@
+<template name="Note">
+	<div class="container">  
+		<h2>Note <a href="{{pathFor route='SmNote'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<hr class="divider">
+	</div>
+</template>
+
 <template name="SmNote">
 	{{> Navbar}}
-	<br>
 	<div class="container-fluid">
 		<div class="col-xs-12">
-			<h3>Create Note</h3>
 			<form class="form-horizontal" role="form" id ="addPost">
 				<div class="form-group container-fluid">
+					<h2>Create Note</h2>
 					<!--label for="postTitle">Post Title: </label-->
-					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter title here..." required style="width: 100%;">
+					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
+
 				</div>
+
 				<div class="form-group container-fluid">
 					<!--label for="postMessage">Post Message: </label-->
-					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter message here..." required style="width: 100%;"></textarea>
+					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
 				</div>
-				<div id="summernote" class="form-group" required>	
+
+				<div id="summernote" class="form-group">
+				
 				</div>
+
 				<div class="form-group">
-					<button type="submit" style="width=10%;" class="form-control btn btn-success">Save</button>
+					{{> Tags}}
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success" style="border-radius: 0px;">Save Post</button>
+				</div>
+
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
 				</div>
 			</form>
-			{{> Tags}}
-			{{> Media}}
-			{{> getLocation}}
 		</div>
 	</div>
 </template>
@@ -31,22 +47,25 @@
 	<div class="container">
 		<h2>All Notes</h2>
 		<div class="row">
+		<div style="width:100%;height:220px;line-height:3em;overflow-x:hidden;overflow-y:scroll;padding:5px;">
 			{{#if Template.subscriptionsReady}}
 				{{#each posts}}
-					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-						<div class="thumbnail">
-							<div class="caption">
-								<h3>{{Title}}</h3> 
-		                	</div>
-								<span style="float: right;" id="showMsg"><i>{{Message}} </i></span>
+					<div class="col-xs-12 col-md-6 col-lg-3">
+						<div class="thumbnail" style="height:200px;">
+
+								<marquee behavior="scroll" direction="left"><h2 id="showTitle" class="text-capitalize text-center">{{Title}}</h2></marquee>
 								<hr class="divider">
-		  						<a class="btn btn-default" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span> Read More!</a>
+
+		  						<center><p id="showMsg">{{Message}}</p></center>
+
+		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
 		  				</div>
 	  				</div>
 	            {{/each}}
 	        {{else}}
 	        	<p>Loading... {{> spinner}}</p>
 	        {{/if}}
+      	</div>
       	</div>
       	<hr class="divider">
    	</div>
@@ -55,54 +74,138 @@
 <template name="SinglePost">
 	{{> Navbar}}
 	<div class="container-fluid">
-	<div class="col-xs-12">
-		<div class="panel-group">
-			{{#if post}}
-				<div class="panel panel-title">
-					<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
-				</div>
-				<div class="panel panel-body">
-					<p class="text-center">Body : {{{post.Body}}}</p>
-					<p class="text-center">Tags: {{post.tagsName}}</p>
-					<p class="text-center">Edited User: {{post.editedUser}}</p>
-					<p class="text-center">Updated At: {{post.updatedAt}}</p>
-				</div>
-				<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="btn btn-success">Edit Post</button></a>
-				{{#if owner}}
-					<button class="btn btn-danger pull-right" id="deletePost"><span class="glyphicon glyphicon-remove"></span> Delete Post</button>
+		<div class="col-xs-12">
+			<div class="panel-group">
+				{{#if post}}
+						<!--button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button-->
+
+						{{#if owner}}
+							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+
+							<a href="{{pathFor route='EditPosts'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
+						{{/if}}
+					<br><br><br>
+					<div class="panel panel-title">
+						<h2 class="text-capitalize text-center">Title : {{post.Title}}</h2>
+					</div>
+					<div class="panel panel-body">
+						<p class="text-center">Body : {{{post.Body}}}</p>
+						{{#if tags }}
+							<p class="text-center">Tags: <b>{{post.Tags}}</b></p>
+						{{/if}}
+					</div>
+				{{else}}
+					<h2>No Such Note</h2>
+					<a href="{{pathFor route='SmNote'}}">Create Note</a>
 				{{/if}}
-			{{else}}
-				<h2>No Post</h2>
-			{{/if}}
+			</div>
 		</div>
 	</div>
-	</div>
-	<br><br><br><br><br><br><br><br><br>
 </template>
 
 <template name="EditPosts">
 	{{> Navbar}}
 	<div class="container-fluid">
-	<div class="col-xs-12">
-		<h2>Edit Note</h2>
-		<form role="form" id ="editPost">
-			<div class="form-group">
-				<!--label for="postTitle">Post Title: </label-->
-				<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..." style="width:100%">
-			</div>
-			<div class="form-group">
-				<!--label for="postMessage">Post Message: </label-->
-				<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..." style="width:100%"></textarea>
-			</div>
-			<div id="summernote" class="form-group">
-				{{{edit.Body}}}
-			</div>
-			Updated At: {{edit.updatedAt}}
-			<div class="form-group">
-				<button type="submit" class="form-control btn btn-success">Save Post</button>
-			</div>
-		</form>
+		<div class="col-xs-12">
+			<h2>Edit Note</h2>
+			<form role="form" id ="editPost">
+				<div class="form-group container-fluid">
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
+
+				</div>
+
+				<div class="form-group container-fluid">
+					<!--label for="postMessage">Post Message: </label-->
+					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
+				</div>
+
+				<div id="summernote" class="form-group">
+					{{{edit.Body}}}
+				</div>
+
+				<div class="form-group">
+					<h4 class="pull-right" style="margin-right: 20px; margin-left: 20px;"><b> {{edit.Tags}} </b></h4>
+					{{> Tags}}
+				</div>
+
+				<p class="pull-right"><b> Updated At: {{edit.updatedAt}}</b></p><br>
+
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success">Save Post</button>
+				</div>
+
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
+				</div>
+			</form>
+		</div>
 	</div>
+
+</template>
+
+<template name="ShareNotes">
+	<div class="container">
+		
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				<pre>Want to share the notes in the group ? </pre>
+				{{#each posts}}
+					<div class="col-sm-6 col-xs-4 col-md-3 col-lg-2">
+						<div class="thumbnail">
+							<div class="caption">
+								<marquee behavior="scroll" direction="left"><h3>{{Title}}</h3></marquee> 	
+		                	</div>	
+		                		<button class="btn btn-success btn-xs" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
+						</div>
+					</div>
+				{{/each}}
+			{{/if}}
+		</div>
 	</div>
-	<br><br><br><br><br><br><br><br><br>
+</template>
+
+<template name="SharedNotes">
+	<div class="container" >
+		<h3>Notes shared by Users</h3>
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				{{#each posts}}
+						<div class="thumbnail" >
+							<div class="caption" style="margin-left:30px;">
+								<h2>{{Title}}</h2>
+								<h4>{{Message}}</h4>
+								<a class="s" href="/posts/{{_id}}"><span class="glyphicon glyphicon-file"></span>Read More</a>
+							</div>
+							{{> groupDiscuss}}	
+						</div>
+				{{/each}}
+			{{/if}}
+		</div>
+	</div>
+</template>
+
+<template name="SharedNotesInGroup">
+	{{> navbarGroup}}
+	<div class="container" >
+		<h3>Shared Notes </h3>
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				{{#each posts}}
+					<div class="col-xs-12 col-md-6 col-lg-3">
+						<div class="thumbnail" style="height:220px;">
+							
+								<marquee behavior="scroll" direction="left"><h3 id="showTitles">{{Title}}</h3> </marquee>
+		                		<hr class="divider">
+								<span style="float: right;" id="showMsgs"><i>{{Message}} </i></span>
+								
+		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center>
+		  				</div>
+	  				</div>
+				{{/each}}
+			{{else}}
+	        	<p>Loading... {{> spinner}}</p>
+	        {{/if}}
+		</div>
+	</div>
 </template>
