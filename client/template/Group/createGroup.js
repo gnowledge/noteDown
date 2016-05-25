@@ -4,7 +4,7 @@ Template.newGroup.onCreated(function(){
             self.subscribe('groups');
       });
 });
-
+git merge master
 Template.newGroup.helpers({
       group_name: function(){
             return Groups.find({},{ gname: 1, _id: 0});
@@ -45,10 +45,6 @@ Template.newGroup.events({
             event.target.Title.value = "";
             event.target.Description.value = "";
             event.target.Privacy.checked = false;
-<<<<<<< HEAD
 	}  
-=======
-      }  
->>>>>>> master
 });
 
