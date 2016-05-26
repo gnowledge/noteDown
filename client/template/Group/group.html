@@ -2,40 +2,13 @@
 	{{> navbarGroup }}
 	<!--Start Container-->
 	<div class="container-fluid "><br>
+		<input type='hidden' name="groupId" id="groupId">
 		{{#if group}}
 		<div class="row">
 			{{#if owner}}
-				<button class="btn btn-success pull-right glyphicon glyphicon-pencil" id="edit" style="margin-right: 5px;" title="Edit"></button>
-				<button class="btn btn-danger pull-right glyphicon glyphicon-remove" id="delete" style="margin-right: 5px;" title="Delete"></button>
-
-				{{#if members}}
-		 				<div class="dropdown">
-		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
-			  					<span class="glyphicon glyphicon-user"></span>&nbsp;
-			  						Members
-			  					<span class="caret"></span>
-		  					</button>
-		  					<ul class="dropdown-menu dropdown-menu-right">
-		  						{{#each members}}
-							    	<li>
-							    	{{name}}<button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;
-							    	</li>
-								{{/each}}
-		  					</ul>
-						</div>
-					{{else}}
-						<div class="dropdown">
-					  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
-					  			<span class="caret"></span></button>
-					  			<ul class="dropdown-menu dropdown-menu-right">
-								    <li><a href="#">No members</a></li>
-							</ul>
-						</div>
-				{{/if}}
-
-
+					<button class="btn btn-success pull-right glyphicon glyphicon-pencil" id="edit" style="margin-right: 5px;" title="Edit"></button>
+					<button class="btn btn-danger pull-right glyphicon glyphicon-remove" id="delete" style="margin-right: 5px;" title="Delete"></button>	
 				{{#if private}}
-
 					{{#if notificationCount}}
 			 				<div class="dropdown">
 			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
@@ -64,34 +37,12 @@
 						  			</ul>
 							</div>
 					{{/if}}
-
 				{{else}}
+
 				{{/if}}
 			{{else}}
 				{{#if member}}
 					<input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;">
-					{{#if members}}
-		 				<div class="dropdown">
-		  					<button class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
-			  					<span class="glyphicon glyphicon-user"></span>&nbsp;
-			  						Members
-			  					<span class="caret"></span>
-		  					</button>
-		  					<ul class="dropdown-menu dropdown-menu-right">
-		  						{{#each members}}
-							    	<li>{{name}}</li>
-								{{/each}}
-		  					</ul>
-						</div>
-					{{else}}
-						<div class="dropdown">
-					  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;"><span class="glyphicon glyphicon-user"></span>&nbsp; Members
-					  			<span class="caret"></span></button>
-					  			<ul class="dropdown-menu dropdown-menu-right">
-								    <li><a href="#">No members</a></li>
-							</ul>
-						</div>
-					{{/if}}
 				{{else}}
 					{{#if private}}
 						<input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;">
@@ -116,15 +67,17 @@
 
 		{{#if owner}}
 		<br>
-			{{> Media}}
+			{{> Note}}
+			{{> Todo}}
+			{{> AddMedia}}
 			{{> ShareNotes}}
-			
 			{{> SharedNotes}}	
 		{{else}}
 			{{#if member}}
-				{{> Media}}
+				{{> Note}}
+				{{> Todo}}
+				{{> AddMedia}}
 				{{> ShareNotes}}
-		
 				{{> SharedNotes}}
 			{{/if}}
 		{{/if}}
@@ -132,39 +85,103 @@
 		<h2>No Such Group</h2>
 		<a href="{{pathFor route='newGroup'}}">Create Group</a>
 	{{/if}}
-	</div>
-	
+	</div>	
 </template>
 
-<template name="yourGroup">
-	<!-- Start Container -->
+<template name="Members">
+	{{> navbarGroup}}
 	<div class="container">
-		<h2>Your Groups</h2>
+		<h2>Members</h2>
+		<hr class="divider">
 		<div class="row">
 			{{#if Template.subscriptionsReady}}
-				{{#each groups}}
-					<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-						<div class="thumbnail">
-							<div class="caption">
-								<marquee behavior="scroll" direction="left"><h3 id="gname">{{gname}}</h3></marquee> 
-		                	</div>
-								<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
-		  						<hr class="divider">
-		  						<a href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
-		  				</div>
-	  				</div>
-	            {{/each}}
-	        {{else}}
+				{{#if group}}
+					{{#if owner}}
+						{{#if members}}
+							{{#each members}}
+								<li>{{name}}<button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+							{{/each}}
+						{{/if}}
+					{{else}}
+						{{#if member}}
+							{{#each members}}
+								<li>{{name}} - {{joinedAt}}</li>
+							{{/each}}
+						{{/if}}
+					{{/if}}
+				{{/if}}
+			{{/if}}
+		</div>
+	</div>
+</template>
+
+
+
+
+<template name="YourGroup">
+	<!-- Start Container -->
+	{{> Navbar}}
+	<div class="container">
+		<h2>Groups</h2>
+		<hr class="divider">
+
+		<h3>Owner:</h3>
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				{{#if owner}}
+					{{#each owner}}
+						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+
+							<div class="thumbnail">
+								<div class="caption">
+									<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+			                	</div>
+									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+			  						<hr class="divider">
+			  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+			  				</div>
+	  					</div>	
+			        {{/each}}
+			    {{else}}
+					<h2>No Group</h2>
+					<a href="{{pathFor route='newGroup'}}">Create Group</a>
+				{{/if}}
+		    {{else}}
 	        	<p>Loading... {{> spinner}}</p>
 	        {{/if}}
       	</div>
+
       	<hr class="divider">
+      	<h3>Member:</h3>       
+      	<div class="row">
+			{{#if Template.subscriptionsReady}} 
+				{{#if member}}
+			        {{#each member}}
+						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+							<div class="thumbnail">
+								<div class="caption">
+									<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+			                	</div>
+									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+			  						<hr class="divider">
+			  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+			  				</div>
+	  					</div>	
+			        {{/each}}
+			    {{else}}
+					<h2>No Group</h2>
+					<a href="{{pathFor route='newGroup'}}">Create Group</a>
+				{{/if}}
+		    {{else}}
+	        	<p>Loading... {{> spinner}}</p>
+	        {{/if}}
+      	</div>	  
    	</div>
 </template>
 
 
-<template name="allGroup">
-	<!-- Start Container -->
+<!--<template name="allGroup">
+	<!-- Start Container 
 	<div class="container"> 
 		<h2>All Groups</h2>
 		<div class="row">
@@ -173,7 +190,7 @@
 						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
 							<div class="thumbnail">
 								<div class="caption">
-									<marquee behavior="scroll" direction="left"><h3 id="gname">{{gname}}</h3></marquee> 
+									<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 			                	</div>
 									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 			  						<hr class="divider">
@@ -187,8 +204,5 @@
       	</div>
     	<hr class="divider">
    	</div>
-	<!-- End Container -->
-</template>
-
-
-
+	<!-- End Container 
+</template>-->

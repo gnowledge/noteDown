@@ -9,21 +9,18 @@ Template.SmNote.events({
 	'submit #addPost' : function (event) {
 		event.preventDefault();
 		var title = event.target.postTitle.value;
-		if(title.length<=5){
-			alert("should be maximum then 5 letters");
-			return false;
-		}
 		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
         if (result) {
               alert("Post name already exists");
               event.target.postTitle.value = "";
               return false;
         }
-		var message = event.target.postMessage.value;
+		//var message = event.target.postMessage.value;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
-		Meteor.call('addPost', title, message, postBody,loc, tags, function(err, res){
+		var privacy= "private";
+		Meteor.call('addPost', title, /*message,*/ postBody,loc, tags, privacy, function(err, res){
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
@@ -43,7 +40,10 @@ Template.SmNote.onRendered(function () {
 
 Template.ShowNotes.helpers({
 	posts: function() {
-		return Posts.find({},{sort: {createdOn: 1}},{limit: 6});
+		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1}});
+	},
+	post:function(){
+		return Posts.find({});
 	}
 });
 
@@ -101,13 +101,13 @@ Template.EditPosts.events({
 		event.preventDefault();
 		var id = Session.get('postId');
 		var title = event.target.postTitle.value;
-		var message = event.target.postMessage.value;
+		//var message = event.target.postMessage.value;
 		var post= Posts.findOne({_id: id});
 		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
-		Meteor.call('editPost',id, title, message, postBody, owner, loc, tags, function (error) {
+		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, function (error) {
 			if(!error){
 				Router.go('/posts/'+id);
 			}

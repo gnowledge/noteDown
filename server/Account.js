@@ -8,8 +8,7 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.emails = user.services.facebook.email;
         user.profile.name = user.services.facebook.name; 
     }
-    else
-        {
+    else {
             user.profile.name= user.username;
         } 
     return user;

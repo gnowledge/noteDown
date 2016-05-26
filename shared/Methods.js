@@ -142,7 +142,8 @@ Meteor.methods({
 					$addToSet: {
 						members:{ 
 							"id": memberId,
-							"name":memberName
+							"name":memberName,
+							"joinedAt": new Date()
 							}
 						}
 					});
@@ -245,7 +246,7 @@ Meteor.methods({
 	
 	//---------------Todo Function--------------------------------------------
 
-	createReminder : function(text, desc, date){
+	createReminder : function(text, desc, date, groupId){
 		check(text,String);
 		check(desc,String);
 		var task;
@@ -253,14 +254,29 @@ Meteor.methods({
 	    	throw new Meteor.Error("non-authorized");
 	    }
 		else{
-			task={
-				title: text,
-				desc: desc,
-				date: date,
-			    createdAt : new Date(),
-			    owner:{
-					"id": this.userId,
-					"name": Meteor.user().profile.name 
+			if(!groupId){
+				task={
+					title: text,
+					desc: desc,
+					date: date,
+				    createdAt : new Date(),
+				    owner:{
+						"id": this.userId,
+						"name": Meteor.user().profile.name 
+					}
+				}
+			}
+			else{
+				task={
+					title: text,
+					desc: desc,
+					date: date,
+					groupId: groupId,
+				    createdAt : new Date(),
+				    owner:{
+						"id": this.userId,
+						"name": Meteor.user().profile.name 
+					}
 				}
 			}
 		}
@@ -363,7 +379,7 @@ Meteor.methods({
 	},
 
 	//SummerNote------------------------------------
-	addPost: function (title, message, postBody, loc, tags) {
+	addPost: function (title, /*message,*/ postBody, loc, tags, privacy) {
 		var doc;
 		var user= Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
@@ -373,7 +389,7 @@ Meteor.methods({
 			doc={
 				
 				Title: title,
-				Message: message,
+				//Message: message,
 				Body: postBody,
 				owner:{
 					id:this.userId, 
@@ -381,6 +397,7 @@ Meteor.methods({
 				},
 				Location:loc,
 				Tags:tags,
+				privacy: privacy,
 				createdOn:new Date(), 
 			};
 			var id = Posts.insert(doc);
@@ -402,12 +419,12 @@ Meteor.methods({
 		
 	},
 
-	editPost: function (postID, title, message, postBody, owner, loc, tags) {
+	editPost: function (postID, title,/* message,*/ postBody, owner, loc, tags) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{
 				Title: title,
-				Message: message,
+				//Message: message,
 				Body: postBody,
 				Location: loc,
 				Tags:tags,
@@ -434,7 +451,8 @@ Meteor.methods({
   			});
   		return Posts.update({ _id: note_id},{
   				$set:{
-  	  				groupid: group_id
+  	  				groupid: group_id,
+  	  				privacy: "public"
   				}
   			});
   	}

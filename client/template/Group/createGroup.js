@@ -4,7 +4,7 @@ Template.newGroup.onCreated(function(){
             self.subscribe('groups');
       });
 });
-git merge master
+
 Template.newGroup.helpers({
       group_name: function(){
             return Groups.find({},{ gname: 1, _id: 0});

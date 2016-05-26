@@ -12,10 +12,11 @@
 
 	    <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="navbar-collapse-2">
 	      <ul class="nav navbar-nav">
-	          <li id="navli"><a id="list" href="{{pathFor route='User'}}">Home</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='SmNote'}}">Create Notes</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='newGroup'}}">Create Groups</a></li>&nbsp;  
-	          <li id="navli"><a id="list" href="{{pathFor route='createReminder'}}">Create Reminder</a></li>&nbsp;
+		      	
+	          <li id="navli"><a id="list" href="{{pathFor route='ShowNotes'}}">Notes</a></li>&nbsp;
+	          <li id="navli"><a id="list" href="{{pathFor route='YourGroup'}}">Groups</a></li>&nbsp;
+	          <li id="navli"><a id="list" href="{{pathFor route='YourTodo'}}">Todo</a></li>&nbsp;
+	          <li id="navli"><a id="list" href="{{pathFor route='SharedMedia'}}">Media</a></li>&nbsp;
 	          <li id="navli"><a id="list" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
 	          <li id="navli"><a id="list" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;
 	      </ul>
@@ -38,9 +39,11 @@
 
 	    <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="navbar-collapse-3">
 	      <ul class="nav navbar-nav">
-	      		<li id="navli"><a id="list" href="{{pathFor route='User'}}">Home</a></li>&nbsp;
-	      		<li id="navli"><a id="list" href="{{pathFor route='SharedNotesInGroup'}}">Shared Notes</a></li>&nbsp;
-				<li id="navli"><a id="list" href="{{pathFor route='SharedMediaInGroup'}}">Shared Media</a></li>&nbsp;
+	      		<li id="navli"><a id="list" href="/group/{{group._id}}" title="{{group.gdesc}}"><span class="glyphicon glyphicon-home"></span> <b>{{group.gname}}</b></a></li>&nbsp;
+	      		<li id="navli"><a id="list" href="{{pathFor route='SharedNotesInGroup'}}" title="Notes Shared">Notes</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='GroupTask'}}" title="Tasks Created">Tasks</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='SharedMediaInGroup'}}" title="Media Shared">Media</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='Members'}}" title="Group Members">Members</a></li>&nbsp;
 	      </ul>
 	    </div>
 	  </div>

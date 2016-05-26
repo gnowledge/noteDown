@@ -69,3 +69,32 @@ Template.SharedMediaInGroup.onCreated(function(){
         self.subscribe('videos');
     });
 });
+
+Template.SharedMedia.helpers({
+    images: function() {
+        var group_id= Session.get('groupId');
+        return Collections.Images.find({"owner.id":Meteor.userId()});
+    },
+    videos: function() {
+        var group_id= Session.get('groupId');
+        return Collections.Videos.find({"owner.id":Meteor.userId()});
+    },
+    audios: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Audios.find({"owner.id":Meteor.userId()});
+    },
+    files: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Files.find({"owner.id":Meteor.userId()});
+    },
+});
+
+Template.SharedMedia.onCreated(function(){
+    var self= this;
+    this.autorun( function() {
+        self.subscribe('images');
+        self.subscribe('audios');
+        self.subscribe('files');
+        self.subscribe('videos');
+    });
+});

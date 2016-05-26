@@ -1,3 +1,10 @@
+<template name="AddMedia">
+  <div class="container">  
+    <h2>Media  <a href="{{pathFor route='Media'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+    <hr class="divider">
+  </div>
+</template>
+
 <template name="updown">
   <div class="container">
     <div class="col-md-12">
@@ -15,7 +22,8 @@
 </template>
 
 <template name="Media">
-    {{> updown }}  
+  {{> Navbar}}
+  {{> updown }}  
 </template>
 
 
@@ -73,8 +81,8 @@
   </div>-->
   <div class="container" >
     <h3>Shared Media </h3>
-    {{#if images}}
     Images:
+    {{#if images}}
     <div class="imageArea clearfix">
       {{#each images}}
         {{> uploadedImage}}
@@ -107,6 +115,58 @@
         {{> uploadedAudio}}
       {{/each}}
     </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="SharedMedia">
+  {{> Navbar}}
+  <div class="container">
+    <h2>Media </h2>
+    <hr class="divider">
+    {{#if images}}
+      Images:
+      <div class="imageArea clearfix">
+      
+        {{#each images}}
+          {{> uploadedImage}}
+        {{/each}}
+      </div>
+    {{else}}
+     <p>No videos</p>
+    {{/if}}
+
+    {{#if videos}}
+      <div class="imageArea clearfix">
+        Videos:
+        {{#each videos}}
+          {{> uploadedVideo}}
+        {{/each}}
+      </div>
+    {{else}}
+      <p>No videos</p>
+    {{/if}}
+
+    {{#if files}}
+      <div class="imageArea clearfix">
+        Files:
+        {{#each files}}
+          {{> uploadedFile}}
+        {{/each}}
+      </div>
+      {{else}}
+      <p>No files</p>
+    {{/if}}
+
+    {{#if audios}}
+      <div class="imageArea clearfix">    
+        Audios:
+        {{#each audios}}
+          {{> uploadedAudio}}
+        {{/each}}
+      </div>
+      {{else}}
+      <p>No audios</p>
     {{/if}}
   </div>
 </template>
