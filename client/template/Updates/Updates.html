@@ -1,23 +1,26 @@
 <template name="Updates">
   {{> Navbar}}
   <div class="container">
-    <h2>Updates</h2>
-    <hr class="divider">
-    {{#if feedCount}}
-
-          {{#each feed}}
-            <div class="well well-lg" style="width:100%;display: inline-block;">
-              <table>
-              <col width="1200">
-                <tr>
-                  <td>{{rss_title}} <a href="{{action}}">{{title}}</a> at ({{createdAt}})</td>
-                </tr>
-              </table>
-            </div>
-          {{/each}}
-
-        {{else}}
-          <p>Loading... {{> spinner}}</p>
-     {{/if}}
+    {{#if Template.subscriptionsReady}}
+      <h2>Updates</h2>
+      <hr class="divider"><br>
+      {{#if feedCount}}
+        {{#each feed}}
+          <div class="well well-lg" style="width:100%;display: inline-block;">
+            <table>
+            <col width="1200">
+              <tr>
+                <td>{{rss_title}} <a href="{{action}}">{{title}}</a> at ({{createdAt}})</td>
+              </tr>
+            </table>
+          </div>
+        {{/each}}
+      {{else}}
+        <h2>No updates</h2>
+        <a href="{{pathFor route='User'}}">Home</a>
+      {{/if}}
+    {{else}}
+      <p>Loading... {{> spinner}}</p>
+    {{/if}}
   </div>
 </template>

@@ -20,7 +20,7 @@ Template.newGroup.events({
             var gdesc = event.target.Description.value;
             var result = Groups.findOne({ gname: gtitle });
             if (result) {
-                  alert("Group name already exists");
+                  alert("You have already created a group by this name");
                   event.target.Title.value = "";
                   return false;
             }
@@ -31,16 +31,13 @@ Template.newGroup.events({
             else{
                   privacy_flag = "public";
             }
-            if(confirm("Are the details correct ?")== true){
-                  Meteor.call("addGroup", gtitle, gdesc, privacy_flag, function(err, res){
-                        if(!err){//all good
-                              alert('Group created succesfully');
-                              var group = Groups.findOne({ gname: gtitle });
-                              var id= group._id;
-                              Router.go('/group/'+id);
-            		}
-            	});
-            }
+            Meteor.call("addGroup", gtitle, gdesc, privacy_flag, function(err, res){
+                  if(!err){//all good
+                        var group = Groups.findOne({ gname: gtitle });
+                        var id= group._id;
+                        Router.go('/group/'+id);
+      		}
+      	});
             // Clear form
             event.target.Title.value = "";
             event.target.Description.value = "";

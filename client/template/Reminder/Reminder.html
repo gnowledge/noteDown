@@ -40,47 +40,87 @@
 </template>
 
 <template name="YourTodo">
-	{{>Navbar}}
+	{{> Navbar}}
 	<div class="container">
-		<h2>Todo ({{incompleteCount}})</h2>
-		<hr class="divider">
-       	<label class="hide-completed" id="hide">
-        <input type="checkbox" checked= "{{hideCompleted}}" />
-          Hide Completed Tasks
-       	</label>
-		<div class="row">
-			{{#if Template.subscriptionsReady}}
-				<div class="jumbotron" id="container">
-					  <ul>	
-						{{#each tasks}}
-					  		{{>Task}}
-						{{/each}}	
-					  </ul>
+		{{#if Template.subscriptionsReady}}
+			<h2>Todo ({{incompleteCount}})</h2>
+			<hr class="divider">
+			<br>
+			{{#if task}}
+		       	<label class="hide-completed" id="hide">
+		        <input type="checkbox" checked= "{{hideCompleted}}" />
+		          Hide Completed Tasks
+		       	</label>
+				<div class="row">
+					<div class="jumbotron" id="container">
+						  <ul>	
+							{{#each tasks}}
+						  		{{>Task}}
+							{{/each}}	
+						  </ul>
+					</div>
 				</div>
+			{{else}}
+				<h2>No todo</h2>
+				<a href="{{pathFor route='CreateTodo'}}">Create Todo</a>
 			{{/if}}
-		</div>
+		{{else}}
+	        <p>Loading... {{> spinner}}</p>
+		{{/if}}
 	</div>
+</template>
+
+<template name="CreateTask">
+	{{> navbarGroup }}
+	<div class="container">
+		<h1>Task</h1>
+	    <form  class="new-task" id="form">
+     		<ul>
+     			<input type="text" name="text" placeholder="Type to add new tasks" required />
+     			<li>
+     				<input type="text" name="desc" placeholder="Type to add a description" required/>
+     				<li>
+         				<div class="input-group datetimepicker">
+						    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						    <input class="set-due-date form-control" name="datefilter" type="text" placeholder="Select a date" required/>
+			  			</div>
+			  		</li>
+     			</li>
+     			<li>
+     				<input type="submit" class="btn btn-primary" value="Create">
+     			</li>
+     		</ul>
+   		</form>
+	 </div>	
 </template>
 
 <template name="GroupTask">
 	{{> navbarGroup}}
 	<div class="container">
-		<h2>Task ({{incompleteCount}})</h2>
-		<hr class="divider">
-       	<label class="hide-completed" id="hide">
-        <input type="checkbox" checked= "{{hideCompleted}}" />
-          Hide Completed Tasks
-       	</label>
-		<div class="row">
-			{{#if Template.subscriptionsReady}}
-				<div class="jumbotron" id="container">
-					  <ul>	
-						{{#each tasks}}
-					  		{{>Task}}
-						{{/each}}	
-					  </ul>
+		{{#if Template.subscriptionsReady}}
+			<h2>Task ({{incompleteCount}})</h2>
+			<hr class="divider">
+			<br>
+			{{#if task}}
+		       	<label class="hide-completed" id="hide">
+		        <input type="checkbox" checked= "{{hideCompleted}}" />
+		          Hide Completed Tasks
+		       	</label>
+				<div class="row">
+					<div class="jumbotron" id="container">
+						  <ul>	
+							{{#each tasks}}
+						  		{{>Task}}
+							{{/each}}	
+						  </ul>
+					</div>
 				</div>
+			{{else}}
+				<h2>No task</h2>
+				<a href="{{pathFor route='CreateTask'}}">Create Task</a>
 			{{/if}}
-		</div>
+		{{else}}
+	        <p>Loading... {{> spinner}}</p>
+		{{/if}}
 	</div>
 </template>

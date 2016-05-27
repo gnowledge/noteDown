@@ -19,4 +19,15 @@ ServiceConfiguration.configurations.upsert({
   	}
 });
 
+ServiceConfiguration.configurations.upsert({
+  service: "twitter"
+},
+{
+  $set: {
+        clientId: Meteor.settings.twitter.appId,
+        loginStyle: "popup",
+        secret: Meteor.settings.twitter.secret
+    }
+});
+
 

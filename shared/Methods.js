@@ -246,7 +246,7 @@ Meteor.methods({
 	
 	//---------------Todo Function--------------------------------------------
 
-	createReminder : function(text, desc, date, groupId){
+	createReminder : function(text, desc, date){
 		check(text,String);
 		check(desc,String);
 		var task;
@@ -254,7 +254,6 @@ Meteor.methods({
 	    	throw new Meteor.Error("non-authorized");
 	    }
 		else{
-			if(!groupId){
 				task={
 					title: text,
 					desc: desc,
@@ -264,21 +263,7 @@ Meteor.methods({
 						"id": this.userId,
 						"name": Meteor.user().profile.name 
 					}
-				}
-			}
-			else{
-				task={
-					title: text,
-					desc: desc,
-					date: date,
-					groupId: groupId,
-				    createdAt : new Date(),
-				    owner:{
-						"id": this.userId,
-						"name": Meteor.user().profile.name 
-					}
-				}
-			}
+				}			
 		}
 		var id=Tasks.insert(task);
 		var reminderId= Meteor.users.update({ _id: this.userId },{
@@ -289,6 +274,34 @@ Meteor.methods({
 		return id;
     },
 
+    createTask : function(text, desc, date,group_id){
+		check(text,String);
+		check(desc,String);
+		var task;
+	    if(! this.userId){
+	    	throw new Meteor.Error("non-authorized");
+	    }
+		else{
+				task={
+					title: text,
+					desc: desc,
+					date: date,
+					groupID: group_id,
+				    createdAt : new Date(),
+				    owner:{
+						"id": this.userId,
+						"name": Meteor.user().profile.name 
+					}
+				}			
+		}
+		var id=Tasks.insert(task);
+		var reminderId= Meteor.users.update({ _id: this.userId },{
+				$addToSet: {
+					reminder_ids: id
+				}
+			});
+		return id;
+    },
     deleteReminder : function(taskId){
 		var task = Tasks.findOne(taskId);
 		if(task.owner.id !== this.userId){
@@ -455,5 +468,45 @@ Meteor.methods({
   	  				privacy: "public"
   				}
   			});
-  	}
+  	},
+  	addGroupNote: function (title, /*message,*/ postBody, loc, tags, privacy, group_id) {
+		var doc;
+		var user= Meteor.user().profile.name;
+		if(!this.userId){// NOt logged in
+			return;
+		}
+		else{
+			doc={
+				
+				Title: title,
+				//Message: message,
+				Body: postBody,
+				owner:{
+					id:this.userId, 
+					name:Meteor.user().profile.name
+				},
+				Location:loc,
+				Tags:tags,
+				privacy: privacy,
+				groupID:group_id,
+				createdOn:new Date(), 
+			};
+			var id = Posts.insert(doc);
+			Rss.insert({
+				rss_title: "'" +user + "' has created a note",
+				title:title,
+				user: user,
+				createdAt: new Date(),
+				action: "/posts/"+id,
+				id: id
+			});
+			var postId= Meteor.users.update({ _id: this.userId },{
+				$addToSet: {
+					post_ids: id
+				}
+			});
+			return id;
+		}  
+		
+	},
 });

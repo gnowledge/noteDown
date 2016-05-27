@@ -46,18 +46,34 @@ Template.SharedMediaInGroup.helpers({
         var group_id= Session.get('groupId');
         return Collections.Images.find({groupID: group_id});
     },
+    image: function() {
+        var group_id= Session.get('groupId');
+        return Collections.Images.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+    },
     videos: function() {
         var group_id= Session.get('groupId');
         return Collections.Videos.find({groupID: group_id});
+    },
+    video: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Videos.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
     },
     audios: function() {
          var group_id= Session.get('groupId');
         return Collections.Audios.find({groupID: group_id});
     },
+    audio: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Audios.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+    },
     files: function() {
          var group_id= Session.get('groupId');
         return Collections.Files.find({groupID: group_id});
     },
+    file: function() {
+         var group_id= Session.get('groupId');
+        return Collections.Files.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+    }
 });
 
 Template.SharedMediaInGroup.onCreated(function(){
@@ -72,21 +88,29 @@ Template.SharedMediaInGroup.onCreated(function(){
 
 Template.SharedMedia.helpers({
     images: function() {
-        var group_id= Session.get('groupId');
         return Collections.Images.find({"owner.id":Meteor.userId()});
     },
+    image: function() {
+        return Collections.Images.find({"owner.id":Meteor.userId()}).count();
+    },
     videos: function() {
-        var group_id= Session.get('groupId');
         return Collections.Videos.find({"owner.id":Meteor.userId()});
     },
+    video: function() {
+        return Collections.Videos.find({"owner.id":Meteor.userId()}).count();
+    },
     audios: function() {
-         var group_id= Session.get('groupId');
         return Collections.Audios.find({"owner.id":Meteor.userId()});
     },
+    audio: function() {
+        return Collections.Audios.find({"owner.id":Meteor.userId()}).count();
+    },
     files: function() {
-         var group_id= Session.get('groupId');
         return Collections.Files.find({"owner.id":Meteor.userId()});
     },
+    file: function() {
+        return Collections.Files.find({"owner.id":Meteor.userId()}).count();
+    }
 });
 
 Template.SharedMedia.onCreated(function(){

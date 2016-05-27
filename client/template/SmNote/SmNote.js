@@ -38,21 +38,7 @@ Template.SmNote.onRendered(function () {
 		});
 });
 
-Template.ShowNotes.helpers({
-	posts: function() {
-		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1}});
-	},
-	post:function(){
-		return Posts.find({});
-	}
-});
-
-Template.ShowNotes.onCreated(function(){
-	var self= this;
-	this.autorun( function() {
-		self.subscribe('posts');
-	});
-});
+//-------------------single note page------------------
 
 Template.SinglePost.helpers({
 	post: function() { 
@@ -95,7 +81,7 @@ Template.SinglePost.events({
 		Router.go('publishNote');
 	}
 });
-
+//-------------------------------editing personal notes-----------------
 Template.EditPosts.events({
 	'submit #editPost' : function (event) {
 		event.preventDefault();
@@ -136,7 +122,7 @@ Template.EditPosts.helpers({
 	}
 
 });
-
+//------------------------------------------
 Template.ShareNotes.helpers({
 	posts: function() {
 		return Posts.find({"owner.id": Meteor.userId()},{sort: {createdOn: 1}},{limit: 6});
@@ -160,7 +146,7 @@ Template.ShareNotes.events({
 	}
 });
 
-
+//----------------------------------------
 Template.SharedNotes.helpers({
 	posts: function() {
 		var group_id= Session.get('groupId');
@@ -174,11 +160,15 @@ Template.SharedNotes.onCreated(function(){
 		self.subscribe('posts');
 	});
 });
-
+//-----------------------------------------
 Template.SharedNotesInGroup.helpers({
 	posts: function() {
 		var group_id= Session.get('groupId');
-		return Posts.find({ groupid: group_id});
+		return Posts.find({ groupID: group_id});
+	},
+	post:function(){
+		var group_id= Session.get('groupId');
+		return Posts.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
 	}
 });
 
@@ -187,4 +177,66 @@ Template.SharedNotesInGroup.onCreated(function(){
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
+});
+
+//--- Notes in group-------------
+Template.ShowNotes.helpers({
+	posts: function() {
+		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1}});
+	},
+	post:function(){
+		return Posts.find({"owner.id":Meteor.userId()}).count();
+	}
+});
+
+Template.ShowNotes.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
+
+
+
+//---- Creating notes in Groups----------
+
+Template.CreateNote.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
+
+Template.CreateNote.events({
+	'submit #addPost' : function (event) {
+		event.preventDefault();
+		var title = event.target.postTitle.value;
+		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
+        if (result) {
+              alert("Post name already exists");
+              event.target.postTitle.value = "";
+              return false;
+        }
+		//var message = event.target.postMessage.value;
+		var postBody = $('#summernote').summernote('code');
+		var loc = Session.get('location');
+		var tags = Session.get('tag');
+		var privacy= "public";
+		var groupID= Session.get('group');
+		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, function(err, res){
+				if(!err){//all good
+	                  var note= Posts.findOne({ Title: title });
+	                  var id= note._id;
+	                  Router.go('/posts/'+id);
+				}
+			});
+		//location.reload();
+	}
+});
+
+//every time the template rendered
+Template.CreateNote.onRendered(function () {
+		$(document).ready(function() {
+		  $('#summernote').summernote();
+		});
 });

@@ -80,41 +80,61 @@
     </div>
   </div>-->
   <div class="container" >
-    <h3>Shared Media </h3>
-    Images:
-    {{#if images}}
-    <div class="imageArea clearfix">
-      {{#each images}}
-        {{> uploadedImage}}
-      {{/each}}
-    </div>
-    {{/if}}
+    {{#if Template.subscriptionsReady}}
+      <h2>Media </h2>
+      <hr class="divider"><br>
+      {{#if image}}
+        Images:
+        <div class="imageArea clearfix">
+          {{#each images}}
+            {{> uploadedImage}}
+          {{/each}}
+        </div>
+      {{else}}
+        <h2>No images</h2>
+        <a href="{{pathFor route='Media'}}">Add Images</a>
+      {{/if}}
+      <hr class="divider"><br>
 
-    {{#if videos}}
-    <div class="imageArea clearfix">
-      Videos:
-      {{#each videos}}
-        {{> uploadedVideo}}
-      {{/each}}
-    </div>
-    {{/if}}
+      {{#if video}}
+        <div class="imageArea clearfix">
+          Videos:
+          {{#each videos}}
+            {{> uploadedVideo}}
+          {{/each}}
+        </div>
+      {{else}}
+        <h2>No videos</h2>
+        <a href="{{pathFor route='Media'}}">Add Videos</a>
+      {{/if}}
+      <hr class="divider"><br>
 
-    {{#if files}}
-    <div class="imageArea clearfix">
-      Files:
-      {{#each files}}
-        {{> uploadedFile}}
-      {{/each}}
-    </div>
-    {{/if}}
+      {{#if file}}
+        <div class="imageArea clearfix">
+          Files:
+          {{#each files}}
+            {{> uploadedFile}}
+          {{/each}}
+        </div>
+      {{else}}
+        <h2>No files</h2>
+        <a href="{{pathFor route='Media'}}">Add Files</a>
+      {{/if}}
+      <hr class="divider"><br>
 
-    {{#if audios}}
-    <div class="imageArea clearfix">    
-      Audios:
-      {{#each audios}}
-        {{> uploadedAudio}}
-      {{/each}}
-    </div>
+      {{#if audio}}
+        <div class="imageArea clearfix">    
+          Audio:
+          {{#each audios}}
+            {{> uploadedAudio}}
+          {{/each}}
+        </div>
+      {{else}}
+        <h2>No audios</h2>
+        <a href="{{pathFor route='Media'}}">Add Audio</a>
+      {{/if}}
+    {{else}}
+      <p>Loading... {{> spinner}}</p>
     {{/if}}
   </div>
 </template>
@@ -122,51 +142,62 @@
 <template name="SharedMedia">
   {{> Navbar}}
   <div class="container">
-    <h2>Media </h2>
-    <hr class="divider">
-    {{#if images}}
-      Images:
-      <div class="imageArea clearfix">
-      
-        {{#each images}}
-          {{> uploadedImage}}
-        {{/each}}
-      </div>
-    {{else}}
-     <p>No videos</p>
-    {{/if}}
-
-    {{#if videos}}
-      <div class="imageArea clearfix">
-        Videos:
-        {{#each videos}}
-          {{> uploadedVideo}}
-        {{/each}}
-      </div>
-    {{else}}
-      <p>No videos</p>
-    {{/if}}
-
-    {{#if files}}
-      <div class="imageArea clearfix">
-        Files:
-        {{#each files}}
-          {{> uploadedFile}}
-        {{/each}}
-      </div>
+  {{#if Template.subscriptionsReady}}
+      <h2>Media </h2>
+      <hr class="divider"><br>
+      {{#if image}}
+        Images:
+        <div class="imageArea clearfix">
+        
+          {{#each images}}
+            {{> uploadedImage}}
+          {{/each}}
+        </div>
       {{else}}
-      <p>No files</p>
-    {{/if}}
+       <h2>No images</h2>
+       <a href="{{pathFor route='Media'}}">Add Images</a>
+      {{/if}}
+      <hr class="divider"><br>
 
-    {{#if audios}}
-      <div class="imageArea clearfix">    
-        Audios:
-        {{#each audios}}
-          {{> uploadedAudio}}
-        {{/each}}
-      </div>
+      {{#if video}}
+        <div class="imageArea clearfix">
+          Videos:
+          {{#each videos}}
+            {{> uploadedVideo}}
+          {{/each}}
+        </div>
       {{else}}
-      <p>No audios</p>
+        <h2>No videos</h2>
+        <a href="{{pathFor route='Media'}}">Add Videos</a>
+      {{/if}}
+      <hr class="divider"><br>
+
+      {{#if file}}
+        <div class="imageArea clearfix">
+          Files:
+          {{#each files}}
+            {{> uploadedFile}}
+          {{/each}}
+        </div>
+        {{else}}
+        <h2>No files</h2>
+        <a href="{{pathFor route='Media'}}">Add Files</a>
+      {{/if}}
+      <hr class="divider"><br>
+
+      {{#if audio}}
+        <div class="imageArea clearfix">    
+          Audio:
+          {{#each audios}}
+            {{> uploadedAudio}}
+          {{/each}}
+        </div>
+        {{else}}
+        <h2>No audios</h2>
+        <a href="{{pathFor route='Media'}}">Add Audio</a>
+      {{/if}}
+    {{else}}
+      <p>Loading... {{> spinner}}</p>
     {{/if}}
   </div>
 </template>

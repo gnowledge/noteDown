@@ -36,30 +36,6 @@
 	</div>
 </template>
 
-
-<template name="ShowNotes">
-	{{> Navbar}}
-	<div class="container">
-		{{#if Template.subscriptionsReady}}
-				<h2>Notes</h2>
-				<hr class="divider">
-				<div class="row">
-					{{#each posts}}
-						<div class="col-xs-12 col-md-6 col-lg-3">
-							<div class="thumbnail" style="height:200px;">
-								<a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
-								<hr class="divider">
-		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
-			  				</div>
-		  				</div>
-		           {{/each}}
-		        </div>
-      	{{else}}
-	        <p>Loading... {{> spinner}}</p>
-	    {{/if}}
-   	</div>
-</template>
-
 <template name="SinglePost">
 	{{> Navbar}}
 	<div class="container">
@@ -175,22 +151,87 @@
 <template name="SharedNotesInGroup">
 	{{> navbarGroup}}
 	<div class="container" >
-		<h3>Shared Notes </h3>
+	{{#if Template.subscriptionsReady}}
+		<h3>Notes</h3>
+		<hr class="divider"><br>
+		{{#if post}}
 		<div class="row">
-			{{#if Template.subscriptionsReady}}
-				{{#each posts}}
-					<div class="col-xs-12 col-md-6 col-lg-3">
-						<div class="thumbnail" style="height:200px;">
-							<h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2>
-							<hr class="divider">
-							<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
-		  				</div>
+		
+			{{#each posts}}
+				<div class="col-xs-12 col-md-6 col-lg-3">
+					<div class="thumbnail" style="height:200px;">
+						<a class="s" href="/posts/{{_id}}"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
+						<hr class="divider">
+						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
 	  				</div>
-				{{/each}}
-			{{else}}
-	        	<p>Loading... {{> spinner}}</p>
-	        {{/if}}
+  				</div>
+			{{/each}}
+			
 		</div>
+		{{else}}
+			<h2>No notes</h2>
+			<a href="{{pathFor route='SmNote'}}">Create Note</a>
+		{{/if}}
+	{{else}}
+    	<p>Loading... {{> spinner}}</p>
+    {{/if}}
 	</div>
 </template>
 
+<template name="ShowNotes">
+	{{> Navbar}}
+	<div class="container">
+		{{#if Template.subscriptionsReady}}
+			<h2>Notes</h2>
+			<hr class="divider"><br>
+			{{#if post}}
+				<div class="row">
+					{{#each posts}}
+						<div class="col-xs-12 col-md-6 col-lg-3">
+							<div class="thumbnail" style="height:200px;">
+								<a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
+								<hr class="divider">
+		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
+			  				</div>
+		  				</div>
+		           {{/each}}
+		        </div>
+		    {{else}}
+		      	<h2>No notes</h2>
+		      	<a href="{{pathFor route='SmNote'}}">Create Note</a>
+		    {{/if}}
+      	{{else}}
+	        <p>Loading... {{> spinner}}</p>
+	    {{/if}}
+   	</div>
+</template>
+
+<template name="CreateNote">
+	{{> navbarGroup }}
+	<div class="container">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form" id ="addPost">
+				<div class="form-group container-fluid">
+					<h2>Create Note</h2> 
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
+				</div>
+				<!--<div class="form-group container-fluid">
+					
+					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
+				</div>-->
+				<div id="summernote" class="form-group">
+				</div>
+				<div class="form-group">
+					{{> Tags}}
+				</div>
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success" style="border-radius: 0px;">Save Post</button>
+				</div>
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
+				</div>
+			</form>
+		</div>
+	</div>
+</template>
