@@ -7,7 +7,7 @@ function getHandler(dropped) {
               id: Meteor.userId(),
               name: Meteor.user().profile.name
             },
-            groupID: groupId,
+            
             foo: "bar",
             dropped: false
       };
@@ -32,8 +32,8 @@ Meteor.startup(function () {
 });
 
 Template.images.uploadedImages = function() {
-  var groupId = Session.get('groupId');
-  return Collections.Images.find({groupID: groupId});
+  
+  return Collections.Images.find({});
 };
 
 Template.images.onCreated(function(){

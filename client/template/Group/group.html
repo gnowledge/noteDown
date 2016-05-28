@@ -1,4 +1,4 @@
-<template name="singleGroup">
+<template name="SingleGroup">
 	<!--Start Container-->
 	{{#if owner}}
 			{{> navbarGroup}}
@@ -73,31 +73,31 @@
 		{{#if owner}}
 		<br>
 			<div class="container"> 
-				<h2>Note &nbsp;  <a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+				<h2>Note &nbsp;  <a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
 				<hr class="divider">
-				<h2>Task &nbsp; <a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
+				<h2>Task &nbsp; <a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
 				<hr class="divider">
 				<h2>Media  <a href=""><img src="/images/add.png"  height="50" title="Add media"></a></h2>
 	    		<hr class="divider">
 	    	</div>
-			{{> ShareNotes}}
-			{{> SharedNotes}}	
+			<!--{{> ShareNotes}}
+			{{> SharedNotes}}-->	
 		{{else}}
 			{{#if member}}
 				<div class="container">
-					<h2>Note &nbsp;&nbsp;  <a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+					<h2>Note &nbsp;&nbsp;  <a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
 					<hr class="divider">
-					<h2>Task &nbsp;&nbsp;<a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
+					<h2>Task &nbsp;&nbsp;<a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
 					<hr class="divider">
-					<h2>Media &nbsp; <a href="{{pathFor route='Media'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+					<h2>Media &nbsp; <a href=""><img src="/images/add.png"  height="50" title="Add media"></a></h2>
 				</div>
-				{{> ShareNotes}}
-				{{> SharedNotes}}
+				<!--{{> ShareNotes}}
+				{{> SharedNotes}}-->
 			{{/if}}
 		{{/if}}
 	{{else}}
 		<h2>No Such Group</h2>
-		<a href="{{pathFor route='newGroup'}}">Create Group</a>
+		<a href="{{pathFor route='CreateGroup'}}">Create Group</a>
 	{{/if}}
 	</div>	
 </template>
@@ -111,7 +111,6 @@
 
 			{{#if members}}
 				<div class="row">
-					
 						{{#if owner}}
 							{{#if members}}
 								{{#each members}}
@@ -134,9 +133,6 @@
     	{{/if}}
 	</div>
 </template>
-
-
-
 
 <template name="YourGroup">
 	<!-- Start Container -->
@@ -165,7 +161,7 @@
 			      	</div>
 		      	{{else}}
 		      		<h2>Not a owner</h2>
-		      		<a href="{{pathFor route='newGroup'}}">Create Group</a>
+		      		<a href="{{pathFor route='CreateGroup'}}">Create Group</a>
 		      	{{/if}}
 
 		      	<hr class="divider">

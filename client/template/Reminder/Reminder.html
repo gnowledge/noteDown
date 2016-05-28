@@ -98,7 +98,7 @@
 	{{> navbarGroup}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-			<h2>Task ({{incompleteCount}})</h2>
+			<h2>Task ({{incompleteCount}}) <a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
 			<hr class="divider">
 			<br>
 			{{#if task}}

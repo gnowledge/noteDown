@@ -1,11 +1,11 @@
-Template.SmNote.onCreated(function(){
+Template.CreateNote.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
 });
 
-Template.SmNote.events({
+Template.CreateNote.events({
 	'submit #addPost' : function (event) {
 		event.preventDefault();
 		var title = event.target.postTitle.value;
@@ -32,7 +32,7 @@ Template.SmNote.events({
 });
 
 //every time the template rendered
-Template.SmNote.onRendered(function () {
+Template.CreateNote.onRendered(function () {
 		$(document).ready(function() {
 		  $('#summernote').summernote();
 		});
@@ -40,7 +40,7 @@ Template.SmNote.onRendered(function () {
 
 //-------------------single note page------------------
 
-Template.SinglePost.helpers({
+Template.SingleNote.helpers({
 	post: function() { 
 		var id = Session.get('postId');
 		var post=Posts.findOne({_id: id});
@@ -61,14 +61,14 @@ Template.SinglePost.helpers({
 	}
 });
 
-Template.SinglePost.onCreated(function(){
+Template.SingleNote.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
 });
 
-Template.SinglePost.events({
+Template.SingleNote.events({
 	'click #deletePost': function () {
 		var id = Session.get('postId');
 		console.log(id);
@@ -82,7 +82,7 @@ Template.SinglePost.events({
 	}
 });
 //-------------------------------editing personal notes-----------------
-Template.EditPosts.events({
+Template.EditNote.events({
 	'submit #editPost' : function (event) {
 		event.preventDefault();
 		var id = Session.get('postId');
@@ -101,20 +101,20 @@ Template.EditPosts.events({
 	}
 });
 
-Template.EditPosts.onRendered(function () {
+Template.EditNote.onRendered(function () {
 	$(document).ready(function() {
 		  $('#summernote').summernote();
 		});
 });
 
-Template.EditPosts.onCreated(function(){
+Template.EditNote.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
 });
 
-Template.EditPosts.helpers({
+Template.EditNote.helpers({
 	edit : function(){
 		var id = Session.get('postId');
 		var edit=Posts.findOne({_id: id});
@@ -123,7 +123,7 @@ Template.EditPosts.helpers({
 
 });
 //------------------------------------------
-Template.ShareNotes.helpers({
+/*Template.ShareNotes.helpers({
 	posts: function() {
 		return Posts.find({"owner.id": Meteor.userId()},{sort: {createdOn: 1}},{limit: 6});
 	}
@@ -159,7 +159,8 @@ Template.SharedNotes.onCreated(function(){
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
-});
+});*/
+
 //-----------------------------------------
 Template.SharedNotesInGroup.helpers({
 	posts: function() {
@@ -179,8 +180,8 @@ Template.SharedNotesInGroup.onCreated(function(){
 	});
 });
 
-//--- Notes in group-------------
-Template.ShowNotes.helpers({
+//--- Notes of user-------------
+Template.YourNotes.helpers({
 	posts: function() {
 		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1}});
 	},
@@ -189,7 +190,7 @@ Template.ShowNotes.helpers({
 	}
 });
 
-Template.ShowNotes.onCreated(function(){
+Template.YourNotes.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('posts');
@@ -200,14 +201,14 @@ Template.ShowNotes.onCreated(function(){
 
 //---- Creating notes in Groups----------
 
-Template.CreateNote.onCreated(function(){
+Template.CreateNoteInGroup.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
 });
 
-Template.CreateNote.events({
+Template.CreateNoteInGroup.events({
 	'submit #addPost' : function (event) {
 		event.preventDefault();
 		var title = event.target.postTitle.value;
@@ -227,7 +228,7 @@ Template.CreateNote.events({
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
-	                  Router.go('/posts/'+id);
+	                  Router.go('/group_notes/'+id);
 				}
 			});
 		//location.reload();
@@ -235,8 +236,91 @@ Template.CreateNote.events({
 });
 
 //every time the template rendered
-Template.CreateNote.onRendered(function () {
+Template.CreateNoteInGroup.onRendered(function () {
 		$(document).ready(function() {
 		  $('#summernote').summernote();
 		});
+});
+
+Template.SingleNoteOfGroup.helpers({
+	post: function() { 
+		var id = Session.get('postId');
+		var post=Posts.findOne({_id: id});
+		return post;
+	},
+	owner: function(){
+		var id = Session.get('postId');
+		var post=Posts.findOne({_id: id});
+		var owner= post.owner.id;
+		if(owner=== Meteor.userId())
+			return owner;
+	},
+	tags:function(){
+		var id = Session.get('postId');
+		var post=Posts.findOne({_id: id});
+		if(post.Tags)
+			return true;
+	}
+});
+
+Template.SingleNoteOfGroup.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
+
+Template.SingleNoteOfGroup.events({
+	'click #deletePost': function () {
+		var id = Session.get('postId');
+		console.log(id);
+		Meteor.call('deletePost', id);
+		Router.go('/shared_notes');
+	},
+	'click #publishNote': function () {
+		var id = Session.get('postId');
+		Session.set('note_id',id);
+		Router.go('publishNote');
+	}
+});
+//-------------------------------editing personal notes-----------------
+Template.EditNoteOfGroup.events({
+	'submit #editPost' : function (event) {
+		event.preventDefault();
+		var id = Session.get('postId');
+		var title = event.target.postTitle.value;
+		//var message = event.target.postMessage.value;
+		var post= Posts.findOne({_id: id});
+		var owner= post.owner.id;
+		var postBody = $('#summernote').summernote('code');
+		var loc = Session.get('location');
+		var tags = Session.get('tag');
+		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, function (error) {
+			if(!error){
+				Router.go('/group_notes/'+id);
+			}
+		});
+	}
+});
+
+Template.EditNoteOfGroup.onRendered(function () {
+	$(document).ready(function() {
+		  $('#summernote').summernote();
+		});
+});
+
+Template.EditNoteOfGroup.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
+
+Template.EditNoteOfGroup.helpers({
+	edit : function(){
+		var id = Session.get('postId');
+		var edit=Posts.findOne({_id: id});
+		return edit;
+	}
+
 });

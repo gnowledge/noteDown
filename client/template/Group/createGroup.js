@@ -1,17 +1,17 @@
-Template.newGroup.onCreated(function(){
+Template.CreateGroup.onCreated(function(){
       var self= this;
       this.autorun( function() {
             self.subscribe('groups');
       });
 });
 
-Template.newGroup.helpers({
+Template.CreateGroup.helpers({
       group_name: function(){
             return Groups.find({},{ gname: 1, _id: 0});
       }
 });
 
-Template.newGroup.events({
+Template.CreateGroup.events({
       "submit .form": function(event) {
             event.preventDefault();
             var privacy_flag;

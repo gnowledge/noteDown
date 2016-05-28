@@ -10,3 +10,7 @@ li#navli{
 .navbar-toggle{
 	background: #000000;
 }
+
+.dropdown{
+	position: relative;
+}

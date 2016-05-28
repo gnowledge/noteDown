@@ -1,4 +1,4 @@
-Template.singleGroup.onCreated(function(){
+Template.SingleGroup.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('groups',Session.get('groupId'));
@@ -7,7 +7,7 @@ Template.singleGroup.onCreated(function(){
 	});
 });
 
-Template.singleGroup.helpers({
+Template.SingleGroup.helpers({
 	group : function(){
 		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
@@ -55,7 +55,7 @@ Template.singleGroup.helpers({
   	}
 });
 
-Template.singleGroup.events({
+Template.SingleGroup.events({
 	"click #delete": function(event) {
 		var groupId = Session.get('groupId');
 		Meteor.call('deleteGroup', groupId, function(err,res){

@@ -15,13 +15,13 @@ Meteor.startup(function() {
 	Template.audio.events({
 	'change input.audioFile' : FS.EventHandlers.insertFiles(Collections.Audios,{
 		metadata : function(fileobj){
-			var groupId = Session.get('groupId');
+			
 			return {
 	          owner:{
 	            id: Meteor.userId(),
 	            name: Meteor.user().profile.name
 	          },
-	          groupID: groupId,
+	         
 	          dropped: false
 	        };
 		},
@@ -45,7 +45,7 @@ Meteor.startup(function() {
 
 Template.audio.helpers({
   uploadedAudios: function() {
-  	var groupId = Session.get('groupId');
-    return Collections.Audios.find({groupID: groupId});
+  	
+    return Collections.Audios.find({});
   }
 });

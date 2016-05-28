@@ -86,7 +86,7 @@ Template.SharedMediaInGroup.onCreated(function(){
     });
 });
 
-Template.SharedMedia.helpers({
+Template.YourMedia.helpers({
     images: function() {
         return Collections.Images.find({"owner.id":Meteor.userId()});
     },
@@ -113,7 +113,7 @@ Template.SharedMedia.helpers({
     }
 });
 
-Template.SharedMedia.onCreated(function(){
+Template.YourMedia.onCreated(function(){
     var self= this;
     this.autorun( function() {
         self.subscribe('images');

@@ -11,15 +11,14 @@
 	    </div>
 
 	    <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="navbar-collapse-2">
-	      <ul class="nav navbar-nav">
-		      	
-	          <li id="navli"><a id="list" href="{{pathFor route='ShowNotes'}}">Notes</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='YourGroup'}}">Groups</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='YourTodo'}}">Todo</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='SharedMedia'}}">Media</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
-	          <li id="navli"><a id="list" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;
-	      </ul>
+		    <ul class="nav navbar-nav">
+				<li id="navli"><a id="list" href="{{pathFor route='YourNotes'}}">Notes</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='YourGroup'}}">Groups</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='YourTodo'}}">Todo</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='YourMedia'}}">Media</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
+				<li id="navli"><a id="list" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;
+		    </ul>
 	    </div>
 	  </div>
 	</nav>
@@ -38,12 +37,37 @@
 	    </div>
 
 	    <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="navbar-collapse-3">
+
 	      <ul class="nav navbar-nav">
-	      		<li id="navli"><a id="list" href="/group/{{group._id}}" title="{{group.gdesc}}"><span class="glyphicon glyphicon-home"></span> <b>{{group.gname}}</b></a></li>&nbsp;
-	      		<li id="navli"><a id="list" href="{{pathFor route='SharedNotesInGroup'}}" title="Notes Shared">Notes</a></li>&nbsp;
-				<li id="navli"><a id="list" href="{{pathFor route='GroupTask'}}" title="Tasks Created">Tasks</a></li>&nbsp;
-				<li id="navli"><a id="list" href="{{pathFor route='SharedMediaInGroup'}}" title="Media Shared">Media</a></li>&nbsp;
-				<li id="navli"><a id="list" href="{{pathFor route='Members'}}" title="Group Members">Members</a></li>&nbsp;
+      		<li id="navli"><a id="list" href="/group/{{group._id}}" title="{{group.gdesc}}"><span class="glyphicon glyphicon-home"></span> <b>{{group.gname}}</b></a></li>&nbsp;
+      		<!--<li id="navli">
+      			<div class="dropdown">
+				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    Notes
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				    <li id="navli"><a id="list" href="{{pathFor route='SharedNotesInGroup'}}" title="Notes Shared">Notes</a></li>
+				    <li id="navli"><a href="{{pathFor route='CreateNoteInGroup'}}">Create Note</a></li>
+				  </ul>
+				</div>
+			</li>-->
+      		<li id="navli"><a id="list" href="{{pathFor route='SharedNotesInGroup'}}" title="Notes Shared">Notes</a></li>&nbsp;
+      		<!--<li id="navli">
+      			<div class="dropdown">
+				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    Tasks
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				    <li id="navli"><a id="list" href="{{pathFor route='GroupTask'}}" title="Tasks Created">Tasks</a></li>
+				    <li id="navli"><a href="{{pathFor route='CreateTask'}}">Create Task</a></li>
+				  </ul>
+				</div>
+			</li>-->
+			<li id="navli"><a id="list" href="{{pathFor route='GroupTask'}}" title="Tasks Created">Tasks</a></li>&nbsp;
+			<li id="navli"><a id="list" href="{{pathFor route='SharedMediaInGroup'}}" title="Media Shared">Media</a></li>&nbsp;
+			<li id="navli"><a id="list" href="{{pathFor route='Members'}}" title="Group Members">Members</a></li>&nbsp;
 	      </ul>
 	    </div>
 	  </div>
