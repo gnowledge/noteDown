@@ -112,7 +112,7 @@
 	{{> Navbar}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-			<h2>Notes</h2>
+			<h2>Notes &nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
 			<hr class="divider"><br>
 			{{#if post}}
 				<div class="row">

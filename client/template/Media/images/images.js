@@ -7,7 +7,6 @@ function getHandler(dropped) {
               id: Meteor.userId(),
               name: Meteor.user().profile.name
             },
-            
             foo: "bar",
             dropped: false
       };

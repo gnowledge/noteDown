@@ -1,4 +1,20 @@
 Meteor.methods({
+//------------------User--------------
+	editUser:function(user_id, name, first_name, last_name, email, age, gender,/* img*/){
+		return Meteor.users.update({ _id: user_id },{
+			$set:{
+				"profile.name": name,
+				"profile.first_name": first_name,
+				"profile.last_name": last_name,
+				"profile.emails": email,
+				"profile.age": age,
+				"profile.gender": gender/*,
+				"profile.image":img*/
+			}
+		})
+	},
+
+//-------------------note---------------
 /*	addDoc:function(loc,tags){		//, tags
 		var doc;
 		if(!this.userId){// NOt logged in

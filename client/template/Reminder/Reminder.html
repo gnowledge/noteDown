@@ -1,6 +1,6 @@
 <template name="Todo">
 	<div class="container">  
-		<h2>Todo &nbsp; <a href="{{pathFor route='CreateTodo'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
+		<h2>Todo &nbsp;&nbsp; <a href="{{pathFor route='CreateTodo'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
 		<hr class="divider">
 	</div>
 </template>
@@ -43,7 +43,7 @@
 	{{> Navbar}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-			<h2>Todo ({{incompleteCount}})</h2>
+			<h2>Todo ({{incompleteCount}}) &nbsp; <a href="{{pathFor route='CreateTodo'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
 			<hr class="divider">
 			<br>
 			{{#if task}}
