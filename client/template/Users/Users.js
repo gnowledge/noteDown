@@ -1,10 +1,14 @@
 Template.UserDashboard.onCreated(function() {
-	Meteor.subscribe('user');
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('users');
+	});
 });
 
 Template.UserDashboard.helpers({
 	user: function(){
-		return Meteor.users.find({ _id: Meteor.userId()});
+		var user= Session.get('userId');
+		return Meteor.users.find({ _id: user});
 	}
 });
 

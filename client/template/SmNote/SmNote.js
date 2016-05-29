@@ -161,29 +161,12 @@ Template.SharedNotes.onCreated(function(){
 	});
 });*/
 
-//-----------------------------------------
-Template.SharedNotesInGroup.helpers({
-	posts: function() {
-		var group_id= Session.get('groupId');
-		return Posts.find({ groupID: group_id});
-	},
-	post:function(){
-		var group_id= Session.get('groupId');
-		return Posts.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
-	}
-});
 
-Template.SharedNotesInGroup.onCreated(function(){
-	var self= this;
-	this.autorun( function() {
-		self.subscribe('posts');
-	});
-});
 
 //--- Notes of user-------------
 Template.YourNotes.helpers({
 	posts: function() {
-		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1}});
+		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1, updatedAt: 1}});
 	},
 	post:function(){
 		return Posts.find({"owner.id":Meteor.userId()}).count();
@@ -323,4 +306,23 @@ Template.EditNoteOfGroup.helpers({
 		return edit;
 	}
 
+});
+
+//-----------------------------------------
+Template.SharedNotesInGroup.helpers({
+	posts: function() {
+		var group_id= Session.get('groupId');
+		return Posts.find({ groupID: group_id}, { sort: {createdOn: -1}});
+	},
+	post:function(){
+		var group_id= Session.get('groupId');
+		return Posts.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+	}
+});
+
+Template.SharedNotesInGroup.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
 });

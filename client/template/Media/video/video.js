@@ -15,14 +15,26 @@ Meteor.startup(function() {
 	Template.video.events({
 	'change input.videoFile' : FS.EventHandlers.insertFiles(Collections.Videos,{
 		metadata : function(fileobj){
-			
-			return {
-				owner:{
-              		id: Meteor.userId(),
-             		name: Meteor.user().profile.name
-            	},
-            	dropped: false
-			};
+			var groupId = Session.get('groupId');
+			if(!groupId){
+				return {
+		          owner:{
+		            id: Meteor.userId(),
+		            name: Meteor.user().profile.name
+		          },
+		          dropped: false
+		        };
+		    }
+		    else{
+		    	return {
+		          owner:{
+		            id: Meteor.userId(),
+		            name: Meteor.user().profile.name
+		          },
+		          groupID: groupId,
+		          dropped: false
+		        };
+		    }
 		},
 
 		after : function (error,fileobj){

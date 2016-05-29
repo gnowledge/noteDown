@@ -2,14 +2,25 @@ function getHandler(dropped) {
   return FS.EventHandlers.insertFiles(Collections.Images, {
     metadata: function (fileObj) {
       var groupId = Session.get('groupId');
-      return {
-            owner:{
-              id: Meteor.userId(),
-              name: Meteor.user().profile.name
-            },
-            foo: "bar",
-            dropped: false
-      };
+      if(!groupId){
+        return {
+              owner:{
+                id: Meteor.userId(),
+                name: Meteor.user().profile.name
+              },
+              dropped: false
+            };
+        }
+        else{
+          return {
+              owner:{
+                id: Meteor.userId(),
+                name: Meteor.user().profile.name
+              },
+              groupID: groupId,
+              dropped: false
+            };
+        }
     },
     after: function (error, fileObj) {
       if (!error) {
