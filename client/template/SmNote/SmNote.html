@@ -156,26 +156,31 @@
 		</div>
 	</div>
 </template>
-
-<template name="SharedNotes">
-	<div class="container" >
-		<h3>Notes shared by Users</h3>
-		<div class="row">
-			{{#if Template.subscriptionsReady}}
-				{{#each posts}}
-						<div class="thumbnail" >
-							<div class="caption" style="margin-left:30px;">
-								<a class="s" href="/posts/{{_id}}"><h2 title="{{Message}}">{{Title}}</h2></a>
-								<h3>{{Message}}</h3>
-							{{> groupDiscuss}}	
-							</div>
-						</div>
-				{{/each}}
-			{{/if}}
-		</div>
-	</div>
-</template>
 -->
+<template name="SharedNotes">
+	{{#if Template.subscriptionsReady}}
+	<div class="container" >
+		{{#if post}}
+			<h3>Notes shared by Users</h3>
+			<div class="row">
+				{{#each posts}}
+					<div class="thumbnail" >
+						<div class="caption" style="margin-left:30px;">
+							<a class="s" href="/posts/{{_id}}">
+								<h2 title="{{Body}}">{{Title}}</h2>
+							</a>
+							<h4>Created by......<i>{{owner.name}}</i></h4>
+							{{> groupDiscuss}}	
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		{{else}}
+		{{/if}}
+	</div>
+	{{/if}}
+</template>
+
 <template name="SharedNotesInGroup">
 	{{> navbarGroup}}
 	<div class="container" >

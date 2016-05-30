@@ -145,12 +145,16 @@ Template.ShareNotes.events({
 		Meteor.call('shareNotes',note_id, group_id);
 	}
 });
-
+*/
 //----------------------------------------
 Template.SharedNotes.helpers({
 	posts: function() {
 		var group_id= Session.get('groupId');
-		return Posts.find({groupid: group_id});
+		return Posts.find({groupID: group_id});
+	},
+	post:function(){
+		var group_id= Session.get('groupId');
+		return Posts.find({groupID: group_id}).count();
 	}
 });
 
@@ -159,7 +163,7 @@ Template.SharedNotes.onCreated(function(){
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
-});*/
+});
 
 
 

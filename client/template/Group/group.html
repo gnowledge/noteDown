@@ -77,11 +77,11 @@
 				<hr class="divider">
 				<h2>Task &nbsp; <a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
 				<hr class="divider">
-				<h2>Media  <a href=""><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+				<h2>Media  <a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
 	    		<hr class="divider">
 	    	</div>
-			<!--{{> ShareNotes}}
-			{{> SharedNotes}}-->	
+			<!--{{> ShareNotes}}-->
+			{{> SharedNotes}}	
 		{{else}}
 			{{#if member}}
 				<div class="container">
@@ -89,10 +89,10 @@
 					<hr class="divider">
 					<h2>Task &nbsp;&nbsp;<a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
 					<hr class="divider">
-					<h2>Media &nbsp; <a href=""><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+					<h2>Media &nbsp; <a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
 				</div>
-				<!--{{> ShareNotes}}
-				{{> SharedNotes}}-->
+				<!--{{> ShareNotes}}-->
+				{{> SharedNotes}}
 			{{/if}}
 		{{/if}}
 	{{else}}
@@ -108,7 +108,6 @@
 		{{#if Template.subscriptionsReady}}
 			<h2>Members</h2>
 			<hr class="divider"><br>
-
 			{{#if members}}
 				<div class="row">
 						{{#if owner}}

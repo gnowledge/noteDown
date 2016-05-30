@@ -1,9 +1,9 @@
 Meteor.methods({
 //------------------User--------------
-	editUser:function(user_id, name, first_name, last_name, email, age, gender,/* img*/){
+	editUser:function(user_id,/* name, */first_name, last_name, email, age, gender,/* img*/){
 		return Meteor.users.update({ _id: user_id },{
 			$set:{
-				"profile.name": name,
+				//"profile.name": name,
 				"profile.first_name": first_name,
 				"profile.last_name": last_name,
 				"profile.emails": email,
