@@ -23,6 +23,10 @@
           {{#EasySearch.Each index=postIndex }}
             <h3>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h3>
           {{/EasySearch.Each}}
+          
+          {{#EasySearch.Each index=userIndex }}
+            <h3> name: <a href="/user_dashboard/{{profile.id}}">{{profile.name}}</a></h3>
+          {{/EasySearch.Each}}
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 Template.Search.helpers({
 	searchIndexes: () => [groupsIndex, postsIndex],
   		groupIndex: () => groupsIndex,
-  		postIndex: () => postsIndex
+  		postIndex: () => postsIndex,
+  		userIndex: () => usersIndex
 });
 
 Template.Search.onCreated(function(){

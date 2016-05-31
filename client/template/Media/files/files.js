@@ -22,7 +22,8 @@ Meteor.startup(function () {
                 id: Meteor.userId(),
                 name: Meteor.user().profile.name
               },
-              dropped: false
+              dropped: false,
+              privacy:"private"
             };
         }
         else{
@@ -32,12 +33,14 @@ Meteor.startup(function () {
                 name: Meteor.user().profile.name
               },
               groupID: groupId,
-              dropped: false
+              dropped: false,
+              privacy:"public"
             };
         }
       },
       after: function (error, fileObj) {
         if (!error) {
+          alert('done');
         }
       }
     }),
@@ -55,7 +58,6 @@ Meteor.startup(function () {
 
 Template.files.helpers({
   uploadedFiles: function() {
-
     return Collections.Files.find({});
   }
 });

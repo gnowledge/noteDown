@@ -8,7 +8,8 @@ function getHandler(dropped) {
                 id: Meteor.userId(),
                 name: Meteor.user().profile.name
               },
-              dropped: false
+              dropped: false,
+              privacy:"private"
             };
         }
         else{
@@ -18,13 +19,14 @@ function getHandler(dropped) {
                 name: Meteor.user().profile.name
               },
               groupID: groupId,
-              dropped: false
+              dropped: false,
+              privacy: "public"
             };
         }
     },
     after: function (error, fileObj) {
       if (!error) {
-        console.log("Inserted", fileObj.name());
+        alert('done');
       }
     }
   });

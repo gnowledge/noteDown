@@ -18,27 +18,30 @@ Meteor.startup(function() {
 			var groupId = Session.get('groupId');
 			if(!groupId){
 				return {
-		          owner:{
-		            id: Meteor.userId(),
-		            name: Meteor.user().profile.name
-		          },
-		          dropped: false
+		          	owner:{
+		            	id: Meteor.userId(),
+		            	name: Meteor.user().profile.name
+		          	},
+		          	dropped: false,
+              		privacy:"private"
 		        };
 		    }
 		    else{
 		    	return {
-		          owner:{
-		            id: Meteor.userId(),
-		            name: Meteor.user().profile.name
-		          },
-		          groupID: groupId,
-		          dropped: false
+		          	owner:{
+		            	id: Meteor.userId(),
+		            	name: Meteor.user().profile.name
+		          	},
+		          	groupID: groupId,
+		          	dropped: false,
+              		privacy:"public"
 		        };
 		    }
 		},
 
 		after : function (error,fileobj){
 			if(!error){
+				alert('done');
 			}
 		}
 	}),

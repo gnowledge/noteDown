@@ -22,7 +22,13 @@
 </template>
 
 <template name="uploadedFile">
-  <h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>{{else}}{{this.name}}{{/with}} ({{this.size}} bytes)</h4>
+  <h4>
+  {{#with this.url}}
+  <a href="{{this}}" target="_blank">{{../name}}</a>
+  {{else}}{{this.name}}
+  {{/with}} 
+  ({{this.size}} bytes)
+  </h4>
   {{#if this.isUploaded}}
   {{#with this.url download=true}}
   <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>

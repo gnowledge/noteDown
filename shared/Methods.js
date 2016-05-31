@@ -24,7 +24,7 @@ Meteor.methods({
 				owner:this.userId, 
 				getLocation:loc,
 				tagsName:tags,
-				createdOn:new Date(), 
+				createdOn:new Date().toLocaleString(), 
 				title:"Untitled Document"
 			};
 			var id = Documents.insert(doc);
@@ -70,7 +70,7 @@ Meteor.methods({
 				users:{},
 			};
 		}
-		user.lastEdit = new Date();
+		user.lastEdit = new Date().toLocaleString();
 		eusers.users[this.userId] = user;
 		EditingUsers.upsert({_id:eusers._id},eusers);
 	},
@@ -95,7 +95,7 @@ Meteor.methods({
 				},
 				members:[],
 				member_count: 1,
-				createdOn: new Date()
+				createdOn: new Date().toLocaleString()
 			};
 			var id= Groups.insert(group);
 			var group_Id= Meteor.users.update({ _id: this.userId },{
@@ -107,7 +107,7 @@ Meteor.methods({
                 rss_title: "'" +user+ "' has created a new group",
                 title:gtitle,
                 user: user,
-                createdAt: new Date(),
+                createdAt: new Date().toLocaleString(),
                 action: "/group/"+id,
                 id: id
           	});
@@ -159,7 +159,7 @@ Meteor.methods({
 						members:{ 
 							"id": memberId,
 							"name":memberName,
-							"joinedAt": new Date()
+							"joinedAt": new Date().toLocaleString()
 							}
 						}
 					});
@@ -229,7 +229,7 @@ Meteor.methods({
   				id: user,
   				name: username
   			},
-  			createdAt: new Date()
+  			createdAt: new Date().toLocaleString()
   		};
   		var id= Notify.insert(notification);
   		console.log(id);
@@ -274,11 +274,12 @@ Meteor.methods({
 					title: text,
 					desc: desc,
 					date: date,
-				    createdAt : new Date(),
+				    createdAt : new Date().toLocaleString(),
 				    owner:{
 						"id": this.userId,
 						"name": Meteor.user().profile.name 
-					}
+					},
+					action:"todo"
 				}			
 		}
 		var id=Tasks.insert(task);
@@ -303,11 +304,12 @@ Meteor.methods({
 					desc: desc,
 					date: date,
 					groupID: group_id,
-				    createdAt : new Date(),
+				    createdAt : new Date().toLocaleString(),
 				    owner:{
 						"id": this.userId,
 						"name": Meteor.user().profile.name 
-					}
+					},
+					action: "task"
 				}			
 		}
 		var id=Tasks.insert(task);
@@ -354,7 +356,7 @@ Meteor.methods({
 				},
 				like: 0,
 				likedBy: [],
-				publishedAt: new Date(),
+				publishedAt: new Date().toLocaleString(),
 				postId: post_id
 
 		};
@@ -368,7 +370,7 @@ Meteor.methods({
 			rss_title:"'" + user + "' has posted a comment",
 			title:msg,
 			user: user,
-			createdAt: new Date(),
+			createdAt: new Date().toLocaleString(),
 			action: "/group/"+groupId,
 			id: groupId
 		});
@@ -379,7 +381,7 @@ Meteor.methods({
 		var user= Meteor.user().profile.name;
 		var id= Thread.update({ _id: nid},
 		{
-			$set:{ like:like, likedAt: new Date()},
+			$set:{ like:like, likedAt: new Date().toLocaleString()},
 			$addToSet:{ 
 				likedBy: Meteor.user().profile.name
 			}
@@ -389,7 +391,7 @@ Meteor.methods({
 			title:content,
 			user: user,
 			owner: owner,
-			createdAt: new Date(),
+			createdAt: new Date().toLocaleString(),
 			action: "/group/"+group_id,
 			id: group_id
 		});
@@ -408,7 +410,7 @@ Meteor.methods({
 	},
 
 	//SummerNote------------------------------------
-	addPost: function (title, /*message,*/ postBody, loc, tags, privacy) {
+	addPost: function (title, /*message,*/ postBody, loc, tags, privacy, created_date) {
 		var doc;
 		var user= Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
@@ -427,14 +429,14 @@ Meteor.methods({
 				Location:loc,
 				Tags:tags,
 				privacy: privacy,
-				createdOn:new Date(), 
+				createdOn: created_date, 
 			};
 			var id = Posts.insert(doc);
 			Rss.insert({
 				rss_title: "'" +user + "' has created a note",
 				title:title,
 				user: user,
-				createdAt: new Date(),
+				createdAt: created_date,
 				action: "/posts/"+id,
 				id: id
 			});
@@ -448,7 +450,7 @@ Meteor.methods({
 		
 	},
 
-	editPost: function (postID, title,/* message,*/ postBody, owner, loc, tags) {
+	editPost: function (postID, title,/* message,*/ postBody, owner, loc, tags, updatedAt) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{
@@ -457,7 +459,7 @@ Meteor.methods({
 				Body: postBody,
 				Location: loc,
 				Tags:tags,
-				updatedAt: new Date()
+				updatedAt: updatedAt
 			}
 		});
 		return id;
@@ -485,7 +487,7 @@ Meteor.methods({
   				}
   			});
   	},
-  	addGroupNote: function (title, /*message,*/ postBody, loc, tags, privacy, group_id) {
+  	addGroupNote: function (title, /*message,*/ postBody, loc, tags, privacy, group_id, created_date) {
 		var doc;
 		var user= Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
@@ -505,14 +507,14 @@ Meteor.methods({
 				Tags:tags,
 				privacy: privacy,
 				groupID:group_id,
-				createdOn:new Date(), 
+				createdOn:created_date, 
 			};
 			var id = Posts.insert(doc);
 			Rss.insert({
 				rss_title: "'" +user + "' has created a note",
 				title:title,
 				user: user,
-				createdAt: new Date(),
+				createdAt: created_date,
 				action: "/posts/"+id,
 				id: id
 			});
@@ -524,5 +526,19 @@ Meteor.methods({
 			return id;
 		}  
 		
+	},
+	editGroupNote: function (postID, title,/* message,*/ postBody, owner, loc, tags, updatedAt) {
+		var user=Meteor.user().profile.name;
+		var id =Posts.update(postID,{
+			$set:{
+				Title: title,
+				//Message: message,
+				Body: postBody,
+				Location: loc,
+				Tags:tags,
+				updatedAt: updatedAt
+			}
+		});
+		return id;
 	},
 });

@@ -44,35 +44,35 @@ $(document).ready(function () {
 Template.SharedMediaInGroup.helpers({
     images: function() {
         var group_id= Session.get('groupId');
-        return Collections.Images.find({groupID: group_id});
+        return Collections.Images.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
     },
     image: function() {
         var group_id= Session.get('groupId');
-        return Collections.Images.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+        return Collections.Images.find({groupID: group_id,privacy:"public", private: {$ne: "private"}}).count();
     },
     videos: function() {
         var group_id= Session.get('groupId');
-        return Collections.Videos.find({groupID: group_id});
+        return Collections.Videos.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
     },
     video: function() {
          var group_id= Session.get('groupId');
-        return Collections.Videos.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+        return Collections.Videos.find({groupID: group_id,privacy:"public", private: {$ne: "private"}}).count();
     },
     audios: function() {
          var group_id= Session.get('groupId');
-        return Collections.Audios.find({groupID: group_id});
+        return Collections.Audios.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
     },
     audio: function() {
          var group_id= Session.get('groupId');
-        return Collections.Audios.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+        return Collections.Audios.find({groupID: group_id,privacy:"public", private: {$ne: "private"}}).count();
     },
     files: function() {
          var group_id= Session.get('groupId');
-        return Collections.Files.find({groupID: group_id});
+        return Collections.Files.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
     },
     file: function() {
          var group_id= Session.get('groupId');
-        return Collections.Files.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+        return Collections.Files.find({groupID: group_id,privacy:"public", private: {$ne: "private"}}).count();
     }
 });
 
@@ -88,28 +88,28 @@ Template.SharedMediaInGroup.onCreated(function(){
 
 Template.YourMedia.helpers({
     images: function() {
-        return Collections.Images.find({"owner.id":Meteor.userId()});
+        return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
     },
     image: function() {
-        return Collections.Images.find({"owner.id":Meteor.userId()}).count();
+        return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     videos: function() {
-        return Collections.Videos.find({"owner.id":Meteor.userId()});
+        return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
     },
     video: function() {
-        return Collections.Videos.find({"owner.id":Meteor.userId()}).count();
+        return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     audios: function() {
-        return Collections.Audios.find({"owner.id":Meteor.userId()});
+        return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
     },
     audio: function() {
-        return Collections.Audios.find({"owner.id":Meteor.userId()}).count();
+        return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     files: function() {
-        return Collections.Files.find({"owner.id":Meteor.userId()});
+        return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
     },
     file: function() {
-        return Collections.Files.find({"owner.id":Meteor.userId()}).count();
+        return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     }
 });
 
@@ -121,4 +121,5 @@ Template.YourMedia.onCreated(function(){
         self.subscribe('files');
         self.subscribe('videos');
     });
+    Session.set('group'," ");
 });

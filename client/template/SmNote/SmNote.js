@@ -20,7 +20,8 @@ Template.CreateNote.events({
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
 		var privacy= "private";
-		Meteor.call('addPost', title, /*message,*/ postBody,loc, tags, privacy, function(err, res){
+		var created_date = new Date().toLocaleString();
+		Meteor.call('addPost', title, /*message,*/ postBody,loc, tags, privacy, created_date, function(err, res){
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
@@ -93,7 +94,8 @@ Template.EditNote.events({
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
-		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, function (error) {
+		var updatedAt = new Date().toLocaleString();
+		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
 				Router.go('/posts/'+id);
 			}
@@ -170,10 +172,10 @@ Template.SharedNotes.onCreated(function(){
 //--- Notes of user-------------
 Template.YourNotes.helpers({
 	posts: function() {
-		return Posts.find({"owner.id":Meteor.userId()},{sort: {createdOn: -1, updatedAt: 1}});
+		return Posts.find({"owner.id":Meteor.userId(), privacy: "private"},{sort: {createdOn: -1, updatedAt: 1}});
 	},
 	post:function(){
-		return Posts.find({"owner.id":Meteor.userId()}).count();
+		return Posts.find({"owner.id":Meteor.userId(), privacy: "private"}).count();
 	}
 });
 
@@ -211,7 +213,8 @@ Template.CreateNoteInGroup.events({
 		var tags = Session.get('tag');
 		var privacy= "public";
 		var groupID= Session.get('group');
-		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, function(err, res){
+		var created_date = new Date().toLocaleString();
+		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, created_date, function(err, res){
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
@@ -282,7 +285,8 @@ Template.EditNoteOfGroup.events({
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
-		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, function (error) {
+		var updatedAt = new Date().toLocaleString();
+		Meteor.call('editGroupNote',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
 				Router.go('/group_notes/'+id);
 			}
@@ -315,12 +319,12 @@ Template.EditNoteOfGroup.helpers({
 //-----------------------------------------
 Template.SharedNotesInGroup.helpers({
 	posts: function() {
-		var group_id= Session.get('groupId');
-		return Posts.find({ groupID: group_id}, { sort: {createdOn: -1}});
+		var group_id= Session.get('group');
+		return Posts.find({ groupID: group_id, privacy: "public"}, { sort: {createdOn: -1}});
 	},
 	post:function(){
-		var group_id= Session.get('groupId');
-		return Posts.find({"owner.id":Meteor.userId(),groupID: group_id}).count();
+		var group_id= Session.get('group');
+		return Posts.find({groupID: group_id, privacy: "public"}).count();
 	}
 });
 

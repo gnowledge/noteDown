@@ -200,7 +200,7 @@ Template.Members.onCreated(function(){
 Template.Members.helpers({
 
 	member: function(){
-		var groupId = Session.get('groupId'); 
+		var groupId = Session.get('group'); 
         var group = Groups.findOne({_id: groupId});
         var userId = Meteor.userId();
         for (var i = 0; i < group.members.length; i++) {
@@ -210,32 +210,32 @@ Template.Members.helpers({
     	}
     },
     members: function(){
-    	var groupId = Session.get('groupId'); 
+    	var groupId = Session.get('group'); 
         var group = Groups.findOne({_id: groupId});
         var members= group.members;
         return members;
     },
     owner: function(){
-		var groupId = Session.get('groupId'); 
+		var groupId = Session.get('group'); 
         var group = Groups.findOne({_id: groupId});
         var owner= group.owner.id;
         if(owner=== Meteor.user()._id)
         	return owner;   
 	},
 	group : function(){
-		var groupId = Session.get('groupId'); 
+		var groupId = Session.get('group'); 
         var group = Groups.findOne({_id: groupId});
         return group;
 	},
 	groupCount : function(){
-		var groupId = Session.get('groupId'); 
+		var groupId = Session.get('group'); 
 		return Groups.find({_id: groupId}).count();
 	}
 });
 
 Template.Members.events({
 	"click .delete": function(event) {
-		var groupId = Session.get('groupId'); 
+		var groupId = Session.get('group'); 
         var group = Groups.findOne({_id: groupId});
 		var memberId= this.id;
 		var memberName= this.name;

@@ -14,7 +14,7 @@ Template.CreateTodo.onRendered(function() {
 	    "autoApply": true,
 	    "linkedCalendars": false,
 	    "startDate": today,
-	    "endDate": "12/31/2016",
+	   
 	    "minDate": today,
 	    "maxDate": "12/31/2016",
 	    "timePicker": true
@@ -39,7 +39,11 @@ Template.CreateTodo.events({
 		var text = event.target.text.value;
 		var desc = event.target.desc.value;
 		var date= event.target.datefilter.value;
-		Meteor.call("createReminder",text, desc, date , function(err,res){
+		//var inputDate = date.toLocaleString();
+		//console.log(inputDate);
+		var time = date.slice(10);
+		console.log(time);
+		Meteor.call("createReminder",text, desc, date, function(err,res){
 			if(!err){
 				console.log("callback recieved: "+res);
 			}
@@ -83,28 +87,28 @@ Template.YourTodo.helpers({
     tasks: function () {
       	if (Session.get("hideCompleted")) {
         	// If hide completed is checked, filter tasks
-        	return Tasks.find({checked: {$ne: true},"owner.id": Meteor.userId()}, {sort: {createdAt: -1}});
+        	return Tasks.find({checked: {$ne: true},"owner.id": Meteor.userId(), action:"todo"}, {sort: {createdAt: -1}});
       	} 
       	else {
         	// Otherwise, return all of the tasks
-        	return Tasks.find({ "owner.id": Meteor.userId() }, {sort: {createdAt: -1}});
+        	return Tasks.find({ "owner.id": Meteor.userId(), action:"todo" }, {sort: {createdAt: -1}});
       	}
     },
     task: function () {
       	if (Session.get("hideCompleted")) {
         	// If hide completed is checked, filter tasks
-        	return Tasks.find({checked: {$ne: true},"owner.id": Meteor.userId()}).count();
+        	return Tasks.find({checked: {$ne: true},"owner.id": Meteor.userId(), action:"todo"}).count();
       	} 
       	else {
         	// Otherwise, return all of the tasks
-        	return Tasks.find({"owner.id": Meteor.userId()}).count();
+        	return Tasks.find({"owner.id": Meteor.userId(), action:"todo"}).count();
       	}
     },
     hideCompleted: function () {
       	return Session.get("hideCompleted");
     },
     incompleteCount : function(){
-      	return Tasks.find({checked : {$ne: true}}).count();
+      	return Tasks.find({checked : {$ne: true}, "owner.id": Meteor.userId(), action:"todo"}).count();
     }
   });
 
@@ -128,30 +132,31 @@ Template.GroupTask.helpers({
     	var groupId = Session.get('groupId'); 
       	if (Session.get("hideCompleted")) {
         	// If hide completed is checked, filter tasks
-        	return Tasks.find({checked: {$ne: true},groupID:groupId}, {sort: {createdAt: -1}});
+        	return Tasks.find({checked: {$ne: true}, groupID:groupId, action:"task" }, {sort: {createdAt: -1}});
       	} 
       	else {
         	// Otherwise, return all of the tasks
 
-        	return Tasks.find({groupID: groupId}, {sort: {createdAt: -1}});
+        	return Tasks.find({ groupID: groupId, action:"task" }, {sort: {createdAt: -1}});
       	}
     },
     task: function () {
     	var groupId = Session.get('groupId');
       	if (Session.get("hideCompleted")) {
         	// If hide completed is checked, filter tasks
-        	return Tasks.find({checked: {$ne: true}, groupID:groupId}).count();
+        	return Tasks.find({checked: {$ne: true}, groupID:groupId, action:"task"}).count();
       	} 
       	else {
         	// Otherwise, return all of the tasks
-        	return Tasks.find({groupID:groupId}).count();
+        	return Tasks.find({groupID:groupId, action:"task"}).count();
       	}
     },
     hideCompleted: function () {
       	return Session.get("hideCompleted");
     },
     incompleteCount : function(){
-      	return Tasks.find({checked : {$ne: true}}).count();
+    	var groupId = Session.get('groupId');
+      	return Tasks.find({checked : {$ne: true}, groupID:groupId, action:"task" }).count();
     }
   });
 

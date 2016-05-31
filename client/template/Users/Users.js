@@ -6,9 +6,15 @@ Template.UserDashboard.onCreated(function() {
 });
 
 Template.UserDashboard.helpers({
-	user: function(){
+	users: function(){
 		var user= Session.get('userId');
 		return Meteor.users.find({ _id: user});
+	},
+	user: function(){
+		var user= Session.get('userId');
+		var user= Meteor.users.findOne({ _id: user});
+		if(user._id === Meteor.userId())
+			return true;
 	}
 });
 
