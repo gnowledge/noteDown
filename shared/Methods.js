@@ -103,14 +103,14 @@ Meteor.methods({
 					group_ids: id
 				}
 			});
-			Rss.insert({
+			/*Rss.insert({
                 rss_title: "'" +user+ "' has created a new group",
                 title:gtitle,
                 user: user,
                 createdAt: new Date().toLocaleString(),
                 action: "/group/"+id,
                 id: id
-          	});
+          	});*/
 			return id;
 		}
 	},
@@ -366,14 +366,14 @@ Meteor.methods({
 				threads: id
 			}
 		});
-		Rss.insert({
+		/*Rss.insert({
 			rss_title:"'" + user + "' has posted a comment",
 			title:msg,
 			user: user,
 			createdAt: new Date().toLocaleString(),
 			action: "/group/"+groupId,
 			id: groupId
-		});
+		});*/
 		return id;
 	},
 
@@ -386,7 +386,7 @@ Meteor.methods({
 				likedBy: Meteor.user().profile.name
 			}
 		});
-		Rss.insert({
+		/*Rss.insert({
 			rss_title: user + " has liked " + owner_name +" post",
 			title:content,
 			user: user,
@@ -394,7 +394,7 @@ Meteor.methods({
 			createdAt: new Date().toLocaleString(),
 			action: "/group/"+group_id,
 			id: group_id
-		});
+		});*/
 		return id;
 		
 	},
@@ -432,14 +432,14 @@ Meteor.methods({
 				createdOn: created_date, 
 			};
 			var id = Posts.insert(doc);
-			Rss.insert({
+			/*Rss.insert({
 				rss_title: "'" +user + "' has created a note",
 				title:title,
 				user: user,
 				createdAt: created_date,
 				action: "/posts/"+id,
 				id: id
-			});
+			});*/
 			var postId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
 					post_ids: id
@@ -510,14 +510,14 @@ Meteor.methods({
 				createdOn:created_date, 
 			};
 			var id = Posts.insert(doc);
-			Rss.insert({
+			/*Rss.insert({
 				rss_title: "'" +user + "' has created a note",
 				title:title,
 				user: user,
 				createdAt: created_date,
 				action: "/posts/"+id,
 				id: id
-			});
+			});*/
 			var postId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
 					post_ids: id

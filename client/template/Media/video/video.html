@@ -3,11 +3,6 @@
     <div class="well">
     <input type="file" multiple class="videoFile">
     </div>
-<!--<div class="imageArea clearfix">
-    {{#each uploadedVideos}}
-    {{> uploadedVideo}}
-    {{/each}}
-  </div>-->
 </template>
 
 
@@ -24,4 +19,11 @@
   {{else}}
   <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
   {{/if}}
+</template>
+
+<template name="video_group">
+    <h1>Videos</h1>
+    <div class="well">
+    <input type="file" multiple class="videoFile">
+    </div>
 </template>

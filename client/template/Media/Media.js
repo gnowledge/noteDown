@@ -10,6 +10,18 @@ Template.updown.events({
   }
 });
 
+Template.updown1.events({
+  'click .pauseUploads': function(event, template) {
+    FS.HTTP.uploadQueue.pause();
+  },
+  'click .resumeUploads': function(event, template) {
+    FS.HTTP.uploadQueue.resume();
+  },
+  'click .cancelUploads': function(event, template) {
+    FS.HTTP.uploadQueue.cancel();
+  }
+});
+
 $(document).on('click', '.panel-heading span.clickable', function (e) {
     var $this = $(this);
     if (!$this.hasClass('panel-collapsed')) {

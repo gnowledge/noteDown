@@ -1,3 +1,4 @@
+
 <template name="audio">
 
     <h1>Audios</h1>
@@ -30,4 +31,11 @@
   {{else}}
     <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
   {{/if}}
+</template>
+
+<template name="audio_group">
+    <h1>Audios</h1>
+    <div class="well">
+    <input type="file" multiple class="audioFile">
+    </div>
 </template>

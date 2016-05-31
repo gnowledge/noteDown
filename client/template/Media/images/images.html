@@ -1,14 +1,8 @@
 <template name="images">
-
   <h2>Image Files</h2>
-  <div class="well imageDropArea">
+  <div class="well">
     <input type="file" multiple class="images">
   </div>
-  <!--<div class="imageArea clearfix">
-    {{#each uploadedImages}}
-      {{> uploadedImage}}
-    {{/each}}
-  </div>-->
 </template>
 
 <template name="uploadedImage">
@@ -37,5 +31,13 @@
           {{/if}}
          {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
     </div>
+  </div>
+</template>
+
+<template name="images_group">
+
+  <h2>Image Files</h2>
+  <div class="well">
+    <input type="file" multiple class="images">
   </div>
 </template>

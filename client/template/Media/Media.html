@@ -1,17 +1,12 @@
 <template name="Media">
   <div class="container">  
-    <h2>Media &nbsp; <a href="{{pathFor route='AddMedia'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+    <h2>Media &nbsp;&nbsp;<a href="{{pathFor route='AddMedia'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
     <hr class="divider">
   </div>
 </template>
 
 <template name="AddMedia">
   {{> Navbar}}
-  {{> updown }}  
-</template>
-
-<template name="AddMediaInGroup">
-  {{> navbarGroup }}
   {{> updown }}  
 </template>
 
@@ -129,25 +124,69 @@
   </div>
 </template>
 
+<template name="AddMediaInGroup">
+  {{> navbarGroup }}
+  {{> updown1 }}  
+</template>
+
+
+<template name="updown1">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">Upload Files</h4>
+            <span class="pull-right clickable"><i class="glyphicon glyphicon-minus"></i></span>
+        </div>
+        <div class="panel-body">
+            {{> UploadGroup}}
+        </div>
+      </div>
+    </div> 
+  </div>
+</template>
+
+<template name="UploadGroup">
+  <ul class="nav nav-tabs">
+    <li><a data-toggle="tab" href="#Images">Images</a></li>
+    <li><a data-toggle="tab" href="#Files">Files</a></li>
+    <li><a data-toggle="tab" href="#Audio">Audio</a></li>
+    <li><a data-toggle="tab" href="#Video">Video</a></li>
+  </ul>
+      <br>
+      <button type="button" class="btn btn-xs resumeUploads">Resume All Uploads</button> &nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-xs pauseUploads">Pause All Uploads</button>&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-xs cancelUploads">Cancel All Uploads</button>&nbsp;&nbsp;&nbsp;
+      {{> FS.UploadProgressBar}}
+      <br><br>
+
+  <div class="tab-content">
+
+    <div id="Images" class="tab-pane fade">
+        {{> images_group }}
+    </div>
+
+    <div id="Files" class="tab-pane fade">
+        {{> files_group }}  
+    </div>
+
+    <div id="Audio" class="tab-pane fade">
+        {{> audio_group }}
+    </div>
+
+    <div id="Video" class="tab-pane fade">
+        {{> video_group }}
+    </div>
+
+  </div>
+</template>
+
+
 <template name="SharedMediaInGroup">
   {{> navbarGroup}}
-  <!--<div class="container" >
-    <h3>Shared Media </h3>
-    <div class="row">
-      {{#if Template.subscriptionsReady}}
-        {{#each images}}
-            <div class="thumbnail" >
-              <div class="caption" style="margin-left:30px;">
-                {{original.name}}
-              </div>
-            </div>
-        {{/each}}
-      {{/if}}
-    </div>
-  </div>-->
   <div class="container" >
     {{#if Template.subscriptionsReady}}
-      <h2>Media </h2>
+      <h2>Media &nbsp;&nbsp;<a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
       <hr class="divider"><br>
       {{#if image}}
         Images:
