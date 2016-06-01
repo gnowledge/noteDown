@@ -213,8 +213,9 @@ Template.CreateNoteInGroup.events({
 		var tags = Session.get('tag');
 		var privacy= "public";
 		var groupID= Session.get('groupId');
-		var created_date = new Date().toLocaleString();
-		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, created_date, function(err, res){
+		var group= Groups.findOne({ _id: groupID});
+		var group_name = group.gname;
+		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, group_name, function(err, res){
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;

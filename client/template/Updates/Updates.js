@@ -2,6 +2,7 @@ Template.Updates.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('rss');
+		self.subscribe('user');
 	});
 });
 
@@ -17,17 +18,17 @@ Template.Updates.helpers({
 });
 
 Template.Updates.events({
-	'click #check': function(event){
+	/*'click #check': function(event){
 		var id= this._id;
 		var action= this.action;
 		var itemId= this.id;
 		console.log(itemId);
 		if(action=== "Post"){
-			Router.go('/posts/'+itemId);
+			Router.go('/group_notes/'+itemId);
 		}
 		else if(action=== "Group"){
 			Router.go('/group/'+itemId);
 		}
 		
-	}
+	}*/
 });

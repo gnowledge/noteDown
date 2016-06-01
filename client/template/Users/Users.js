@@ -1,7 +1,7 @@
 Template.UserDashboard.onCreated(function() {
 	var self= this;
 	this.autorun( function() {
-		self.subscribe('users');
+		self.subscribe('user');
 	});
 });
 
