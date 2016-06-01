@@ -212,7 +212,7 @@ Template.CreateNoteInGroup.events({
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
 		var privacy= "public";
-		var groupID= Session.get('group');
+		var groupID= Session.get('groupId');
 		var created_date = new Date().toLocaleString();
 		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, created_date, function(err, res){
 				if(!err){//all good
@@ -319,11 +319,11 @@ Template.EditNoteOfGroup.helpers({
 //-----------------------------------------
 Template.SharedNotesInGroup.helpers({
 	posts: function() {
-		var group_id= Session.get('group');
+		var group_id= Session.get('groupId');
 		return Posts.find({ groupID: group_id, privacy: "public"}, { sort: {createdOn: -1}});
 	},
 	post:function(){
-		var group_id= Session.get('group');
+		var group_id= Session.get('groupId');
 		return Posts.find({groupID: group_id, privacy: "public"}).count();
 	}
 });

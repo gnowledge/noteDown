@@ -133,5 +133,5 @@ Template.YourMedia.onCreated(function(){
         self.subscribe('files');
         self.subscribe('videos');
     });
-    Session.set('group'," ");
+    Session.set('groupId'," ");
 });

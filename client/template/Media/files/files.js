@@ -66,7 +66,7 @@ Meteor.startup(function () {
   Template.files_group.events({
     'change input.any': FS.EventHandlers.insertFiles(Collections.Files, {
       metadata: function (fileObj) {
-        var groupId = Session.get('group');
+        var groupId = Session.get('groupId');
           return {
               owner:{
                 id: Meteor.userId(),

@@ -90,8 +90,8 @@ Meteor.methods({
 				gdesc: gdesc,
 				privacy: privacy,
 				owner:{
-						"id": this.userId,
-					    "name": Meteor.user().profile.name 
+					"id": this.userId,
+				    "name": Meteor.user().profile.name 
 				},
 				members:[],
 				member_count: 1,
@@ -291,7 +291,7 @@ Meteor.methods({
 		return id;
     },
 
-    createTask : function(text, desc, date,group_id){
+    createTask : function(text, desc, date, assign, group_id){
 		check(text,String);
 		check(desc,String);
 		var task;
@@ -304,6 +304,7 @@ Meteor.methods({
 					desc: desc,
 					date: date,
 					groupID: group_id,
+					assignedTo: assign,
 				    createdAt : new Date().toLocaleString(),
 				    owner:{
 						"id": this.userId,

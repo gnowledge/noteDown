@@ -87,6 +87,15 @@
 						    <input class="set-due-date form-control" name="datefilter" type="text" placeholder="Select a date" required/>
 			  			</div>
 			  		</li>
+			  		<li>Assign Task: &nbsp;
+			  			<select id="assign">
+			  			 	{{#each member}}
+						  		<option value="{{name}}">{{name}}</option>
+						  	{{else}}
+						  		<option value="">---No Members---</option>
+						  	{{/each}}
+						</select> 
+			  		</li>
      			</li>
      			<li>
      				<input type="submit" class="btn btn-primary" value="Create">
@@ -112,7 +121,7 @@
 					<div class="jumbotron" id="container">
 						  <ul>	
 							{{#each tasks}}
-						  		{{>Task}}
+						  		{{>Task1}}
 							{{/each}}	
 						  </ul>
 					</div>
@@ -125,4 +134,14 @@
 	        <p>Loading... {{> spinner}}</p>
 		{{/if}}
 	</div>
+</template>
+
+<template name="Task1">
+	<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+		<button class="delete">&times;</button>      
+	    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+	    <span class="text">
+	    	<strong>{{title}}</strong> - {{desc}} - {{assignedTo}} - <strong>{{date}}</strong>
+	    </span>
+	</li>
 </template>

@@ -164,9 +164,10 @@ Template.GroupTask.helpers({
 Template.CreateTask.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
-		self.subscribe('tasks',Session.get('group'));
-		console.log(Session.get('group'));
+		self.subscribe('tasks');
+		self.subscribe('groups');
 	});
+	Session.get('groupId');
 });
 
 Template.CreateTask.onRendered(function() {
@@ -200,11 +201,13 @@ Template.CreateTask.events({
 		// Prevent default browser form submit
 		event.preventDefault();
 		// Get value from form element
+		var arr= [];
 		var text = event.target.text.value;
 		var desc = event.target.desc.value;
 		var date= event.target.datefilter.value;
-		var groupID= Session.get('group');
-		Meteor.call("createTask",text, desc, date , groupID, function(err,res){
+		var assign = event.target.assign.value;
+		var groupID= Session.get('groupId');
+		Meteor.call("createTask",text, desc, date, assign, groupID, function(err,res){
 			if(!err){
 				console.log("callback recieved: "+res);
 			}
@@ -217,3 +220,26 @@ Template.CreateTask.events({
 		event.target.datefilter.value = "";
 		}
   });
+
+Template.CreateTask.helpers({
+	member: function(){
+		var groupId = Session.get('groupId');
+		console.log(groupId);
+		var group = Groups.findOne({_id: groupId});
+        var member= group.members;
+        console.log(member);
+        return member;
+	}
+});
+
+
+Template.Task1.events({
+	"click .toggle-checked": function () {
+	 	// Set the checked property to the opposite of its current value
+		Meteor.call("setCheckedReminder",this._id, !this.checked);
+	},
+	"click .delete": function () {
+		//Tasks.remove(this._id);
+		Meteor.call("deleteReminder",this._id);
+	}
+});

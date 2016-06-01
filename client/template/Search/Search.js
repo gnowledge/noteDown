@@ -1,3 +1,4 @@
+
 Template.Search.helpers({
 	searchIndexes: () => [groupsIndex, postsIndex],
   		groupIndex: () => groupsIndex,

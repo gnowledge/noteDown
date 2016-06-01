@@ -43,7 +43,6 @@
 						  			</ul>
 							</div>
 					{{/if}}
-					<button class="btn btn-primary pull-right" style="margin-right: 5px;" type="button">Invite</button>
 				{{else}}
 
 				{{/if}}
@@ -68,6 +67,8 @@
 				<span style="float: right; font-size: 14px;" id="privacy"><i>{{group.privacy}}-group...</i></span>
 				<hr class="divider">
 				<h3 id="gdesc" style="margin-left: 20px; font-size: 16px;" title="{{group.gdesc}}">{{group.gdesc}}</h3>
+				<hr class="divider">
+				<h3 id="gdesc" style="margin-left: 20px; font-size: 16px;" title="{{group.gdesc}}">{{group.createdOn}}</h3>
 				<hr class="divider">
 			</div>		
 		</div>
@@ -115,7 +116,12 @@
 						{{#if owner}}
 							{{#if members}}
 								{{#each members}}
-									<li>{{name}} - {{joinedAt}} <button class="delete">&times;</button>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+									<li>
+										{{name}} - {{joinedAt}}
+										<button class="delete">
+											<span class="glyphicon glyphicon-minus"></span>
+										</button>
+									</li>
 								{{/each}}
 							{{/if}}
 						{{else}}
@@ -129,6 +135,34 @@
 			{{else}}
 				<h2>No members</h2>
 			{{/if}}
+		{{else}}
+      		<p>Loading... {{> spinner}}</p>
+    	{{/if}}
+	</div>
+</template>
+
+<template name= "Invite">
+{{> navbarGroup}}
+	<div class="container">
+		{{#if Template.subscriptionsReady}}
+			<div class="well well-sm" style="width:100%;display: inline-block;">
+		    	<h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
+		    </div> 
+		    <div class="dropdown">
+		        {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
+		          <div>No search results found</div>
+		        {{/EasySearch.IfNoResults}}
+
+		        {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
+		          <div>Indexes are searching...</div>
+		        {{/EasySearch.IfSearching}}
+
+		        <div class="well well-lg" style="width:100%;display: inline-block;">
+		        	{{#EasySearch.Each index=userIndex }}
+		            <h3> name: <a href="/user_dashboard/{{profile.id}}">{{profile.name}}</a></h3>
+		          {{/EasySearch.Each}}
+          		</div>
+          	</div>
 		{{else}}
       		<p>Loading... {{> spinner}}</p>
     	{{/if}}

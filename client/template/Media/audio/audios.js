@@ -65,7 +65,7 @@ Meteor.startup(function() {
 	Template.audio_group.events({
 	'change input.audioFile' : FS.EventHandlers.insertFiles(Collections.Audios,{
 		metadata : function(fileobj){
-			var groupId = Session.get('group');
+			var groupId = Session.get('groupId');
 	    	return {
 	          	owner:{
 	            	id: Meteor.userId(),

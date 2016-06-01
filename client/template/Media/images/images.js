@@ -42,7 +42,7 @@ Meteor.startup(function () {
   Template.images_group.events({
     'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
       metadata: function (fileObj) {
-        var groupId = Session.get('group');
+        var groupId = Session.get('groupId');
           return {
             owner:{
               id: Meteor.userId(),

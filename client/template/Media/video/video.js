@@ -66,7 +66,7 @@ Meteor.startup(function() {
 	Template.video_group.events({
 	'change input.videoFile' : FS.EventHandlers.insertFiles(Collections.Videos,{
 		metadata : function(fileobj){
-			var groupId = Session.get('group');
+			var groupId = Session.get('groupId');
 		    	return {
 					owner:{
 						id: Meteor.userId(),

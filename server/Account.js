@@ -6,7 +6,7 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.name = user.services.google.name;
         user.profile.first_name = user.services.google.given_name;
         user.profile.last_name = user.services.google.family_name; 
-        user.profile.gender = user.services.google.gender;
+        user.profile.gender = "not set";
         user.profile.image = user.services.google.picture;
         user.profile.dob = "not set"; 
         user.profile.age = "not set";
