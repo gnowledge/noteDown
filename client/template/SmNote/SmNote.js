@@ -23,9 +23,9 @@ Template.CreateNote.events({
 		var created_date = new Date().toLocaleString();
 		Meteor.call('addPost', title, /*message,*/ postBody,loc, tags, privacy, created_date, function(err, res){
 				if(!err){//all good
-	                  var note= Posts.findOne({ Title: title });
-	                  var id= note._id;
-	                  Router.go('/posts/'+id);
+					var note= Posts.findOne({ Title: title });
+					var id= note._id;
+					Router.go('/posts/'+id);
 				}
 			});
 		//location.reload();
@@ -152,11 +152,11 @@ Template.ShareNotes.events({
 Template.SharedNotes.helpers({
 	posts: function() {
 		var group_id= Session.get('groupId');
-		return Posts.find({groupID: group_id});
+		return Posts.find({groupID: group_id, privacy: "public"}, { sort: {createdOn: -1}});
 	},
 	post:function(){
 		var group_id= Session.get('groupId');
-		return Posts.find({groupID: group_id}).count();
+		return Posts.find({groupID: group_id, privacy: "public"}).count();
 	}
 });
 
@@ -220,9 +220,10 @@ Template.CreateNoteInGroup.events({
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
 	                  Router.go('/group_notes/'+id);
+	                  //location.reload();
 				}
 			});
-		//location.reload();
+		
 	}
 });
 
