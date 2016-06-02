@@ -1,6 +1,7 @@
 h3#gname{
 	font-size:20px;
 	color:black;
+	overflow: hidden;
 }
 h3#gdesc{
 	font-size:15px;

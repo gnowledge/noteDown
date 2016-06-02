@@ -48,7 +48,7 @@ Template.CreateTodo.events({
 				console.log("callback recieved: "+res);
 			}
 		});
-		
+		Router.go('/user/showTodo/');
 		// Insert a task into the collection
 		// Clear form
 		event.target.text.value = "";
@@ -214,6 +214,8 @@ Template.CreateTask.events({
 				console.log("callback recieved: "+res);
 			}
 		});
+
+		Router.go('/group_task/');
 		
 		// Insert a task into the collection
 		// Clear form

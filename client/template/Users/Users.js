@@ -24,10 +24,6 @@ Template.UserDashboard.events({
 		var first_name = $("#firsttxt").text();
 		var last_name = $("#lasttxt").text();
 		var email = $("#emailtxt").text();
-		var age = $("#agetxt").text();
-		var dob = $("#dobtxt").text();
-		var gender = $("#gendertxt").text();
-
 		//var input1 = $('<input id="nametxt" type="text" value="' + name + '" />');
 		//$("#nametxt").replaceWith(input1);
 		var input2 = $('<input id="firsttxt" type="text" value="' + first_name + '" />');
@@ -36,11 +32,6 @@ Template.UserDashboard.events({
 		$("#lasttxt").replaceWith(input3);
 		var input4 = $('<input id="emailtxt" type="text" value="' + email + '" />');
 		$("#emailtxt").replaceWith(input4);
-		var input5 = $('<input id="agetxt" type="number" value="' + age + '" />');
-		$("#agetxt").replaceWith(input5);
-
-		var input6 = $('<input id="gendertxt" type="text" value="' + gender + '" />');
-		$("#gendertxt").replaceWith(input6);
 
 		document.getElementById('save').disabled = false; 
 		document.getElementById('edit').disabled = true;
@@ -50,11 +41,9 @@ Template.UserDashboard.events({
 		var first_name = document.getElementById('firsttxt').value;
 		var last_name = document.getElementById('lasttxt').value;
 		var email = document.getElementById('emailtxt').value;
-		var age = document.getElementById('agetxt').value;
-		var gender = document.getElementById('gendertxt').value;
 		var img= document.getElementById('myFile').innerHTML;
 		var user_id = Meteor.userId();
-		Meteor.call('editUser', user_id,/* name,*/ first_name, last_name, email, age, gender/*, img*/, function(err,res){
+		Meteor.call('editUser', user_id,/* name,*/ first_name, last_name, email /*, img*/, function(err,res){
 			if(!err){
 
 				//var input1 = $('<h2 id="nametxt">' + name + '</h2>');
@@ -65,10 +54,6 @@ Template.UserDashboard.events({
 				$("#lasttxt").replaceWith(input3);
 				var input4 = $('<h3 id="emailtxt">' + email + '</h3>');
 				$("#emailtxt").replaceWith(input4);
-				var input5 = $('<h3 id="agetxt">' + age + '</h3>');
-				$("#agetxt").replaceWith(input5);
-				var input6 = $('<h3 id="gendertxt">' + gender + '</h3>');
-				$("#gendertxt").replaceWith(input6);
 
 				document.getElementById('save').disabled = true; 
 				document.getElementById('edit').disabled = false;

@@ -197,7 +197,6 @@ Template.Members.onCreated(function(){
 	});
 });
 Template.Members.helpers({
-
 	member: function(){
 		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
@@ -255,7 +254,7 @@ Template.Invite.onCreated(function(){
 });
 
 Template.Invite.helpers({
-	searchIndexes: () => [groupsIndex, postsIndex],
+	searchIndexes: () => [groupsIndex, postsIndex,usersIndex],
   		groupIndex: () => groupsIndex,
   		postIndex: () => postsIndex,
   		userIndex: () => usersIndex
@@ -288,7 +287,7 @@ Template.YourGroup.helpers({
 	}
 });
 
-/*Template.allGroup.onCreated(function(){
+Template.allGroup.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('groups');
@@ -305,4 +304,4 @@ Template.allGroup.helpers({
 			]
 		},{sort: {createdAt: 1}},{limit: 6});
 	}
-});*/
+});

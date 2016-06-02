@@ -26,7 +26,7 @@ Meteor.startup(function () {
       },
       after: function (error, fileObj) {
         if (!error) {
-          alert('done');
+          Router.go('/user/showMedia/');
         }
       }
     }),
@@ -90,7 +90,7 @@ Meteor.startup(function () {
       },
       after: function (error, fileObj) {
         if (!error) {
-          alert('done');
+          Router.go('/shared_media/');
         }
       }
     }),

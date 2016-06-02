@@ -109,7 +109,7 @@
 	{{> navbarGroup}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-			<h2>Members</h2>
+			<h2>Members <h3 class="pull-right">{{#if group}}({{group.member_count}}){{/if}}</h3></h2>
 			<hr class="divider"><br>
 			{{#if members}}
 				<div class="row">
@@ -181,9 +181,9 @@
 					<h3>Owner:</h3>
 					<div class="row">
 						{{#each owner}}
-							<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+							<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
 
-								<div class="thumbnail">
+								<div class="thumbnail" style="height:150px;">
 									<div class="caption">
 										<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 				                	</div>
@@ -205,8 +205,8 @@
 			      	<h3>Member:</h3>       
 			      	<div class="row">
 				        {{#each member}}
-							<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-								<div class="thumbnail">
+							<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
+								<div class="thumbnail" style="height:150px;">
 									<div class="caption">
 										<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 				                	</div>
@@ -221,6 +221,10 @@
 		      		<h2>Not a member</h2> 
 		      		<a href="{{pathFor route='Search'}}">Search for group</a>
 		      	{{/if}} 
+
+		      	<hr class="divider">
+		      	<br>
+		      	{{> allGroup}}
       	{{else}}
 	        <p>Loading... {{> spinner}}</p>
 	    {{/if}} 
@@ -228,10 +232,9 @@
 </template>
 
 
-<!--<template name="allGroup">
-	<!-- Start Container 
-	<div class="container"> 
-		<h2>All Groups</h2>
+<template name="allGroup">
+	<!-- Start Container -->
+		<h2>All Groups:</h2>
 		<div class="row">
 			{{#if Template.subscriptionsReady}}
 					{{#each groups}}
@@ -251,6 +254,5 @@
 	        {{/if}}
       	</div>
     	<hr class="divider">
-   	</div>
-	<!-- End Container 
-</template>-->
+	<!-- End Container -->
+</template>

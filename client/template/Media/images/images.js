@@ -4,7 +4,6 @@ Meteor.startup(function () {
   Template.images.events({
     'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
       metadata: function (fileObj) {
-
         return {
           owner:{
             id: Meteor.userId(),
@@ -16,7 +15,7 @@ Meteor.startup(function () {
       },
       after: function (error, fileObj) {
         if (!error) {
-          alert('done');
+          Router.go('/user/showMedia/');
         }
       }
     })
@@ -67,7 +66,7 @@ Meteor.startup(function () {
       },
       after: function (error, fileObj) {
         if (!error) {
-          alert('done');
+          Router.go('/shared_media/');
         }
       }
     }),
