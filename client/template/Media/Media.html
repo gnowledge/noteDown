@@ -68,7 +68,7 @@
       <h2>Media &nbsp; <a href="{{pathFor route='AddMedia'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
       <hr class="divider"><br>
       {{#if image}}
-        Images:
+        Images: ({{image}})
         <div class="imageArea clearfix">
         
           {{#each images}}
@@ -83,7 +83,7 @@
 
       {{#if video}}
         <div class="imageArea clearfix">
-          Videos:
+          Videos: ({{video}})
           {{#each videos}}
             {{> uploadedVideo}}
           {{/each}}
@@ -96,7 +96,7 @@
 
       {{#if file}}
         <div class="imageArea clearfix">
-          Files:
+          Files: ({{file}})
           {{#each files}}
             {{> uploadedFile}}
           {{/each}}
@@ -109,7 +109,7 @@
 
       {{#if audio}}
         <div class="imageArea clearfix">    
-          Audio:
+          Audio: ({{audio}})
           {{#each audios}}
             {{> uploadedAudio}}
           {{/each}}
@@ -189,7 +189,7 @@
       <h2>Media &nbsp;&nbsp;<a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
       <hr class="divider"><br>
       {{#if image}}
-        Images:
+        Images: ({{image}})
         <div class="imageArea clearfix">
           {{#each images}}
             {{> uploadedImage}}
@@ -203,7 +203,7 @@
 
       {{#if video}}
         <div class="imageArea clearfix">
-          Videos:
+          Videos: ({{video}})
           {{#each videos}}
             {{> uploadedVideo}}
           {{/each}}
@@ -216,7 +216,7 @@
 
       {{#if file}}
         <div class="imageArea clearfix">
-          Files:
+          Files: ({{file}})
           {{#each files}}
             {{> uploadedFile}}
           {{/each}}
@@ -229,7 +229,7 @@
 
       {{#if audio}}
         <div class="imageArea clearfix">    
-          Audio:
+          Audio: ({{audio}})
           {{#each audios}}
             {{> uploadedAudio}}
           {{/each}}

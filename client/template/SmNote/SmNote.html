@@ -112,7 +112,7 @@
 	{{> Navbar}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-			<h2>Notes &nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+			<h2>Notes ({{post}}) &nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
 			<hr class="divider"><br>
 			{{#if post}}
 				<div class="row">
@@ -171,8 +171,7 @@
 							{{{Body}}}
 							{{Tags}}
 							<h4>Created by......<i>{{owner.name}}</i></h4>
-							<h5>{{createdOn}}</h5>
-							{{> groupDiscuss}}	
+							<h5>{{createdOn}}</h5>	
 						</div>
 					</div>
 				{{/each}}
@@ -187,7 +186,7 @@
 	{{> navbarGroup}}
 	<div class="container" >
 	{{#if Template.subscriptionsReady}}
-		<h3>Note &nbsp;&nbsp;<a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h3>
+		<h3>Note ({{post}}) &nbsp;&nbsp;<a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h3>
 		<hr class="divider"><br>
 		{{#if post}}
 		<div class="row">
@@ -266,6 +265,7 @@
 							<p class="">Tags: <b>{{post.Tags}}</b></p>
 						{{/if}}
 						<p class="">{{post.createdOn}}</p>
+						{{> groupDiscuss}}
 					</div>
 				{{else}}
 					<h2>No Such Note</h2>

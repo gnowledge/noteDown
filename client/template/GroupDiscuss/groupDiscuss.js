@@ -9,7 +9,7 @@ Template.groupdiscussion.onCreated(function(){
 Template.groupdiscussion.events({
     "submit .new-post": function(event){
         event.preventDefault();
-        var post_id= this._id;
+        var post_id= Session.get('postId');
         var text = event.target.commentbox.value;
         var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
         Meteor.call("addThread",text, groupId,post_id);
@@ -19,11 +19,11 @@ Template.groupdiscussion.events({
 
 Template.postMessage.helpers({
     'count':function(){
-        var postid= this._id;
+        var postid= Session.get('postId');
          return Thread.find({ postId:postid}).count();
     },
     'gdPost': function(){   
-        var postid= this._id;
+        var postid= Session.get('postId');
         return Thread.find({ postId:postid});
     },
     admin: function(){
@@ -46,7 +46,7 @@ Template.postMessage.events({
     'click #deletePost' : function(){
         var thread_id= this._id;
         var note=Posts.findOne({ threads: thread_id},{ _id:1});
-        var note_id= note._id;
+        var note_id= Session.get('postId');
         Meteor.call('deleteThread',thread_id, note_id);
     },
     'click #likePost':function(text){

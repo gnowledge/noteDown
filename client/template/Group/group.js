@@ -303,5 +303,14 @@ Template.allGroup.helpers({
 				{ "privacy" : { $ne: "private"}}
 			]
 		},{sort: {createdAt: 1}},{limit: 6});
+	},
+	group : function(){
+		return Groups.find({
+			$and:[ 
+				{ "owner.id": {$ne: Meteor.userId() } },
+				{"members.id": {$ne:  Meteor.userId() } },
+				{ "privacy" : { $ne: "private"}}
+			]
+		}).count();
 	}
 });
