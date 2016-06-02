@@ -1,0 +1,26 @@
+.note-editable {
+	height: 200px;
+}
+
+p#showMsg{
+	height: 40px;
+	max-height:40px;
+	overflow: hidden;
+}
+
+h2#showTitle{
+	height:33px;
+	max-height:33px;
+	overflow: hidden;
+}
+span#showMsgs{
+	height: 60px;
+	max-height:60px;
+	overflow: hidden;
+}
+
+h3#showTitles{
+	height:33px;
+	max-height:33px;
+	overflow: hidden;
+}

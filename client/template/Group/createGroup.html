@@ -1,11 +1,11 @@
-<template name="createGroup">
+<template name="Group">
 	<div class="container">  
-		<h2>Create Groups <a href="{{pathFor route='newGroup'}}"><img src="images/add.png"  height="50" ></a></h2>
+		<h2>Group &nbsp;  <a href="{{pathFor route='CreateGroup'}}"><img src="/images/add.png"  height="50" title="Create group" ></a></h2>
 		<hr class="divider">
 	</div>
 </template>
 
-<template name="newGroup">
+<template name="CreateGroup">
 	{{> Navbar }}
 	<!-- Start Container -->
 	<div class="container-fluid"><br>
@@ -14,10 +14,10 @@
 			<form class="form">
 	    		<div class="form-group">
 	      			<label for="inputdefault">Group Title:</label>
-	      			<input class="form-control" id="gTitle" type="text" width="50" required><br>
+	      			<input class="form-control" id="Title" type="text" width="50" required><br>
 	   				<label for="Descripion">Description:</label>
-	   				<textarea class="form-control" rows='5' type="text" id="gDescription" width="50" required></textarea> <br>
-	   				<input type="checkbox" id="privacy" value="Private">Private
+	   				<textarea class="form-control" rows='5' type="text" id="Description" width="50" required></textarea> <br>
+	   				<input type="checkbox" id="Privacy" value="Private">Private
 					<input type="submit" class="btn btn-primary" value="Create Group">
 	   			</div>
 	  		</form>	

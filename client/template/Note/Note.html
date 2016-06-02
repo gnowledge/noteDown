@@ -1,83 +1,42 @@
-<template name="Note">
-	<div class="container">  
-		<h2>Create a Note <a href="{{pathFor route='createNote'}}"><img src="images/add.png"  height="50" ></a></h2>
-		<hr class="divider">
-	</div>
-</template>
-<template name="createNote">
-	{{> Navbar }}
+<template name="publishNote">
+	{{> Navbar }}<br><br>
 	<div class="container-fluid top-margin">
 		<div class="row">
 			<div class="col-md-12" style="background-color:#11d3bc">
-				{{> docMeta}} 
-			</div>
-			<div class="col-md-12" style="background-color:#11d3bc">
-				{{> noteHeader}}
+				{{> docMeta}}
 			</div>
 			<div class="col-md-12" style="background-color:#55e9bc">
-  				{{> editingUsers}}
-			</div>
-			<div class="col-md-12 editor">
-  				{{> editor}}
-			</div>
+				{{> editingUsers}}
+			</div>	
 			<div class="col-md-12">
-				<br><br>
-				{{> getLocation}}
-				<br><br>
+				{{> editor}}
 			</div>
-			
 		</div>
   	</div>
 </template>
 
-<template name="noteHeader">
-	<ul class="nav navbar-nav" style="font-color:#537780">
-			     	<li>
-				     	<a href="#" class="js-add-doc"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Note
-				     	</a>
-			     	</li>
-			     	<!--DropDown-->
-			     	<li class="dropdown" >
-		          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notes <span class="caret"></span></a>
-			          <ul class="dropdown-menu" style="background-color:#11d3bc">
-			          	{{#each documents}}
-			            <li><a href="#" class="js-load-doc">{{title}}</a></li>
-			           	{{/each}}
-			          </ul>
-	        		</li>
-			     	<!--End Dropdown-->
-			     	<!--<li>
-				     	<a href="#" class="js-del-doc"><span class=" glyphicon glyphicon-trash" aria-hidden="true"></span> Discard
-				     	</a>
-			     		</li>
-			     	-->
-			    </ul>
-</template>
+
 
 <template name="editor">
-	<div div class="container-fluid">
-		{{>sharejsCM docid=docid onRender=config id="editor"}}
+	<div class="container-fluid">
+		{{>sharejsCM docid=docid onRender=config id="editor" }}
+		<!--{{{data.Body}}}-->
 	</div>
 </template>
 
-
 <template name="docMeta">
-	{{#with document}}
-		<span class="h1" style="color:#5e366a">{{> editableText collection="documents" field="title"}}</span>
-		{{#if canEdit}}
-		 <div class="checkbox">
-		    <label>
-		      <input type="checkbox" class="js-tog-private"> Private
-		    </label>
-		   </div>
-		{{/if}}
-	{{/with}}
+	<div class="container-fluid">
+		{{#with document}}
+			<span class="h1" style="color:#5e366a">{{> editableText collection="posts" field="Title"}}</span>
+		{{/with}}
+	</div>
 </template>
 
 <template name="editingUsers">
-	Editors: 
-	{{#each users}}
-	<span class="label label-success">{{firstname}}</span>
-	{{/each}}
+	<div class="container-fluid">
+		Editors: 
+		{{#each users}}
+			<span class="label label-success">{{name}}</span>
+		{{/each}}
+	</div>
 </template>
- 

@@ -1,9 +1,9 @@
 h3#gname{
-	font-size:18px;
+	font-size:20px;
 	color:black;
 }
 h3#gdesc{
-	font-size:12px;
+	font-size:15px;
 	color:black;
 }
 .divider{
@@ -30,3 +30,22 @@ h3#gdesc{
 	     		transform:scale(1.25);
 		}
 
+.dropdown{
+ 	/*position: relative;
+    display: inline-block;*/
+}
+.dropdown .dropdown-menu {
+    right:0;
+    margin:40px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown .notify {
+	left:50%;
+    right:9%;
+    margin:40px;
+}
+.dropdown:hover .notify {
+    display: block;
+}

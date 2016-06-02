@@ -1,154 +1,256 @@
-<template name="displayGroup">
-	<div class="container">  
-		<h2>Display Groups <a href="{{pathFor route='allGroup'}}"><img src="images/add.png"  height="50" ></a></h2>
+<template name="SingleGroup">
+	<!--Start Container-->
+	{{#if owner}}
+			{{> navbarGroup}}
+		{{else}}
+			{{#if member}}
+				{{> navbarGroup }}
+			{{/if}}
+		{{/if}}
+	<div class="container-fluid"><br>
+	{{#if group}}
+		<div class="row">
+			{{#if owner}}
+				<button class="btn btn-success pull-right glyphicon glyphicon-pencil" id="edit" style="margin-right: 5px;" title="Edit"></button>
+				<button class="btn btn-danger pull-right glyphicon glyphicon-remove" id="delete" style="margin-right: 5px;" title="Delete"></button>	
+				{{#if private}}
 
-		<hr class="divider">
+					{{#if notificationCount}}
+			 				<div class="dropdown">
+			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
+				  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
+				  						Notifications
+				  					<span class="caret"></span>
+			  					</button>
+			  					<ul class="dropdown-menu notify pull-right" style="margin-right: 5px;">
+			  						{{#each notification}}
+							    	<li>
+							    		{{title}}&nbsp;&nbsp;&nbsp;&nbsp;
+							    		<input type="submit" class="btn btn-primary" id="accept" value=" Accept request">
+										<input type="submit" class="btn btn-danger" id="decline" value="Decline request">
+							    	</li>
+									{{/each}}
+			  					</ul>
+							</div>
+						{{else}}
+							<div class="dropdown">
+						  		<button class="btn btn-primary pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
+						  			<span class="glyphicon glyphicon-bell"></span>&nbsp;
+						  			Notifications
+						  			<span class="caret"></span></button>
+						  			<ul class="dropdown-menu notify pull-right" style="margin-right: 0px;">
+									    <li><a href="#">No notifications</a></li>
+						  			</ul>
+							</div>
+					{{/if}}
+				{{else}}
+
+				{{/if}}
+			{{else}}
+				{{#if member}}
+					<input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;">
+				{{else}}
+					{{#if private}}
+						<input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;">
+					{{else}}
+						<input type="submit" class="btn btn-success pull-right" id="join" value="Join" style="margin-right:20px;">
+					{{/if}}
+				{{/if}}
+			{{/if}}
+			
+		</div>
+
+		<div class="row">
+			<div class="container-fluid">
+				<hr class="divider">
+				<h2 id="gname" style="margin-left:20px;" title="{{group.gname}}"><b><i>{{group.gname}}</i></b></h2> 
+				<span style="float: right; font-size: 14px;" id="privacy"><i>{{group.privacy}}-group...</i></span>
+				<hr class="divider">
+				<h3 id="gdesc" style="margin-left: 20px; font-size: 16px;" title="{{group.gdesc}}">{{group.gdesc}}</h3>
+				<hr class="divider">
+				<h3 id="gdesc" style="margin-left: 20px; font-size: 16px;" title="{{group.gdesc}}">{{group.createdOn}}</h3>
+				<hr class="divider">
+			</div>		
+		</div>
+
+		{{#if owner}}
+		<br>
+			<div class="container"> 
+				<h2>Note &nbsp;  <a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+				<hr class="divider">
+				<h2>Task &nbsp; <a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
+				<hr class="divider">
+				<h2>Media  <a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+	    		<hr class="divider">
+	    	</div>
+			<!--{{> ShareNotes}}-->
+			{{> SharedNotes}}	
+		{{else}}
+			{{#if member}}
+				<div class="container">
+					<h2>Note &nbsp;&nbsp;  <a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+					<hr class="divider">
+					<h2>Task &nbsp;&nbsp;<a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
+					<hr class="divider">
+					<h2>Media &nbsp; <a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
+				</div>
+				<!--{{> ShareNotes}}-->
+				{{> SharedNotes}}
+			{{/if}}
+		{{/if}}
+	{{else}}
+		<h2>No Such Group</h2>
+		<a href="{{pathFor route='CreateGroup'}}">Create Group</a>
+	{{/if}}
+	</div>	
+</template>
+
+<template name="Members">
+	{{> navbarGroup}}
+	<div class="container">
+		{{#if Template.subscriptionsReady}}
+			<h2>Members</h2>
+			<hr class="divider"><br>
+			{{#if members}}
+				<div class="row">
+						{{#if owner}}
+							{{#if members}}
+								{{#each members}}
+									<li>
+										{{name}} - {{joinedAt}}
+										<button class="delete">
+											<span class="glyphicon glyphicon-minus"></span>
+										</button>
+									</li>
+								{{/each}}
+							{{/if}}
+						{{else}}
+							{{#if member}}
+								{{#each members}}
+									<li>{{name}} - {{joinedAt}}</li>
+								{{/each}}
+							{{/if}}
+						{{/if}}
+				</div>
+			{{else}}
+				<h2>No members</h2>
+			{{/if}}
+		{{else}}
+      		<p>Loading... {{> spinner}}</p>
+    	{{/if}}
 	</div>
 </template>
 
+<template name= "Invite">
+{{> navbarGroup}}
+	<div class="container">
+		{{#if Template.subscriptionsReady}}
+			<div class="well well-sm" style="width:100%;display: inline-block;">
+		    	<h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
+		    </div> 
+		    <div class="dropdown">
+		        {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
+		          <div>No search results found</div>
+		        {{/EasySearch.IfNoResults}}
 
-<template name="otherGroup">
-	<!-- Start Container -->
-	<div class="container"> 
-		<h2>Other Groups</h2>
+		        {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
+		          <div>Indexes are searching...</div>
+		        {{/EasySearch.IfSearching}}
 
-		<div class="row">
-			{{#if Template.subscriptionsReady}}
-					{{#each groups}}
-						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-							<div class="thumbnail">
-								<div class="caption">
-									<h3 id="gname">{{gname}}</h3> 
-			                	</div>
-									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
-			  						<hr class="divider">
-			  						<a href="/group/{{_id}}">View Group</a>
-			  				</div>
-		  				</div>
-		            {{/each}}
-	        	{{else}}
-
-	        		<p>Loading</p>
-
-	        		<p>Loading... {{> spinner}}</p>
-
-	        {{/if}}
-      	</div>
-    	<hr class="divider">
-   	</div>
-	<!-- End Container -->
-</template>
-
-<template name="singleGroup">
-	{{> Navbar }}
-	<!-- Start Container -->
-	<div class="container-fluid"><br><br><br> 
-		<hr class="divider">
-		<div class="row">
-			<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2 img-zoom">
-				<div class="thumbnail">
-					<div class="caption">
-						<img src="images/groups.png" width="80%" height="50%" alt="thumb01">
-						<hr>
-						<h3 id="gname">{{group.gname}}</h3> 
-                		<span style="float: right;" id="privacy"><i>{{group.privacy}}-group...</i></span>
-					</div>
-						<hr class="divider">
-  						<h3 id="gdesc">{{group.gdesc}}</h3>
-  						<!--{{group.owner}}-->
-  						<hr class="divider">
-
-
-  						{{#if owner}}
-  								<input type="submit" class="btn btn-danger" id="delete" value="Delete">
-  						{{else}}
-  							{{#if member}}
-  								<input type="submit" class="btn btn-primary" id="leave" value="Leave">
-  							{{else}}
-  								<input type="submit" class="btn btn-success" id="join" value="Join">	
-  							{{/if}}
-  						{{/if}}
-
-
-  						{{#if owner}}
-  						<input type="submit" class="btn btn-danger" id="delete" value="Delete">
-  						{{else}}
-  							<!--{{#if member}}-->
-  									<input type="submit" class="btn btn-success" id="join" value="Join">
-  							<!--{{else}}
-  									<input type="submit" class="btn btn-danger" id="leave" value="Leave">
-  								{{/if}}-->
-  						{{/if}}
-
-  						
-	           	</div>
+		        <div class="well well-lg" style="width:100%;display: inline-block;">
+		        	{{#EasySearch.Each index=userIndex }}
+		            <h3> name: <a href="/user_dashboard/{{profile.id}}">{{profile.name}}</a></h3>
+		          {{/EasySearch.Each}}
+          		</div>
           	</div>
+		{{else}}
+      		<p>Loading... {{> spinner}}</p>
+    	{{/if}}
+	</div>
+</template>
+
+<template name="YourGroup">
+	<!-- Start Container -->
+	{{> Navbar}}
+	<div class="container">
+		{{#if Template.subscriptionsReady}}
+				<h2>Groups &nbsp;<a href="{{pathFor route='CreateGroup'}}"><img src="/images/add.png"  height="50" title="Create group" ></a></h2>
+				<hr class="divider">
+				<br>
+				{{#if ownerCount}}
+					<h3>Owner:</h3>
+					<div class="row">
+						{{#each owner}}
+							<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+
+								<div class="thumbnail">
+									<div class="caption">
+										<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+				                	</div>
+										<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+				  						<hr class="divider">
+				  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+				  				</div>
+		  					</div>	
+				        {{/each}}   
+			      	</div>
+		      	{{else}}
+		      		<h2>Not a owner</h2>
+		      		<a href="{{pathFor route='CreateGroup'}}">Create Group</a>
+		      	{{/if}}
+
+		      	<hr class="divider">
+		      	<br>
+		      	{{#if memberCount}}
+			      	<h3>Member:</h3>       
+			      	<div class="row">
+				        {{#each member}}
+							<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+								<div class="thumbnail">
+									<div class="caption">
+										<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+				                	</div>
+										<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+				  						<hr class="divider">
+				  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+				  				</div>
+		  					</div>	
+				        {{/each}}
+		      		</div>
+		      	{{else}}
+		      		<h2>Not a member</h2> 
+		      		<a href="{{pathFor route='Search'}}">Search for group</a>
+		      	{{/if}} 
+      	{{else}}
+	        <p>Loading... {{> spinner}}</p>
+	    {{/if}} 
+   	</div>
+</template>
+
+
+<!--<template name="allGroup">
+	<!-- Start Container 
+	<div class="container"> 
+		<h2>All Groups</h2>
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+					{{#each groups}}
+						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
+							<div class="thumbnail">
+								<div class="caption">
+									<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+			                	</div>
+									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
+			  						<hr class="divider">
+			  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+			  				</div>
+	  					</div>	
+		            {{/each}}
+	        	{{else}}
+	        		<p>Loading</p>
+	        {{/if}}
       	</div>
     	<hr class="divider">
-
    	</div>
-</template>
-
-<template name="yourGroup">
-	<!-- Start Container -->
-	<div class="container">
-		<h2>Your Groups</h2>
-		<div class="row">
-			{{#if Template.subscriptionsReady}}
-					{{#each groups}}
-						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-							<div class="thumbnail">
-								<div class="caption">
-									<h3 id="gname">{{gname}}</h3> 
-			                	</div>
-									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
-			  						<hr class="divider">
-			  						<a href="/group/{{_id}}">View Group</a>
-			  				</div>
-		  				</div>
-		            {{/each}}
-	        	{{else}}
-	        		<p>Loading... {{> spinner}}</p>
-	        {{/if}}
-      	</div>
-      	<hr class="divider">
-
-   	</div>
-</template>
-
-
-<template name="allGroup">
-	<!-- Start Container -->
-
-	<div class="container">
-		<h2>Display All Groups</h2>
-		<hr class="divider">
-
-		<div class="row">
-			{{#if Template.subscriptionsReady}}
-					{{#each groups}}
-						<div class="col-sm-6 col-xs-3 col-md-3 col-lg-2">
-							<div class="thumbnail">
-								<div class="caption">
-									<h3 id="gname">{{gname}}</h3> 
-			                	</div>
-									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
-			  						<hr class="divider">
-			  						<a href="/group/{{_id}}">View Group</a>
-			  				</div>
-		  				</div>
-		            {{/each}}
-	        	{{else}}
-
-	        		<p>Loading... {{> spinner}}</p>
-
-	        {{/if}}
-      	</div>
-      	<hr class="divider">
-   	</div>
-	<!-- End Container -->
-
-</template>
-
-
-
+	<!-- End Container 
+</template>-->

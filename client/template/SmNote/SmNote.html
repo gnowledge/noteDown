@@ -1,0 +1,315 @@
+<template name="Note">
+	<div class="container">  
+		<h2>Note &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+		<hr class="divider">
+	</div>
+</template>
+
+<template name="CreateNote">
+	{{> Navbar}}
+	<div class="container">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form" id ="addPost">
+				<div class="form-group container-fluid">
+					<h2>Create Note</h2> 
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
+				</div>
+				<!--<div class="form-group container-fluid">
+					
+					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
+				</div>-->
+				<div id="summernote" class="form-group">
+				
+				</div>
+				<div class="form-group">
+					{{> Tags}}
+				</div>
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success" style="border-radius: 0px;">Save Post</button>
+				</div>
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
+				</div>
+			</form>
+		</div>
+	</div>
+</template>
+
+<template name="SingleNote">
+	{{> Navbar}}
+	<div class="container">
+		<div class="col-xs-12">
+			<div class="panel-group">
+				{{#if post}}
+						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
+
+						{{#if owner}}
+							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+
+							<a href="{{pathFor route='EditNote'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
+						{{/if}}
+					<br><br><br>
+					<div class="panel panel-title">
+						<h1 class="text-capitalize text-center">{{post.Title}}</h1>
+					</div>
+					<div class="panel panel-body">
+						<p class="text-center">{{{post.Body}}}</p>
+						{{#if tags }}
+							<p class="text-center">Tags: <b>{{post.Tags}}</b></p>
+						{{/if}}
+						<p class="text-center">{{post.createdOn}}</p>
+					</div>
+				{{else}}
+					<h2>No Such Note</h2>
+					<a href="{{pathFor route='CreateNote'}}">Create Note</a>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="EditNote">
+	{{> Navbar}}
+	<div class="container">
+		<div class="col-xs-12">
+			<h2>Edit Note</h2>
+			<form role="form" id ="editPost">
+				<div class="form-group container-fluid">
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
+
+				</div>
+
+				<!--<div class="form-group container-fluid">
+					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
+				</div>-->
+
+				<div id="summernote" class="form-group">
+					{{{edit.Body}}}
+				</div>
+
+				<div class="form-group">
+					<h4 style="margin-right: 20px; margin-left: 20px;"><b> {{edit.Tags}} </b></h4>
+					{{> Tags}}
+				</div>
+
+				<p class="pull-right"><b> Updated At: {{edit.updatedAt}}</b></p><br>
+
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success">Save Post</button>
+				</div>
+
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
+				</div>
+			</form>
+		</div>
+	</div>
+</template>
+
+<template name="YourNotes">
+	{{> Navbar}}
+	<div class="container">
+		{{#if Template.subscriptionsReady}}
+			<h2>Notes &nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
+			<hr class="divider"><br>
+			{{#if post}}
+				<div class="row">
+					{{#each posts}}
+						<div class="col-xs-12 col-md-6 col-lg-3">
+							<div class="thumbnail" style="height:200px;">
+								<a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
+								<hr class="divider">
+		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
+			  				</div>
+		  				</div>
+		           {{/each}}
+		        </div>
+		    {{else}}
+		      	<h2>No notes</h2>
+		      	<a href="{{pathFor route='CreateNote'}}">Create Note</a>
+		    {{/if}}
+      	{{else}}
+	        <p>Loading... {{> spinner}}</p>
+	    {{/if}}
+   	</div>
+</template>
+
+<!--
+<template name="ShareNotes">
+	<div class="container">
+		<div class="row">
+			{{#if Template.subscriptionsReady}}
+				<pre>Want to share the notes in the group ? </pre>
+				{{#each posts}}
+					<div class="col-sm-6 col-xs-4 col-md-3 col-lg-2">
+						<div class="thumbnail">
+							<div class="caption">
+								<a class="s" href="/posts/{{_id}}"><h3 title="{{Message}}">{{Title}}</h3></a>
+		                	</div>	
+		                		<button class="btn btn-success btn-xs" id="Share" title="Share" ><span class="glyphicon glyphicon-file"></span> Share</button>
+						</div>
+					</div>
+				{{/each}}
+			{{/if}}
+		</div>
+	</div>
+</template>
+-->
+<template name="SharedNotes">
+	{{#if Template.subscriptionsReady}}
+	<div class="container" >
+		{{#if post}}
+			<h3>Notes shared by Users</h3>
+			<div class="row">
+				{{#each posts}}
+					<div class="thumbnail" >
+						<div class="caption" style="margin-left:30px;">
+							<a class="s" href="/posts/{{_id}}">
+								<h2 title="{{Body}}">{{Title}}</h2>
+							</a>
+							<h4>Created by......<i>{{owner.name}}</i></h4>
+							<h5>{{createdOn}}</h5>
+							{{> groupDiscuss}}	
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		{{else}}
+		{{/if}}
+	</div>
+	{{/if}}
+</template>
+
+<template name="SharedNotesInGroup">
+	{{> navbarGroup}}
+	<div class="container" >
+	{{#if Template.subscriptionsReady}}
+		<h3>Note &nbsp;&nbsp;<a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h3>
+		<hr class="divider"><br>
+		{{#if post}}
+		<div class="row">
+			{{#each posts}}
+				<div class="col-xs-12 col-md-6 col-lg-3">
+					<div class="thumbnail" style="height:200px;">
+						<a class="s" href="/group_notes/{{_id}}"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
+						<center><h4>Created by..<i>{{owner.name}}</i></h4></center>
+						<hr class="divider">
+						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
+	  				</div>
+  				</div>
+			{{/each}}
+		</div>
+		{{else}}
+			<h2>No notes</h2>
+			<a href="{{pathFor route='CreateNoteInGroup'}}">Create Note</a>
+		{{/if}}
+	{{else}}
+    	<p>Loading... {{> spinner}}</p>
+    {{/if}}
+	</div>
+</template>
+
+<!-- Creating notes in group    -->
+<template name="CreateNoteInGroup">
+	{{> navbarGroup }}
+	<div class="container">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form" id ="addPost">
+				<div class="form-group container-fluid">
+					<h2>Create Note</h2> 
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
+				</div>
+				<!--<div class="form-group container-fluid">
+					
+					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
+				</div>-->
+				<div id="summernote" class="form-group">
+				</div>
+				<div class="form-group">
+					{{> Tags}}
+				</div>
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success" style="border-radius: 0px;">Save Post</button>
+				</div>
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
+				</div>
+			</form>
+		</div>
+	</div>
+</template>
+
+<template name="SingleNoteOfGroup">
+	{{> navbarGroup}}
+	<div class="container">
+		<div class="col-xs-12">
+			<div class="panel-group">
+				{{#if post}}
+						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
+
+						{{#if owner}}
+							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+
+							<a href="{{pathFor route='EditNoteOfGroup'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
+						{{/if}}
+					<br><br><br>
+					<div class="panel panel-title">
+						<h1 class="text-capitalize text-center">{{post.Title}}</h1>
+					</div>
+					<div class="panel panel-body">
+						<p class="text-center">{{{post.Body}}}</p>
+						{{#if tags }}
+							<p class="text-center">Tags: <b>{{post.Tags}}</b></p>
+						{{/if}}
+						<p class="text-center">{{post.createdOn}}</p>
+					</div>
+				{{else}}
+					<h2>No Such Note</h2>
+					<a href="{{pathFor route='CreateNoteInGroup'}}">Create Note</a>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="EditNoteOfGroup">
+	{{> navbarGroup}}
+	<div class="container">
+		<div class="col-xs-12">
+			<h2>Edit Note</h2>
+			<form role="form" id ="editPost">
+				<div class="form-group container-fluid">
+					<!--label for="postTitle">Post Title: </label-->
+					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
+
+				</div>
+
+				<!--<div class="form-group container-fluid">
+					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
+				</div>-->
+
+				<div id="summernote" class="form-group">
+					{{{edit.Body}}}
+				</div>
+
+				<div class="form-group">
+					<h4 style="margin-right: 20px; margin-left: 20px;"><b> {{edit.Tags}} </b></h4>
+					{{> Tags}}
+				</div>
+
+				<p class="pull-right"><b> Updated At: {{edit.updatedAt}}</b></p><br>
+
+				<div class="form-group">
+					<button type="submit" class="form-control btn btn-success">Save Post</button>
+				</div>
+
+				<div class="form-group" style="margin-top: 20px;">
+					{{> getLocation}}
+				</div>
+			</form>
+		</div>
+	</div>
+</template>

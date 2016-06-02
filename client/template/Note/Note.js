@@ -1,11 +1,18 @@
-Meteor.subscribe("documents");
+//Meteor.subscribe("documents");
 Meteor.subscribe("editingUsers");
 
+Template.editor.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
 
 Template.editor.helpers({
 	docid:function(){
-		setupCurrentDocument();
-		return Session.get("docid");
+		var post= Posts.findOne({_id: Session.get("note_id")});
+		console.log("post_id " +post._id);
+		return post._id;
 	},
 
 	config:function(){
@@ -13,19 +20,30 @@ Template.editor.helpers({
 			editor.setOption("lineNumbers",true);
 			editor.setOption("theme","cobalt");
 			editor.on("change",function(cm_editor,info){
-				/*console.log(cm_editor.getValue());
-				$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());*/
-				Meteor.call("addEditingUser", Session.get("docid"));
+				//console.log(cm_editor.getValue());
+				//$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());
+				Meteor.call("addEditingUser", Session.get("note_id"));
 			});
 		}
+	},
+	data: function(){
+		var data= Posts.findOne({_id: Session.get("note_id")});
+		return data;
 	}
+});
+
+Template.editingUsers.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
 });
 
 Template.editingUsers.helpers({
 	users:function(){ // return users editing current document
 		var doc,eusers,users;
-		doc=Documents.findOne({_id:Session.get("docid")});
-		if(!doc){return;} //givr up
+		doc=Posts.findOne({_id:Session.get('note_id')});
+		if(!doc){return;} //give up
 		eusers=EditingUsers.findOne({docid:doc._id});
 		if(!eusers){return;} // give up
 		users = new Array();
@@ -36,22 +54,26 @@ Template.editingUsers.helpers({
 		}
 		return users;
 	}
-})
+});
 
-Template.noteHeader.helpers({
-	documents:function(){
-		return Documents.find();
-	}
-})
+
+Template.docMeta.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
 
 Template.docMeta.helpers({
 	document:function(){
-		return Documents.findOne({_id:Session.get("docid")});
+		var document= Posts.findOne({_id: Session.get("note_id")});
+		console.log(document);
+		return document;
 	},
 
 	canEdit:function(){
 		var doc;
-		doc=Document.findOne({_id:Session.get("docid"), owner:Meteor.userId()});
+		doc=Posts.findOne({_id: Session.get("note_id"), owner:Meteor.userId()});
 		if(doc){
 			if(doc.owner=Meteor.userId()){
 				return true;
@@ -59,12 +81,19 @@ Template.docMeta.helpers({
 		}
 		return false;
 	}
-})
+});
 
+Template.editableText.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('posts');
+	});
+});
+/*
 Template.editableText.helpers({
 	userCanEdit:function(doc,collection){
 		//can edit if the doc is owned by me
-		doc=Documents.findOne({_id:Session.get("docid"), owner:Meteor.userId()});
+		doc=Posts.findOne({_id:Session.get("postId"), owner:Meteor.userId()});
 		if(doc){
 			return true;
 		}else{
@@ -77,7 +106,7 @@ Template.editableText.helpers({
 //Events
 /////////
 
-Template.noteHeader.events({
+/*Template.noteHeader.events({
 	"click .js-add-doc":function(event){
 		event.preventDefault();
 		console.log(" Add a new Doc");
@@ -85,12 +114,15 @@ Template.noteHeader.events({
 			alert("You need to login first");
 		}else{
 			//They are logged in lets add a document
-			var id = Meteor.call("addDoc", function(err, res){
+			var loc = Session.get('location');
+			var tags = Session.get('tag');
+			var id = Meteor.call("addDoc", loc , tags , function(err, res){	//, tags
 				if(!err){//all good
 					console.log("callback recieved: "+res);
 					Session.set("docid",res);
 				}
 			}); // DB ops only works from methods.
+			location.reload();					//current page load click on addNote button
 		}
 	},
 
@@ -123,18 +155,18 @@ Template.docMeta.events({
 	}
 })
 
-
-
 function setupCurrentDocument(){
 	var doc;
-	if(!Session.get("docid")){// NO doc id Set
-		doc = Documents.findOne();
+	if(!Session.get('postId')){// NO doc id Set
+		doc = Posts.findOne({ _id: Session.get('postId') });
 		if(doc){
-			Session.set("docid",doc._id);
+			Session.set("postId",doc._id);
 		}
 	}
 }
 
+
+*/
 // this renames object keys by removing hyphens to make the compatible 
 // with spacebars. 
 function fixObjectKeys(obj){

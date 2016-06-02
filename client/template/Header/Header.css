@@ -9,10 +9,10 @@
 		}
 
 		.navbar{
-			background:#000000;
+			background:rgb(62, 62, 62);
 		}
 	
-		.navbar-gNote {
+		.navbar-noteDown {
 	  		font-size: 50px;
 			color:white;
 		}
@@ -34,7 +34,7 @@
 			transition:0.2s;
 		}
 
-		nav.shrink .navbar-gNote {
+		nav.shrink .navbar-noteDown {
 	  		font-size: 35px;
 			padding:5px 5px 0px 5px !important;
 		}
@@ -45,4 +45,7 @@
 		
 		span#Weight{
 			font-weight:900;
+		}
+		ul.notifications {
+			position: fixed;
 		}
