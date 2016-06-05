@@ -24,7 +24,7 @@ Template.postMessage.helpers({
     },
     'gdPost': function(){   
         var postid= Session.get('postId');
-        return Thread.find({ postId:postid});
+        return Thread.find({ postId:postid},{sort: {publishedAt: -1}});
     },
     admin: function(){
        var owner= this.owner.id;
@@ -66,5 +66,22 @@ Template.postMessage.events({
         }
         like++;
         Meteor.call('likeThread',this._id,like,owner,owner_name,group_id,content);
+    },
+    'click #replyIcon' : function(e){
+        var $this = $(e.target);
+        count =1;
+        var textbox = $('<div id="replyboxContainer" class="container-fluid"><div class="col-md-8">Reply: &nbsp;<input type="text" id="replyBox"><input type="submit" id="replyOkbtn" class="btn btn-primary" value="Ok"></div></div><br>');
+        $($this).parents("#ultest").append(textbox);
+        
+    },
+    'click #replyOkbtn' : function(e){
+        var value = $("#replyBox").val();
+        var $this = $(e.target);
+        var count= 1;
+        $($this).parents("#ultest").append('<li>'+ value +'</li>');
+        count++;
+        $("#replyBox").val(" ");
     }
 });
+
+

@@ -1,4 +1,5 @@
 Accounts.onCreateUser(function(options, user) {
+    
     user.profile = user.profile || {}; //If the google service exists 
     if ((service = user.services) !== undefined ? service.google : undefined) { 
         user.profile.id= user._id;
@@ -25,12 +26,21 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.image = user.services.twitter.profile_image_url; 
     }
     else {
-        user.profile.id= user._id;
-        user.profile.emails = "not set";
-        user.profile.name= user.username;
-        user.profile.first_name = "not set";
-        user.profile.last_name = "not set";
-        user.profile.image = "/images/user.png";
+            /*console.log("Registration successfull");
+              // Success. Account has been created and the user
+              // has logged in successfully. 
+            var userId = user._id;
+            var email = user.emails[0].address;
+            Meteor.call('serverVerifyEmail', email, userId, function(){
+                console.log("Verification Email Sent")
+                Router.go('/');
+            }); */ 
+            user.profile.id= user._id;
+            user.profile.emails = "not set";
+            user.profile.name= user.username;
+            user.profile.first_name = "not set";
+            user.profile.last_name = "not set";
+            user.profile.image = "/images/user.png"; 
     } 
     return user;
 });

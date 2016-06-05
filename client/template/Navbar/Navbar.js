@@ -23,19 +23,5 @@ Template.navbarGroup.helpers({
 		var groupId = Session.get('groupId'); 
         var group = Groups.findOne({_id: groupId});
         return group;
-	},
-	private:function(){
-		var groupId = Session.get('groupId'); 
-        var group = Groups.findOne({_id: groupId});
-        var private= group.privacy;
-        	if(private === "private")
-        		return true;
-	},
-	owner: function(){
-		var groupId = Session.get('groupId'); 
-        var group = Groups.findOne({_id: groupId});
-        var owner= group.owner.id;
-        if(owner=== Meteor.user()._id)
-        	return owner;   
 	}
 });

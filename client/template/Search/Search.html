@@ -23,6 +23,10 @@
           {{#EasySearch.Each index=postIndex }}
             <h3>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h3>
           {{/EasySearch.Each}}
+
+           {{#EasySearch.Each index=postIndex }}
+            <h3>Tags: <a href="/posts/{{__originalId}}">{{Tags}}</a></h3>
+          {{/EasySearch.Each}}
         </div>
       </div>
     </div>

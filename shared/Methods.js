@@ -1,4 +1,12 @@
 Meteor.methods({
+	serverVerifyEmail: function(email, userId, callback) {
+	    console.log("Email to verify:" +email + " | userId: "+userId);
+	    // this needs to be done on the server.
+	    Accounts.sendVerificationEmail(userId, email);
+	    if (typeof callback !== 'undefined') {
+	      callback();
+	    }
+  	},
 //------------------User--------------
 	editUser:function(user_id,/* name, */first_name, last_name, email,/* img*/){
 		return Meteor.users.update({ _id: user_id },{
@@ -319,7 +327,7 @@ Meteor.methods({
 				user_name: Meteor.user().profile.name,
 				group_name: group_name,
 				createdAt: new Date().toLocaleString(),
-				action: "/group/"+group_id,
+				group_action: "/group/"+group_id,
 				id: id
 		});
 		var reminderId= Meteor.users.update({ _id: this.userId },{
@@ -526,7 +534,7 @@ Meteor.methods({
 				user_name: user,
 				group_name: group_name,
 				createdAt: new Date().toLocaleString(),
-				action: "/group/"+group_id,
+				group_action: "/group/"+group_id,
 				id: id
 			});
 			var postId= Meteor.users.update({ _id: this.userId },{

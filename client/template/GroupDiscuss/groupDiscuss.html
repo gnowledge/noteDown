@@ -31,26 +31,24 @@
     <br>
     {{#each gdPost}}
       <div class="well well-lg" style="width:100%;display: inline-block;">  
+        <ul id="ultest">
         <li> 
           <span style="font-size:16px;"><b><u>{{owner.name}}</u> : {{content}}</b></span>
-              {{#if admin}}
-                <span class="glyphicon glyphicon-trash pull-right" id="deletePost" style="cursor: pointer;" title="Delete"></span>
-                {{else}}
-                <span class="glyphicon glyphicon-thumbs-up pull-right" id="likePost" style="margin-right:10px; cursor: pointer;" title="Like"></span>
-              {{/if}}
+          {{#if admin}}
+              <span class="glyphicon glyphicon-trash pull-right" id="deletePost" style="cursor: pointer;" title="Delete"></span>
+          {{else}}
+              <span class="glyphicon glyphicon-comment pull-right" id="replyIcon" style="margin-right:10px; cursor: pointer;" title="Reply"></span>
+              <span class="glyphicon glyphicon-thumbs-up pull-right" id="likePost" style="margin-right:10px; cursor: pointer;" title="Like"></span>
+          {{/if}}
         </li>
-        <li>
-          
+        <li>  
             <span class="badge">Likes : {{like}}</span>&nbsp;<i>{{likedBy}} liked your comment</i>
         </li>
-        <li>
+        <li id="publishedDate">
           <span style="float: right; font-size:12px;">{{publishedAt}}</span>
         </li>
-        <li id="reply">
-          
-        </li>
-      </div>
-
+        </ul>
+    </div>
     {{/each}}
   </div>
 </template>

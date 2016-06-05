@@ -8,12 +8,12 @@ Template.Updates.onCreated(function(){
 
 Template.Updates.helpers({
 	feed:function(){
-		var feed= Rss.find({},
-			{sort: {createdAt: -1}},{limit: 6});
+		var feed= Rss.find({ user: Meteor.user().profile.name},
+			{sort: {createdAt: -1}});
 		return feed;
 	},
 	feedCount:function(){
-		return Rss.find().count();
+		return Rss.find({user: Meteor.user().profile.name}).count();
 	}
 });
 

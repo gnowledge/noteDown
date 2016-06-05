@@ -7,14 +7,13 @@
 				{{> navbarGroup }}
 			{{/if}}
 		{{/if}}
-	<div class="container-fluid"><br>
+	<div class="container-fluid">
 	{{#if group}}
 		<div class="row">
 			{{#if owner}}
 				<button class="btn btn-success pull-right glyphicon glyphicon-pencil" id="edit" style="margin-right: 5px;" title="Edit"></button>
 				<button class="btn btn-danger pull-right glyphicon glyphicon-remove" id="delete" style="margin-right: 5px;" title="Delete"></button>	
 				{{#if private}}
-
 					{{#if notificationCount}}
 			 				<div class="dropdown">
 			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
@@ -109,8 +108,22 @@
 	{{> navbarGroup}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-			<h2>Members {{#if group}}({{group.member_count}}){{/if}}</h2>
+			<h2>Members 
+				{{#if group}}
+					({{group.member_count}})
+				{{/if}}  
+				{{#if private}}
+					{{#if owner}}
+						<a href="{{pathFor route='Invite'}}">
+							<button type="submit"  id="invite" class="btn btn-default pull-right">
+								Invite
+							</button>
+						</a>
+					{{/if}}
+				{{/if}}
+			</h2>
 			<hr class="divider"><br>
+
 			{{#if members}}
 				<div class="row">
 						{{#if owner}}
@@ -163,7 +176,10 @@
 
 		        <div class="well well-lg" style="width:100%;display: inline-block;">
 		        	{{#EasySearch.Each index=userIndex }}
-		            <h3> name: <a href="/user_dashboard/{{profile.id}}">{{profile.name}}</a></h3>
+		        		<h3> name: <a href="/user_dashboard/{{profile.id}}">{{profile.name}}</a>
+		        		<button type="submit" id="invite" class="btn btn-default pull-right">
+							Invite
+						</button></h3>
 		          {{/EasySearch.Each}}
           		</div>
           	</div>
@@ -181,8 +197,11 @@
 				<h2>Groups &nbsp;<a href="{{pathFor route='CreateGroup'}}"><img src="/images/add.png"  height="50" title="Create group" ></a></h2>
 				<hr class="divider">
 				<br>
+				{{> allGroup}}
+		      	<br>
+
 				{{#if ownerCount}}
-					<h3>Owner: ({{ownerCount}})</h3>
+					<h2>Owner: ({{ownerCount}})</h2>
 					<div class="row">
 						{{#each owner}}
 							<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
@@ -206,7 +225,7 @@
 		      	<hr class="divider">
 		      	<br>
 		      	{{#if memberCount}}
-			      	<h3>Member: ({{memberCount}})</h3>       
+			      	<h2>Member: ({{memberCount}})</h2>       
 			      	<div class="row">
 				        {{#each member}}
 							<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
@@ -228,7 +247,7 @@
 
 		      	<hr class="divider">
 		      	<br>
-		      	{{> allGroup}}
+		      	
       	{{else}}
 	        <p>Loading... {{> spinner}}</p>
 	    {{/if}} 
