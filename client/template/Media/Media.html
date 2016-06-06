@@ -68,7 +68,7 @@
       <h2>Media &nbsp; <a href="{{pathFor route='AddMedia'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
       <hr class="divider"><br>
       {{#if image}}
-        Images: ({{image}})
+        <h3>Images: ({{image}})</h3>
         <div class="imageArea clearfix">
         
           {{#each images}}
@@ -76,46 +76,46 @@
           {{/each}}
         </div>
       {{else}}
-       <h2>No images</h2>
+       <h3>No images</h3>
        <a href="{{pathFor route='AddMedia'}}">Add Images</a>
       {{/if}}
       <hr class="divider"><br>
 
       {{#if video}}
         <div class="imageArea clearfix">
-          Videos: ({{video}})
+          <h3>Videos: ({{video}})</h3>
           {{#each videos}}
             {{> uploadedVideo}}
           {{/each}}
         </div>
       {{else}}
-        <h2>No videos</h2>
+        <h3>No videos</h3>
         <a href="{{pathFor route='AddMedia'}}">Add Videos</a>
       {{/if}}
       <hr class="divider"><br>
 
       {{#if file}}
         <div class="imageArea clearfix">
-          Files: ({{file}})
+          <h3>Files: ({{file}})</h3>
           {{#each files}}
             {{> uploadedFile}}
           {{/each}}
         </div>
         {{else}}
-        <h2>No files</h2>
+        <h3>No files</h3>
         <a href="{{pathFor route='AddMedia'}}">Add Files</a>
       {{/if}}
       <hr class="divider"><br>
 
       {{#if audio}}
         <div class="imageArea clearfix">    
-          Audio: ({{audio}})
+          <h3>Audio: ({{audio}})</h3>
           {{#each audios}}
             {{> uploadedAudio}}
           {{/each}}
         </div>
         {{else}}
-        <h2>No audios</h2>
+        <h3>No audios</h3>
         <a href="{{pathFor route='AddMedia'}}">Add Audio</a>
       {{/if}}
     {{else}}
@@ -189,53 +189,53 @@
       <h2>Media &nbsp;&nbsp;<a href="{{pathFor route='AddMediaInGroup'}}"><img src="/images/add.png"  height="50" title="Add media"></a></h2>
       <hr class="divider"><br>
       {{#if image}}
-        Images: ({{image}})
+        <h3>Images: ({{image}})</h3>
         <div class="imageArea clearfix">
           {{#each images}}
             {{> uploadedImage}}
           {{/each}}
         </div>
       {{else}}
-        <h2>No images</h2>
+        <h3>No images</h3>
         <a href="{{pathFor route='AddMediaInGroup'}}">Add Images</a>
       {{/if}}
       <hr class="divider"><br>
 
       {{#if video}}
         <div class="imageArea clearfix">
-          Videos: ({{video}})
+          <h3>Videos: ({{video}})</h3>
           {{#each videos}}
             {{> uploadedVideo}}
           {{/each}}
         </div>
       {{else}}
-        <h2>No videos</h2>
+       <h3>No videos</h3>
         <a href="{{pathFor route='AddMediaInGroup'}}">Add Videos</a>
       {{/if}}
       <hr class="divider"><br>
 
       {{#if file}}
         <div class="imageArea clearfix">
-          Files: ({{file}})
+          <h3>Files: ({{file}})</h3>
           {{#each files}}
             {{> uploadedFile}}
           {{/each}}
         </div>
       {{else}}
-        <h2>No files</h2>
+        <h3>No files</h3>
         <a href="{{pathFor route='AddMediaInGroup'}}">Add Files</a>
       {{/if}}
       <hr class="divider"><br>
 
       {{#if audio}}
         <div class="imageArea clearfix">    
-          Audio: ({{audio}})
+          <h3>Audio: ({{audio}})</h3>
           {{#each audios}}
             {{> uploadedAudio}}
           {{/each}}
         </div>
       {{else}}
-        <h2>No audios</h2>
+        <h3>No audios</h3>
         <a href="{{pathFor route='AddMediaInGroup'}}">Add Audio</a>
       {{/if}}
     {{else}}

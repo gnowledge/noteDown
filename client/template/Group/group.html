@@ -8,13 +8,14 @@
 			{{/if}}
 		{{/if}}
 	<div class="container-fluid">
+	<br>
 	{{#if group}}
 		<div class="row">
 			{{#if owner}}
 				<button class="btn btn-success pull-right glyphicon glyphicon-pencil" id="edit" style="margin-right: 5px;" title="Edit"></button>
 				<button class="btn btn-danger pull-right glyphicon glyphicon-remove" id="delete" style="margin-right: 5px;" title="Delete"></button>	
 				{{#if private}}
-					{{#if notificationCount}}
+					<!--{{#if notificationCount}}
 			 				<div class="dropdown">
 			  					<button class="btn btn-danger pull-right dropdown-toggle" type="button" data-toggle="dropdown" style="margin-right: 5px;">
 				  					<span class="glyphicon glyphicon-bell"></span>&nbsp;
@@ -41,7 +42,7 @@
 									    <li><a href="#">No notifications</a></li>
 						  			</ul>
 							</div>
-					{{/if}}
+					{{/if}}-->
 				{{else}}
 
 				{{/if}}
@@ -50,7 +51,8 @@
 					<input type="submit" class="btn btn-danger pull-right" id="leave" value="Leave" style="margin-right: 20px;">
 				{{else}}
 					{{#if private}}
-						<input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;">
+						<!--<input type="submit" class="btn btn-success pull-right" id="request" value="Send Request" style="margin-right:20px;">-->
+						<input type="submit" class="btn btn-success pull-right" id="join" value="Accept" style="margin-right:20px;">
 					{{else}}
 						<input type="submit" class="btn btn-success pull-right" id="join" value="Join" style="margin-right:20px;">
 					{{/if}}
@@ -201,47 +203,47 @@
 		      	<br>
 
 				{{#if ownerCount}}
-					<h2>Owner: ({{ownerCount}})</h2>
+					<h3>Owner: ({{ownerCount}})</h3>
 					<div class="row">
 						{{#each owner}}
 							<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
 
 								<div class="thumbnail" style="height:150px;">
 									<div class="caption">
-										<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+										<a href="/group/{{_id}}/"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 				                	</div>
 										<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 				  						<hr class="divider">
-				  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+				  						<a  href="/group/{{_id}}/"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 				  				</div>
 		  					</div>	
 				        {{/each}}   
 			      	</div>
 		      	{{else}}
-		      		<h2>Not a owner</h2>
+		      		<h3>Not a owner</h3>
 		      		<a href="{{pathFor route='CreateGroup'}}">Create Group</a>
 		      	{{/if}}
 
 		      	<hr class="divider">
 		      	<br>
 		      	{{#if memberCount}}
-			      	<h2>Member: ({{memberCount}})</h2>       
+			      	<h3>Member: ({{memberCount}})</h3>       
 			      	<div class="row">
 				        {{#each member}}
 							<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
 								<div class="thumbnail" style="height:150px;">
 									<div class="caption">
-										<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+										<a href="/group/{{_id}}/"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 				                	</div>
 										<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 				  						<hr class="divider">
-				  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+				  						<a  href="/group/{{_id}}/"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 				  				</div>
 		  					</div>	
 				        {{/each}}
 		      		</div>
 		      	{{else}}
-		      		<h2>Not a member</h2> 
+		      		<h3>Not a member</h3> 
 		      		<a href="{{pathFor route='Search'}}">Search for group</a>
 		      	{{/if}} 
 
@@ -257,18 +259,18 @@
 
 <template name="allGroup">
 	<!-- Start Container -->
-		<h2>All Groups: ({{group}})</h2>
+		<h3>All Groups: ({{group}})</h3>
 		<div class="row">
 			{{#if Template.subscriptionsReady}}
 					{{#each groups}}
 						<div class="col-sm-6 col-xs-6 col-md-3 col-lg-2">
 							<div class="thumbnail" style="height:150px;">
 								<div class="caption">
-									<a href="/group/{{_id}}"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+									<a href="/group/{{_id}}/"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 			                	</div>
 									<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 			  						<hr class="divider">
-			  						<a  href="/group/{{_id}}"><span class="glyphicon glyphicon-file"></span> View Group!</a>
+			  						<a  href="/group/{{_id}}/"><span class="glyphicon glyphicon-file"></span> View Group!</a>
 			  				</div>
 	  					</div>	
 		            {{/each}}

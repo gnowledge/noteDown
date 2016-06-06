@@ -70,12 +70,13 @@ Meteor.startup(function() {
 	        var group_name = group.gname;
 	        Rss.insert({
 	          rss_title: "has added a new audio",
-	          title: $('.filename').val(),
+	          title: "audio",
 	          user_action: "/user_dashboard/"+ Meteor.userId(),
 	          user_name: Meteor.user().profile.name,
 	          group_name: group_name,
 	          createdAt: new Date().toLocaleString(),
-	          action: "/group/"+groupId
+	          group_action: "/group/"+groupId,
+	          action: '/group/'+groupId+'/shared_media/'
 	        });
 	    	return {
 	          	owner:{
@@ -90,8 +91,8 @@ Meteor.startup(function() {
 
 		after : function (error,fileobj){
 			if(!error){
-				alert('done');
-				Router.go('/shared_media/');
+				var groupID = Session.get('groupId');
+          		Router.go('/group/'+groupID+'/shared_media/');
 			}
 		}
 	}),

@@ -36,9 +36,11 @@ Accounts.onCreateUser(function(options, user) {
                 Router.go('/');
             }); */ 
             user.profile.id= user._id;
-            user.profile.emails = "not set";
+            if(user.emails[0].verified===false){
+                user.profile.emails = user.emails[0].address;
+            }
             user.profile.name= user.username;
-            user.profile.first_name = "not set";
+            user.profile.first_name = user.username;
             user.profile.last_name = "not set";
             user.profile.image = "/images/user.png"; 
     } 

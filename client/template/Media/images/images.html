@@ -16,7 +16,7 @@
         <p>
             <em>Original size: {{this.formattedSize}}<br>Thumbnail size: {{this.formattedSize store="thumbs"}}<br>Type: {{this.type store="images"}}</em>
         </p>
-    
+            {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
           {{#if this.isUploaded}}
             {{#if this.hasStored 'images'}}
               {{#with this.url download=true}}
@@ -29,13 +29,12 @@
           Uploading: {{this.uploadProgress}}%
             <p>{{> FS.UploadProgressBar}}</p>
           {{/if}}
-         {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+
     </div>
   </div>
 </template>
 
 <template name="images_group">
-
   <h2>Image Files</h2>
   <div class="well">
     <input type="file" multiple class="images">

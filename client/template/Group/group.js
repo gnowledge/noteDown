@@ -149,7 +149,7 @@ Template.SingleGroup.events({
 				$("#save").prop('title', 'Edit');
 			}
 		});
-	},
+	}/*,
 
 	"click #request": function(event){
 		var groupId = Session.get('groupId');
@@ -187,7 +187,7 @@ Template.SingleGroup.events({
 		var id= this._id;
 		var nid= Notify.remove(id);
 	    return nid;
-	}
+	}*/
 });
 
 Template.Members.onCreated(function(){
@@ -274,15 +274,14 @@ Template.Invite.events({
 		var group_name = group.gname;
 		Rss.insert({
 			rss_title: "has invited you to join group",
-			user_action: "/user_dashboard/"+ this.userId,
+			user_action: "/user_dashboard/"+ Meteor.userId(),
 			user_name: Meteor.user().profile.name,
 			group_name: group_name,
 			user: this.profile.name,
 			createdAt: new Date().toLocaleString(),
-			group_action: "/group/"+group_id	
+			group_action: "/group/"+group_id+'/'	
 		});
-
-		//$('#invite').prop('class', 'btn btn-success');
+		Router.go('/group/'+group_id+"/");
 	}
 });
 

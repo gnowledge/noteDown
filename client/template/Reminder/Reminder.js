@@ -215,7 +215,7 @@ Template.CreateTask.events({
 			}
 		});
 
-		Router.go('/group_task/');
+		Router.go('/group/'+groupID+'/group_task/');
 		
 		// Insert a task into the collection
 		// Clear form

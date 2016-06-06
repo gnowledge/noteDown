@@ -4,13 +4,15 @@
     {{#if Template.subscriptionsReady}}
       <h2>Updates</h2>
       <hr class="divider"><br>
+      {{#if group}}
+      {{/if}}
       {{#if feedCount}}
         {{#each feed}}
           <div class="well well-lg" style="width:100%;display: inline-block;">
             <table>
             <col width="1200">
               <tr>
-                <td> <a href="{{user_action}}">"{{user_name}}"</a> {{rss_title}} <a href="{{action}}">{{title}}</a> in <a href="{{group_action}}">"{{group_name}}"</a> at ({{createdAt}})</td>
+                <td> <a href="{{user_action}}">"{{user_name}}"</a> {{rss_title}} <a href="{{action}}">"{{title}}"</a> in <a href="{{group_action}}">"{{group_name}}"</a> at ({{createdAt}})</td>
               </tr>
             </table>
           </div>

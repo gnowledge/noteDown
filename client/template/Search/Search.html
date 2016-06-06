@@ -3,7 +3,7 @@
   <br>
   <div class="container-fluid">
     <div class="well well-sm" style="width:100%;display: inline-block;">
-    <h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
+    <h2>Search: {{> EasySearch.Input indexes=searchIndexes }}</h2>
     </div> 
       <div class="dropdown">
         {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
@@ -22,10 +22,6 @@
 
           {{#EasySearch.Each index=postIndex }}
             <h3>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h3>
-          {{/EasySearch.Each}}
-
-           {{#EasySearch.Each index=postIndex }}
-            <h3>Tags: <a href="/posts/{{__originalId}}">{{Tags}}</a></h3>
           {{/EasySearch.Each}}
         </div>
       </div>

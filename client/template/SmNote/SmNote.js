@@ -339,7 +339,7 @@ Template.SingleNoteOfGroup.events({
 		var id = Session.get('postId');
 		console.log(id);
 		Meteor.call('deletePost', id);
-		Router.go('/shared_notes');
+		Router.go('/group/'+groupID+'/shared_notes/');
 	},
 	'click #publishNote': function () {
 		var id = Session.get('postId');

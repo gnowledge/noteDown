@@ -23,7 +23,7 @@ Meteor.startup(function () {
 
 });
 
-Template.images.uploadedImages = function() {
+Template.images.uploadedImage = function() {
   
   return Collections.Images.find({});
 };
@@ -42,31 +42,34 @@ Meteor.startup(function () {
   Template.images_group.events({
     'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
       metadata: function (fileObj) {
-      var groupId = Session.get('groupId');
-      var group= Groups.findOne({ _id: groupId});
-      var group_name = group.gname;
-      Rss.insert({
-        rss_title: "has added a new image",
-        title: $('.filename').val(),
-        user_action: "/user_dashboard/"+ Meteor.userId(),
-        user_name: Meteor.user().profile.name,
-        group_name: group_name,
-        createdAt: new Date().toLocaleString(),
-        action: "/group/"+groupId
-      });
-          return {
-            owner:{
-              id: Meteor.userId(),
-              name: Meteor.user().profile.name
-            },
-            groupID: groupId,
-            dropped: false,
-            privacy:"public"
-          };
+        var groupId = Session.get('groupId');
+        var group= Groups.findOne({ _id: groupId});
+        var group_name = group.gname;
+        var ins = Template.instance();
+        Rss.insert({
+          rss_title: "has added a new",
+          title: "image",
+          user_action: "/user_dashboard/"+ Meteor.userId(),
+          user_name: Meteor.user().profile.name,
+          group_name: group_name,
+          group_action: "/group/"+groupId,
+          createdAt: new Date().toLocaleString(),
+          action: '/group/'+groupId+'/shared_media/'
+        });
+        return {
+          owner:{
+            id: Meteor.userId(),
+            name: Meteor.user().profile.name
+          },
+          groupID: groupId,
+          dropped: false,
+          privacy:"public"
+        };
       },
       after: function (error, fileObj) {
         if (!error) {
-          Router.go('/shared_media/');
+          var groupID = Session.get('groupId');
+          Router.go('/group/'+groupID+'/shared_media/');
         }
       }
     }),
@@ -80,7 +83,7 @@ Meteor.startup(function () {
 
 });
 
-Template.images_group.uploadedImages = function() {
+Template.images_group.uploadedImage = function() {
   
   return Collections.Images.find({});
 };

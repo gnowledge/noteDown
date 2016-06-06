@@ -1,12 +1,12 @@
 Meteor.methods({
-	serverVerifyEmail: function(email, userId, callback) {
+	/*serverVerifyEmail: function(email, userId, callback) {
 	    console.log("Email to verify:" +email + " | userId: "+userId);
 	    // this needs to be done on the server.
 	    Accounts.sendVerificationEmail(userId, email);
 	    if (typeof callback !== 'undefined') {
 	      callback();
 	    }
-  	},
+  	},*/
 //------------------User--------------
 	editUser:function(user_id,/* name, */first_name, last_name, email,/* img*/){
 		return Meteor.users.update({ _id: user_id },{
@@ -218,7 +218,7 @@ Meteor.methods({
 		}
   	},
 
-  	requestJoin: function(groupId, ownerId,ownerName, user, username){
+  	/*requestJoin: function(groupId, ownerId,ownerName, user, username){
   		var data= Groups.findOne(groupId);
   		var name= data.gname;
   		var notification= {
@@ -241,7 +241,7 @@ Meteor.methods({
   		console.log(id);
   		return id;
   	},
-
+	*/
   	removeMember: function(groupId, memberId, memberName){  
   		var data= Groups.findOne(groupId);
   		var count= data.member_count;
@@ -327,8 +327,8 @@ Meteor.methods({
 				user_name: Meteor.user().profile.name,
 				group_name: group_name,
 				createdAt: new Date().toLocaleString(),
-				group_action: "/group/"+group_id,
-				id: id
+				group_action: "/group/"+group_id+"/",
+				action:"/group/"+group_id+"/group_task/"
 		});
 		var reminderId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
@@ -449,14 +449,6 @@ Meteor.methods({
 				createdOn: created_date, 
 			};
 			var id = Posts.insert(doc);
-			/*Rss.insert({
-				rss_title: "'" +user + "' has created a note",
-				title:title,
-				user: user,
-				createdAt: created_date,
-				action: "/posts/"+id,
-				id: id
-			});*/
 			var postId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
 					post_ids: id
@@ -534,8 +526,8 @@ Meteor.methods({
 				user_name: user,
 				group_name: group_name,
 				createdAt: new Date().toLocaleString(),
-				group_action: "/group/"+group_id,
-				id: id
+				group_action: "/group/"+group_id+"/",
+				action: "/group_notes/"+id+"/"
 			});
 			var postId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
