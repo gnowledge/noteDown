@@ -26,15 +26,6 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.image = user.services.twitter.profile_image_url; 
     }
     else {
-            /*console.log("Registration successfull");
-              // Success. Account has been created and the user
-              // has logged in successfully. 
-            var userId = user._id;
-            var email = user.emails[0].address;
-            Meteor.call('serverVerifyEmail', email, userId, function(){
-                console.log("Verification Email Sent")
-                Router.go('/');
-            }); */ 
             user.profile.id= user._id;
             if(user.emails[0].verified===false){
                 user.profile.emails = user.emails[0].address;
@@ -46,3 +37,30 @@ Accounts.onCreateUser(function(options, user) {
     } 
     return user;
 });
+
+if(Meteor.isServer){
+    Meteor.startup(function () {
+        process.env.MAIL_URL="smtp://postmaster%40sandbox6c28b2070b3747f5b2423a1806578e02.mailgun.org:90c32d9797225358491cddf21e08139d@smtp.mailgun.org:465";
+        //console.log(process.env);
+        Accounts.emailTemplates.from= 'no-reply@yourdomain.com';
+        Accounts.emailTemplates.sitename='noteDown.com';
+        Accounts.emailTemplates.verifyEmail.subject = function(user){
+            return 'Confirm Your Email Address';
+        };
+        Accounts.emailTemplates.verifyEmail.text = function(user,url){
+            return 'click on the following link to verify your email address: ' + url;
+        };
+        Accounts.config({
+            sendVerificationEmail: true
+        });
+
+        Accounts.emailTemplates.resetPassword.subject = function(user){
+            return "Change your password";
+        };
+        Accounts.emailTemplates.resetPassword.text = function(user,url){
+            return 'click on the following link to change your password: ' + url;
+        };
+        
+    });
+}
+
