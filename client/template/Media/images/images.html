@@ -7,12 +7,12 @@
 
 <template name="uploadedImage">
   <div class="media well pull-left">
-    <a href="{{this.url}}" target="_blank" class="pull-left"><img src="{{this.url store='thumbs'}}" alt="" class="img-rounded">
+    <a href="{{this.url}}" data-lightbox="image1">
+      <img src="{{this.url store='thumbs'}}" alt="" class="img-rounded" />
     </a>
-    
+    <br>
       <div class="media-body">
         <h4 class="media-heading">{{this.name}}</h4>
-    
         <p>
             <em>Original size: {{this.formattedSize}}<br>Thumbnail size: {{this.formattedSize store="thumbs"}}<br>Type: {{this.type store="images"}}</em>
         </p>

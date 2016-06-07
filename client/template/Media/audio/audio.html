@@ -5,19 +5,18 @@
     <div class="well">
     <input type="file" multiple class="audioFile">
     </div>
-
-    <!--<div class="imageArea clearfix">
-    {{#each uploadedAudios}}
-    {{> uploadedAudio}}
-    {{/each}}
-  </div>-->
 </template>
 
 
 <template name="uploadedAudio">
   <h4>
   {{#with this.url}}
-    <a href="{{this}}" target="_blank">{{../name}}</a>
+  <audio controls>
+    <source src="{{this}}" type="audio/ogg">
+    <source src="{{this}}" type="audio/mpeg">
+    <source src="{{this}}" type="audio/wav">
+  </audio><br><br>
+  {{../name}}
   {{else}}
     {{this.name}}
   {{/with}}

@@ -330,6 +330,17 @@ Meteor.methods({
 				group_action: "/group/"+group_id+"/",
 				action:"/group/"+group_id+"/group_task/"
 		});
+		Rss.insert({
+				rss_title: "has assigned you a task",
+				title: text,
+				user_action: "/user_dashboard/"+ this.userId,
+				user_name: Meteor.user().profile.name,
+				group_name: group_name,
+				createdAt: new Date().toLocaleString(),
+				group_action: "/group/"+group_id+"/",
+				action:"/group/"+group_id+"/group_task/",
+				user: assign
+		});
 		var reminderId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
 					reminder_ids: id

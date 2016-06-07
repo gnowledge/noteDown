@@ -28,7 +28,7 @@ Meteor.publish("groups", function(){
 });  
 
 Meteor.publish("tasks",function(){
-  return Tasks.find({"owner.id":this.userId},{sort: {createdAt: -1}});
+  return Tasks.find({},{sort: {createdAt: -1}});
 });  
 
 Meteor.publish("notify",function(){
