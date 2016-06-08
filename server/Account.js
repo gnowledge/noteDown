@@ -16,6 +16,7 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.first_name = user.services.facebook.first_name;
         user.profile.last_name = user.services.facebook.last_name; 
         user.profile.image = user.services.facebook.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large"; 
+
     }
     else if ((service = user.services) !== undefined ? service.twitter : undefined) {
         user.profile.id= user._id; 
@@ -34,13 +35,14 @@ Accounts.onCreateUser(function(options, user) {
             user.profile.first_name = user.username;
             user.profile.last_name = "not set";
             user.profile.image = "/images/user.png"; 
+            user.loginWith = "Email";
     } 
     return user;
 });
 
 if(Meteor.isServer){
     Meteor.startup(function () {
-        process.env.MAIL_URL="smtp://suvarna.roshan28%40gmail.com:ShraRos2028@smtp.gmail.com:465";
+        /*process.env.MAIL_URL="smtp://email_id%40gmail.com:password@smtp.gmail.com:465";
         //console.log(process.env);
         Accounts.emailTemplates.from= 'no-reply@yourdomain.com';
         Accounts.emailTemplates.sitename='noteDown.com';
@@ -60,13 +62,7 @@ if(Meteor.isServer){
         };
         Accounts.emailTemplates.resetPassword.text = function(user,url){
             return 'click on the following link to change your password: ' + url;
-        };
-        if (Foods.find().count() === 0) {
-            Foods.insert({name: 'Blueberries'});
-            Foods.insert({name: 'Strawberries'});
-            Foods.insert({name: 'Steak'});
-            Foods.insert({name: 'Eggs'});
-          }
+        };*/
     });
 }
 
