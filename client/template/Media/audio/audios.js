@@ -69,7 +69,7 @@ Meteor.startup(function() {
 			var group= Groups.findOne({ _id: groupId});
 	        var group_name = group.gname;
 	        Rss.insert({
-	          rss_title: "has added a new audio",
+	          rss_title: "has added a new ",
 	          title: "audio",
 	          user_action: "/user_dashboard/"+ Meteor.userId(),
 	          user_name: Meteor.user().profile.name,
@@ -114,3 +114,52 @@ Template.audio_group.helpers({
     return Collections.Audios.find({});
   }
 });
+
+/*Template.uploadedAudio.events({
+	'click .btnmd5': function(event) {
+		event.preventDefault();
+		var urltxt = event.target.utlTxt.value;
+		Session.set('urlData',urltxt);
+		console.log(urltxt);
+	}
+})
+
+Template.uploadedAudio.helpers({
+    opts: function() {
+    	var src = Session.get('urlData');
+    	alert(src);
+    	var opts = {
+	        bootstrap: true, // enables bootstrap styles
+	        email: true,
+	        facebook: true,
+	        facebookMessage: true,
+	        gmail: true,
+	        googlePlus: true,
+	        linkedIn: true,
+	        pinterest: true,
+	        sms: true,
+	        twitter: true,
+	        url: true,
+	        shareData: {
+	          url:'//'+src,
+	          facebookAppId: '195380783916970',
+	          subject: 'test subject',
+	          body: 'test body',
+	          redirectUrl: 'http://localhost:3000/test'
+	        },
+	        customClasses: {
+		        facebook: 'btn-sm btn-xs',
+		        twitter: 'btn-sm btn-xs',
+		        pinterest: 'btn-sm btn-xs',
+		        bootstrap: 'btn-sm btn-xs',
+		        email: 'btn-sm btn-xs',
+		        facebookMessage:'btn-sm btn-xs',
+		        gmail: 'btn-sm btn-xs',
+		        googlePlus: 'btn-sm btn-xs',
+		        linkedIn:'btn-sm btn-xs',
+		        sms: 'btn-sm btn-xs'
+	        }
+      };
+      return opts;
+    }
+});*/

@@ -1,9 +1,17 @@
 
 
 Template.Search.helpers({
-	searchIndexes: () => [groupsIndex, postsIndex],
+	/*searchIndexes: () => [groupsIndex, postsIndex],
   		groupIndex: () => groupsIndex,
-  		postIndex: () => postsIndex
+  		postIndex: () => postsIndex*/
+  	posts: function () {
+    	var regexp = new RegExp(Session.get('search/keyword'), 'i');
+    	return Posts.find({Title: regexp});
+  	},
+  	groups:function () {
+  		var regexp = new RegExp(Session.get('search/keyword'), 'i');
+    	return Groups.find({gname: regexp});
+  	}
 });
 
 Template.Search.onCreated(function(){

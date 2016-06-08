@@ -10,6 +10,12 @@ Template.Navbar.helpers({
 		return Meteor.users.find({ _id: Meteor.userId() });
 	}
 });
+Template.Navbar.events({
+	'keyup #search': function(event) {
+    	Session.set('search/keyword', event.target.value);
+    	Router.go('Search');
+  	}
+});
 
 Template.navbarGroup.onCreated(function(){
 	var self= this;

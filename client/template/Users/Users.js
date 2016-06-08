@@ -59,5 +59,5 @@ Template.UserDashboard.events({
 });
 
 Template.VerifyUser.onCreated(function() {
-	alert('Please verify your email id');
+	//alert('Please verify your email id');
 });

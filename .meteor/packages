@@ -46,10 +46,11 @@ mrt:numeral
 cfs:autoform
 reactive-var
 cfs:graphicsmagick
-summernote:summernote
 fortawesome:fontawesome
 dangrossman:bootstrap-daterangepicker
 easy:search
 #ground:db
 email
 yong:meteor-videojs
+summernote:summernote
+#aramix:social-share

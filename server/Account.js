@@ -40,7 +40,7 @@ Accounts.onCreateUser(function(options, user) {
 
 if(Meteor.isServer){
     Meteor.startup(function () {
-        process.env.MAIL_URL="smtp://postmaster%40sandbox6c28b2070b3747f5b2423a1806578e02.mailgun.org:90c32d9797225358491cddf21e08139d@smtp.mailgun.org:465";
+        process.env.MAIL_URL="smtp://suvarna.roshan28%40gmail.com:ShraRos2028@smtp.gmail.com:465";
         //console.log(process.env);
         Accounts.emailTemplates.from= 'no-reply@yourdomain.com';
         Accounts.emailTemplates.sitename='noteDown.com';
@@ -61,7 +61,12 @@ if(Meteor.isServer){
         Accounts.emailTemplates.resetPassword.text = function(user,url){
             return 'click on the following link to change your password: ' + url;
         };
-        
+        if (Foods.find().count() === 0) {
+            Foods.insert({name: 'Blueberries'});
+            Foods.insert({name: 'Strawberries'});
+            Foods.insert({name: 'Steak'});
+            Foods.insert({name: 'Eggs'});
+          }
     });
 }
 

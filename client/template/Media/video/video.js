@@ -70,7 +70,7 @@ Meteor.startup(function() {
 			var group= Groups.findOne({ _id: groupId});
 			var group_name = group.gname;
 			Rss.insert({
-				rss_title: "has added a new video",
+				rss_title: "has added a new ",
 				title: "video",
 				user_action: "/user_dashboard/"+ Meteor.userId(),
 				user_name: Meteor.user().profile.name,

@@ -47,7 +47,7 @@ Meteor.startup(function () {
         var group_name = group.gname;
         var ins = Template.instance();
         Rss.insert({
-          rss_title: "has added a new",
+          rss_title: "has added a new ",
           title: "image",
           user_action: "/user_dashboard/"+ Meteor.userId(),
           user_name: Meteor.user().profile.name,
