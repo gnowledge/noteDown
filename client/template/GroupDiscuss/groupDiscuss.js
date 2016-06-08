@@ -77,10 +77,8 @@ Template.postMessage.events({
     'click #replyOkbtn' : function(e){
         var value = $("#replyBox").val();
         var $this = $(e.target);
-        var count= 1;
         $($this).parents("#ultest").append('<li>'+ value +'</li>');
-        count++;
-        $("#replyBox").val(" ");
+        $("#replyboxContainer").hide(" ");
     }
 });
 

@@ -15,7 +15,7 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.name = user.services.facebook.name;
         user.profile.first_name = user.services.facebook.first_name;
         user.profile.last_name = user.services.facebook.last_name; 
-        user.profile.image = "/images/user.png";
+        user.profile.image = user.services.facebook.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large"; 
     }
     else if ((service = user.services) !== undefined ? service.twitter : undefined) {
         user.profile.id= user._id; 
@@ -23,9 +23,9 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.name = user.services.twitter.screenName;
         user.profile.first_name = "not set";
         user.profile.last_name = "not set";
-        user.profile.image = user.services.twitter.profile_image_url; 
+        user.profile.image = user.services.twitter.profile_image_url_https; 
     }
-    else {
+    else {  
             user.profile.id= user._id;
             if(user.emails[0].verified===false){
                 user.profile.emails = user.emails[0].address;
@@ -45,6 +45,7 @@ if(Meteor.isServer){
         Accounts.emailTemplates.from= 'no-reply@yourdomain.com';
         Accounts.emailTemplates.sitename='noteDown.com';
         Accounts.emailTemplates.verifyEmail.subject = function(user){
+
             return 'Confirm Your Email Address';
         };
         Accounts.emailTemplates.verifyEmail.text = function(user,url){

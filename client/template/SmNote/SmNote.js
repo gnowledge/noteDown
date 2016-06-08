@@ -29,7 +29,7 @@ Template.CreateNote.events({
 					Router.go('/posts/'+id);
 				}
 			});
-		location.reload();
+		//location.reload();
 	}
 });
 

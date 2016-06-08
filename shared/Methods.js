@@ -1,17 +1,8 @@
 Meteor.methods({
-	/*serverVerifyEmail: function(email, userId, callback) {
-	    console.log("Email to verify:" +email + " | userId: "+userId);
-	    // this needs to be done on the server.
-	    Accounts.sendVerificationEmail(userId, email);
-	    if (typeof callback !== 'undefined') {
-	      callback();
-	    }
-  	},*/
 //------------------User--------------
-	editUser:function(user_id,/* name, */first_name, last_name, email,/* img*/){
+	editUser:function(user_id,first_name, last_name, email,/* img*/){
 		return Meteor.users.update({ _id: user_id },{
 			$set:{
-				//"profile.name": name,
 				"profile.first_name": first_name,
 				"profile.last_name": last_name,
 				"profile.emails": email

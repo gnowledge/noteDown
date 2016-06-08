@@ -33,7 +33,6 @@ jeffrey:easy-map
 jaymc:google-reverse-geocode
 sacha:spin
 check
-hujhax:bootstrap3-datetimepicker
 gfk:notifications	
 meteor-platform
 cfs:standard-packages
@@ -54,4 +53,3 @@ easy:search
 #ground:db
 email
 yong:meteor-videojs
-czbaker:lightbox2

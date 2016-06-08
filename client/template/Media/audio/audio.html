@@ -9,14 +9,9 @@
 
 
 <template name="uploadedAudio">
-  <h4>
+    <h4>
   {{#with this.url}}
-  <audio controls>
-    <source src="{{this}}" type="audio/ogg">
-    <source src="{{this}}" type="audio/mpeg">
-    <source src="{{this}}" type="audio/wav">
-  </audio><br><br>
-  {{../name}}
+    <a href="{{this}}" target="_blank">{{../name}}</a>
   {{else}}
     {{this.name}}
   {{/with}}
@@ -26,7 +21,27 @@
     {{#with this.url download=true}}
       <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
     {{/with}}
+      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#{{_id}}">Open Audio</button>
+      <!-- Modal -->
+      <div id="{{_id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">{{name}}</h4>
+            </div>
+            <div class="modal-body">
+              <audio controls style="width: 565px;">
+                <source id="audioSrc" src="{{this.url}}" type="audio/mp3">
+              </audio>
+
+            </div>
+          </div>
+        </div>
+      </div> 
     {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+    <br><br>
   {{else}}
     <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
   {{/if}}

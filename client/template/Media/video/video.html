@@ -7,27 +7,44 @@
 
 
 <template name="uploadedVideo">
-
-   <h4>{{#with this.url}}
-    <video id="example_video_1" class="video-js vjs-default-skin"
-      controls preload="auto" width="300" height="200"
-      poster="http://video-js.zencoder.com/oceans-clip.png"
-      data-setup='{"example_option":true}'>
-      <source src="{{this}}" type='video/mp4' />
-      <source src="{{this}}" type='video/webm' />
-      <source src="{{this}}" type='video/ogg' />
-      <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-    </video><br>  
-    {{../name}}
+<h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>
    {{else}}
    {{this.name}}{{/with}} ({{this.formattedSize}})</h4>
   {{#if this.isUploaded}}
   {{#with this.url download=true}}
-  <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
+    <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
   {{/with}}
-  {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+  <button type="button" class="btn-video btn btn-primary btn-xs" data-toggle="modal" data-target="#{{_id}}">Open Video</button>
+  <!-- Modal -->
+  <div id="{{_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->     
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{name}}</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+            <video id="example_video_1" class="video-js vjs-default-skin"
+              controls preload="auto" width="565" height="400"
+              poster="http://video-js.zencoder.com/oceans-clip.png"
+              data-setup='{"example_option":true}'>
+               <source src="{{this.url}}" type='video/mp4' />
+               <source src="{{this.url}}" type='video/webm' />
+               <source src="{{this.url}}" type='video/ogg' />
+               <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+    {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
   {{else}}
-  <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
+    <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
   {{/if}}
 </template>
 
