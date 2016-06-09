@@ -250,21 +250,36 @@ Template.Members.events({
 			}
 		});
 	}
+
 });
 
 
 Template.Invite.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
-		self.subscribe('groups');
+		self.subscribe('user');
 	});
 });
 
 Template.Invite.helpers({
-	searchIndexes: () => [groupsIndex, postsIndex,usersIndex],
+	/*searchIndexes: () => [groupsIndex, postsIndex,usersIndex],
   		groupIndex: () => groupsIndex,
   		postIndex: () => postsIndex,
-  		userIndex: () => usersIndex
+  		userIndex: () => usersIndex*/
+  	users: function () {
+  		var groupId = Session.get('groupId');
+  		var group = Groups.findOne({_id: groupId});
+  		var owner = group.owner.name;
+    	var regexp = new RegExp(Session.get('search/members'), 'i');
+    	return Meteor.users.find({"profile.name": regexp, "profile.name": {$ne: owner}});
+  	},
+  	member: function(){
+  		var groupId = Session.get('groupId');
+  		var group = Groups.findOne({_id: groupId});
+  		for (var i = 0; i < group.members.length; i++) {
+  			return Meteor.users.find({ "profile.name": {$ne: group.members[i].name }})
+  		}
+  	}
 });
 
 Template.Invite.events({
@@ -282,7 +297,14 @@ Template.Invite.events({
 			group_action: "/group/"+group_id+'/'	
 		});
 		Router.go('/group/'+group_id+"/");
-	}
+	},
+	'keyup #search': function(event) {
+    	Session.set('search/members', event.target.value);
+  	}
+});
+
+Template.Invite.onDestroyed(function(){
+	Session.set('search/members', null);
 });
 
 Template.YourGroup.onCreated(function(){

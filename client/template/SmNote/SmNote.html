@@ -47,14 +47,14 @@
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
 
-							<a href="{{pathFor route='EditNote'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
+							<a href="/edit_note/{{post._id}}/"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
 						{{/if}}
 					<br><br><br>
 					<div class="panel panel-title">
 						<h1 class="text-capitalize ">{{post.Title}}</h1>
 					</div>
 					<div class="panel panel-body">
-						<p class="more">{{{post.Body}}}</p>
+						<p>{{{post.Body}}}</p>
 						{{#if tags }}
 							<p class=""	>Tags: <b>{{post.Tags}}</b></p>
 						{{/if}}
@@ -119,9 +119,9 @@
 					{{#each posts}}
 						<div class="col-xs-12 col-md-6 col-lg-3">
 							<div class="thumbnail" style="height:200px;">
-								<a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
+								<a class="" href="/notes/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
 								<hr class="divider">
-		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
+		  						<center><a class="" href="/notes/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
 			  				</div>
 		  				</div>
 		           {{/each}}
@@ -193,10 +193,10 @@
 			{{#each posts}}
 				<div class="col-xs-12 col-md-6 col-lg-3">
 					<div class="thumbnail" style="height:200px;">
-						<a class="s" href="/group_notes/{{_id}}"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
+						<a class="s" href="/group/{{groupID}}/notes/{{_id}}/"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
 						<center><h4>Created by..<i>{{owner.name}}</i></h4></center>
 						<hr class="divider">
-						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
+						<center><a class="" href="/group/{{groupID}}/notes/{{_id}}/" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
 	  				</div>
   				</div>
 			{{/each}}
@@ -253,7 +253,7 @@
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
 
-							<a href="{{pathFor route='EditNoteOfGroup'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
+							<a href="/group/{{post.groupID}}/edit_note/{{post._id}}/"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
 						{{/if}}
 					<br><br><br>
 					<div class="panel panel-title">

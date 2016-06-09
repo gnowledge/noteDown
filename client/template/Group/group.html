@@ -165,24 +165,28 @@
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
 			<div class="well well-sm" style="width:100%;display: inline-block;">
-		    	<h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
+		    	<!--<h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>-->
+		    	<h3>Search:<input id="search" placeholder="Search"></h3>
 		    </div> 
 		    <div class="dropdown">
-		        {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
+		        <!--{{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
 		          <div>No search results found</div>
 		        {{/EasySearch.IfNoResults}}
 
 		        {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
 		          <div>Indexes are searching...</div>
-		        {{/EasySearch.IfSearching}}
+		        {{/EasySearch.IfSearching}}-->
 
 		        <div class="well well-lg" style="width:100%;display: inline-block;">
-		        	{{#EasySearch.Each index=userIndex }}
+		        	<!--{{#EasySearch.Each index=userIndex }}
 		        		<h3> name: <a href="/user_dashboard/{{profile.id}}">{{profile.name}}</a>
 		        		<button type="submit" id="invite" class="btn btn-default pull-right">
 							Invite
 						</button></h3>
-		          {{/EasySearch.Each}}
+		          {{/EasySearch.Each}}-->
+		          {{#each users}}
+		        		{{profile.name}}
+		          {{/each}}
           		</div>
           	</div>
 		{{else}}
@@ -210,7 +214,7 @@
 
 								<div class="thumbnail" style="height:150px;">
 									<div class="caption">
-										<a href="/group/{{_id}}/"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
+										<a href="/group/{{_id}}/" onclick="Toast.success('Message')"><h3 id="gname" title="{{gdesc}}">{{gname}}</h3></a>
 				                	</div>
 										<span style="float: right;" id="privacy"><i>{{privacy}}-group...</i></span>
 				  						<hr class="divider">

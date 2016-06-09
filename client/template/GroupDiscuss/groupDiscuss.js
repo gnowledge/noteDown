@@ -68,18 +68,69 @@ Template.postMessage.events({
         Meteor.call('likeThread',this._id,like,owner,owner_name,group_id,content);
     },
     'click #replyIcon' : function(e){
+        
         var $this = $(e.target);
-        count =1;
-        var textbox = $('<div id="replyboxContainer" class="container-fluid"><div class="col-md-8">Reply: &nbsp;<input type="text" id="replyBox"><input type="submit" id="replyOkbtn" class="btn btn-primary" value="Ok"></div></div><br>');
-        $($this).parents("#ultest").append(textbox);
+        $($this).parents("#li1").siblings("#commentboxContainer").slideToggle();
         
     },
+    'click #hidebtn' : function(e){
+        event.preventDefault();
+        var $this = $(e.target);         
+        $($this).parents("#commentboxContainer").find("#replyCommentbox").slideToggle();
+
+    },
+
     'click #replyOkbtn' : function(e){
-        var value = $("#replyBox").val();
+        event.preventDefault();
+        var value = $("#replyBox1").val();
         var $this = $(e.target);
-        $($this).parents("#ultest").append('<li>'+ value +'</li>');
-        $("#replyboxContainer").hide(" ");
-    }
+        alert("value : "+value);
+        var replyIcon1 = '<span class="glyphicon glyphicon-comment" id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
+        $($this).parents("#commentboxContainer").find("#replyCommentbox").append('<li id="commentboxContainer_li">value '+replyIcon1+"</li>");
+        
+        /*replyId++;
+        var replymsg = $("#replyBox").val();
+        Thread.update(
+                        {_id:this._id},
+                        {
+                            $push:{
+                                replypost :{
+                                    $each:[{replypostId:replyId,replymsg : replymsg}]
+                                    }
+                                }
+                        }
+                    );*/
+        $("#replyBox1").val(" ");
+    },
+
+    'click #reply_replyIcon':function(e){
+        event.preventDefault();
+        
+        var $this = $(e.target);
+        var count = 1;
+        var idgenerate = "reply_replyBox_"+(count++);
+        
+        var textbox = '<li id="reply_replyBox_li1" style="border:1px solid blue;"><div class="container-fluid"><div class="col-md-12" style="background-color:lavender"><form id="form_reply_replyIcon"><input type="text" id="reply_replyBox" style="float:left;"><input type="submit" id="reply_replyOkbtn" class="btn btn-primary" value="Ok"><input type="submit" id="reply_hidebtn" class="btn btn-primary" style="margin-left:5px;" value="hide"></form></div></div></li>';
+        
+        $($this).after(textbox);
+        $($this).off('click');
+        
+    },
+    'click #reply_replyOkbtn':function(e){
+        event.preventDefault();
+        var $this = $(e.target);
+        var value = $($this).prev("#reply_replyBox").val();
+        alert("reply_replyOkbtn : "+value);
+        var replyIcon1 = '<span class="glyphicon glyphicon-comment " id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
+        
+        $($this).parent().append('<li id="li_test" style="border:1px solid blue;">'+value+"   "+replyIcon1+"</li>");
+        $($this).prev().val(" ");
+    },
+    'click #reply_hidebtn' : function(e){
+        event.preventDefault();
+        var $this = $(e.target);
+        $($this).parents("#reply_replyBox_li1").find("#li_test").slideToggle();
+    } 
 });
 
 

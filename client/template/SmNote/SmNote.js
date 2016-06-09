@@ -26,7 +26,7 @@ Template.CreateNote.events({
 				if(!err){//all good
 					var note= Posts.findOne({ Title: title });
 					var id= note._id;
-					Router.go('/posts/'+id);
+					Router.go('/notes/'+id);
 				}
 			});
 		//location.reload();
@@ -99,7 +99,7 @@ Template.EditNote.events({
 		var updatedAt = new Date().toLocaleString();
 		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
-				Router.go('/posts/'+id);
+				Router.go('/notes/'+id);
 			}
 		});
 	}
@@ -221,7 +221,7 @@ Template.CreateNoteInGroup.events({
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
-	                  Router.go('/group_notes/'+id);
+	                  Router.go('/group/'+groupID+'/notes/'+id);
 	                  //location.reload();
 				}
 			});
@@ -237,37 +237,8 @@ Template.CreateNoteInGroup.onRendered(function () {
 });
 
 Template.SingleNoteOfGroup.onRendered(function(){
-	$(document).ready(function() {
-    // Configure/customize these variables.
-    var showChar = 100;  // How many characters are shown by default
-    var ellipsestext = "...";
-    var moretext = "Show less >";
-    var lesstext = "Show more";
-    
-
-    $('.more').each(function() {
-        var content = $(this).html();
-         if(content.length > showChar) {
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
-             var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
-             $(this).html(html);
-        }
- 
-    });
- 
-    $(".morelink").click(function(){
-        if($(this).hasClass("less")) {
-            $(this).removeClass("less");
-            $(this).html(moretext);
-        } else {
-            $(this).addClass("less");
-            $(this).html(lesstext);
-        }
-        $(this).parent().prev().toggle();
-        $(this).prev().toggle();
-        return false;
-    });
+	$(document).ready(function(){
+	
 	});
 });
 
@@ -302,6 +273,7 @@ Template.SingleNoteOfGroup.onCreated(function(){
 Template.SingleNoteOfGroup.events({
 	'click #deletePost': function () {
 		var id = Session.get('postId');
+		var groupID= Session.get('groupId');
 		console.log(id);
 		Meteor.call('deletePost', id);
 		Router.go('/group/'+groupID+'/shared_notes/');
@@ -324,10 +296,11 @@ Template.EditNoteOfGroup.events({
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
+		var group_id= Session.get('groupId');
 		var updatedAt = new Date().toLocaleString();
 		Meteor.call('editGroupNote',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
-				Router.go('/group_notes/'+id);
+				Router.go('/group/'+group_id+'/notes/'+id);
 			}
 		});
 	}

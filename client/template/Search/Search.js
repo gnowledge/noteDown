@@ -6,7 +6,7 @@ Template.Search.helpers({
   		postIndex: () => postsIndex*/
   	posts: function () {
     	var regexp = new RegExp(Session.get('search/keyword'), 'i');
-    	return Posts.find({Title: regexp});
+    	return Posts.find({Title: regexp,privacy: "public"});
   	},
   	groups:function () {
   		var regexp = new RegExp(Session.get('search/keyword'), 'i');
