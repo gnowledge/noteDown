@@ -25,8 +25,12 @@ Meteor.startup(function () {
             };
       },
       after: function (error, fileObj) {
-        if (!error) {
+        if(!error){
+          Toast.success('Successful');
           Router.go('/user/showMedia/');
+      }
+        else{
+          Toast.error('Unsuccessful');
         }
       }
     }),
@@ -90,9 +94,13 @@ Meteor.startup(function () {
             };
       },
       after: function (error, fileObj) {
-        if (!error) {
+        if(!error){
           var groupID = Session.get('groupId');
-          Router.go('/group/'+groupID+'/shared_media/');
+          Toast.success('Successful');
+                Router.go('/group/'+groupID+'/shared_media/');
+        }
+        else{
+          Toast.error('Unsuccessful');
         }
       }
     }),

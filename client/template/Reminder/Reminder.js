@@ -45,8 +45,11 @@ Template.CreateTodo.events({
 		console.log(time);
 		Meteor.call("createReminder",text, desc, date, function(err,res){
 			if(!err){
-				console.log("callback recieved: "+res);
+				Toast.success('Created successfully');
 			}
+			else{
+                Toast.error('Unsuccessful');
+            }
 		});
 		Router.go('/user/showTodo/');
 		// Insert a task into the collection
@@ -65,7 +68,15 @@ Template.Task.events({
 	},
 	"click .delete": function () {
 		//Tasks.remove(this._id);
-		Meteor.call("deleteReminder",this._id);
+		Meteor.call("deleteReminder",this._id,function(err,res){
+			if(!err){
+				Toast.success('Successful');
+			}
+			else{
+
+                Toast.error('Unsuccessful');
+            }
+		});
 	}
 });
 
@@ -211,11 +222,15 @@ Template.CreateTask.events({
 		var group_name = group.gname;
 		Meteor.call("createTask",text, desc, date, assign, groupID, group_name, function(err,res){
 			if(!err){
-				console.log("callback recieved: "+res);
+				Toast.success('Created successfully');
+				Router.go('/group/'+groupID+'/group_task/');
+			}
+			else{
+				Toast.error('Unsuccessful');
 			}
 		});
 
-		Router.go('/group/'+groupID+'/group_task/');
+		
 		
 		// Insert a task into the collection
 		// Clear form
@@ -244,6 +259,13 @@ Template.Task1.events({
 	},
 	"click .delete": function () {
 		//Tasks.remove(this._id);
-		Meteor.call("deleteReminder",this._id);
+		Meteor.call("deleteReminder",this._id,function(err,res){
+			if(!err){
+				Toast.success('Successful');
+			}
+			else{
+                Toast.error('Not-authorised');
+            }
+		});s
 	}
 });

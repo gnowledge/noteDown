@@ -56,7 +56,10 @@ Template.UserDashboard.events({
 				Toast.error('Unsuccessfull');
 			}
 		});
-	}
+	},
+	'change #myFile': function(event){
+	    
+  	}
 });
 
 Template.VerifyUser.onCreated(function() {

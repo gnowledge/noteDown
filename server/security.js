@@ -114,6 +114,17 @@ Posts.allow({
   }
 });
 
+Meteor.users.allow({
+  insert: function (userId,loc) {
+    return true;
+  },
+  update: function (userId,loc) {
+    return true;
+  },
+  remove:function (userId, doc) {
+    return true;
+  }
+});
 /*Documents.allow({
   insert: function (userId, doc) {
     return true;

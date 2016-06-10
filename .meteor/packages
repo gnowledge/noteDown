@@ -37,9 +37,9 @@ gfk:notifications
 meteor-platform
 cfs:standard-packages
 cfs:gridfs
-#cfs:filesystem
-#cfs:s3
-#cfs:ui
+cfs:filesystem
+cfs:s3
+cfs:ui
 raix:ui-dropped-event
 mrt:jquery-easing
 mrt:numeral

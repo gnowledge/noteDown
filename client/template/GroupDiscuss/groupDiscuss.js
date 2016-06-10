@@ -84,9 +84,9 @@ Template.postMessage.events({
         event.preventDefault();
         var value = $("#replyBox1").val();
         var $this = $(e.target);
-        alert("value : "+value);
+        Toast.info("value : "+value);
         var replyIcon1 = '<span class="glyphicon glyphicon-comment" id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
-        $($this).parents("#commentboxContainer").find("#replyCommentbox").append('<li id="commentboxContainer_li">value '+replyIcon1+"</li>");
+        $($this).parents("#commentboxContainer").find("#replyCommentbox").append('<li id="commentboxContainer_li">'+value +replyIcon1+"</li>");
         
         /*replyId++;
         var replymsg = $("#replyBox").val();
@@ -109,9 +109,7 @@ Template.postMessage.events({
         var $this = $(e.target);
         var count = 1;
         var idgenerate = "reply_replyBox_"+(count++);
-        
-        var textbox = '<li id="reply_replyBox_li1" style="border:1px solid blue;"><div class="container-fluid"><div class="col-md-12" style="background-color:lavender"><form id="form_reply_replyIcon"><input type="text" id="reply_replyBox" style="float:left;"><input type="submit" id="reply_replyOkbtn" class="btn btn-primary" value="Ok"><input type="submit" id="reply_hidebtn" class="btn btn-primary" style="margin-left:5px;" value="hide"></form></div></div></li>';
-        
+        var textbox = '<li id="reply_replyBox_li1"><div class="container-fluid"><div class="col-md-12" style="background-color:lavender"><form id="form_reply_replyIcon"><input type="text" id="reply_replyBox" style="float:left;"><input type="submit" id="reply_replyOkbtn" class="btn btn-primary" value="Ok"><input type="submit" id="reply_hidebtn" class="btn btn-primary" style="margin-left:5px;" value="hide"></form></div></div></li>';
         $($this).after(textbox);
         $($this).off('click');
         
@@ -120,10 +118,10 @@ Template.postMessage.events({
         event.preventDefault();
         var $this = $(e.target);
         var value = $($this).prev("#reply_replyBox").val();
-        alert("reply_replyOkbtn : "+value);
+        Toast.info("reply_replyOkbtn : "+value);
         var replyIcon1 = '<span class="glyphicon glyphicon-comment " id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
         
-        $($this).parent().append('<li id="li_test" style="border:1px solid blue;">'+value+"   "+replyIcon1+"</li>");
+        $($this).parent().append('<li id="li_test">'+value+"   "+replyIcon1+"</li>");
         $($this).prev().val(" ");
     },
     'click #reply_hidebtn' : function(e){

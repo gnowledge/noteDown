@@ -25,9 +25,4 @@ h3#showTitles{
 	overflow: hidden;
 }
 
-.morecontent p {
-    display: none;
-}
-.morelink {
-    display: block;
-}
+.morectnt span { display: none; }

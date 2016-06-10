@@ -54,7 +54,9 @@
 						<h1 class="text-capitalize ">{{post.Title}}</h1>
 					</div>
 					<div class="panel panel-body">
-						<p>{{{post.Body}}}</p>
+						<div class="show">
+							<p>{{{post.Body}}}</p>
+						</div>
 						{{#if tags }}
 							<p class=""	>Tags: <b>{{post.Tags}}</b></p>
 						{{/if}}

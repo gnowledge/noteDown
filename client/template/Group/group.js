@@ -60,7 +60,11 @@ Template.SingleGroup.events({
 		var groupId = Session.get('groupId');
 		Meteor.call('deleteGroup', groupId, function(err,res){
 			if(!err){//all good
+				Toast.success('Successful');
                 Router.go('User');
+			}
+			else{
+				Toast.error("Unsuccesful");
 			}
 		});
 	},
@@ -77,6 +81,10 @@ Template.SingleGroup.events({
 			var msg;
 			Meteor.call('joinGroup',groupId, memberId, memberName, function(err,res){
 				if(!err){//all good
+					Toast.success("Welcome to the group");
+				}
+				else{
+					Toast.error('Unsuccessful');
 				}
 			});	
 		
@@ -91,7 +99,11 @@ Template.SingleGroup.events({
 			var name= data.gname;
 			Meteor.call('leaveGroup',groupId, function(err,res){
 				if(!err){//all good
-	               Router.go('User');
+					Toast.success('Successful');
+	                Router.go('User');
+				}
+				else{
+					Toast.error("Unsuccesful");
 				}
 			});	
 		
@@ -140,13 +152,17 @@ Template.SingleGroup.events({
 
 		Meteor.call('saveGroup',groupId,gtitle, gdesc, function(err,res){
 			if(!err){//all good
-				console.log("group saved: "+res);
+				
 				$('#gname').text(gtitle);
 				$('#gdesc').text(gdesc);
                 $("#save").prop('value', 'Edit');
                 $("#save").prop('class', 'btn btn-success pull-right glyphicon glyphicon-pencil');
 				$("#save").prop('id', 'edit');
 				$("#save").prop('title', 'Edit');
+				Toast.success('Successful');
+			}
+			else{
+				Toast.error('Unsuccessful');
 			}
 		});
 	}/*,
@@ -246,7 +262,11 @@ Template.Members.events({
 		var memberName= this.name;
 		console.log(memberName);
 		Meteor.call('removeMember',groupId, memberId, memberName, function(err,res){
-			if(!err){
+			if(!err){//all good
+				Toast.success('Successful');
+			}
+			else{
+				Toast.error("Unsuccesful");
 			}
 		});
 	}

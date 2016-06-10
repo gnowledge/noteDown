@@ -12,7 +12,7 @@ Template.CreateNote.events({
 		var title = event.target.postTitle.value;
 		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
         if (result) {
-              alert("Post name already exists");
+              Toast.info("Note with same name already exists.","Warning!!!");
               event.target.postTitle.value = "";
               return false;
         }
@@ -26,7 +26,11 @@ Template.CreateNote.events({
 				if(!err){//all good
 					var note= Posts.findOne({ Title: title });
 					var id= note._id;
+					Toast.success('Created successfully');
 					Router.go('/notes/'+id);
+				}
+				else{
+					Toast.error('Unsuccessful');
 				}
 			});
 		//location.reload();
@@ -41,6 +45,33 @@ Template.CreateNote.onRendered(function () {
 });
 
 //-------------------single note page------------------
+Template.SingleNote.onRendered(function() {
+	$(function() { 
+		var showTotalChar = 200, showChar = "Read more (+)", hideChar = "Less (-)";
+		$('.show').each(function() { 
+			var content = $(this).text(); 
+			if (content.length > showTotalChar) { 
+				var con = content.substr(0, showTotalChar); 
+				var hcon = content.substr(showTotalChar, content.length - showTotalChar); 
+				var txt= con + '<span class="dots">...</span><span class="morectnt"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>'; 
+				$(this).html(txt); 
+			} 
+		}); 
+		$(".showmoretxt").click(function() { 
+			if ($(this).hasClass("sample")) { 
+				$(this).removeClass("sample"); 
+				$(this).text(showChar); 
+			} 
+			else { 
+				$(this).addClass("sample"); 
+				$(this).text(hideChar); 
+			} 
+			$(this).parent().prev().toggle(); 
+			$(this).prev().toggle(); 
+			return false; 
+		}); 
+	});
+});
 
 Template.SingleNote.helpers({
 	post: function() { 
@@ -75,8 +106,15 @@ Template.SingleNote.events({
 	'click #deletePost': function () {
 		var id = Session.get('postId');
 		console.log(id);
-		Meteor.call('deletePost', id);
-		Router.go('User');
+		Meteor.call('deletePost', id,function(err,res){
+			if(!err){
+				Toast.success('Successful');
+				Router.go('User');
+			}
+			else{
+				Toast.error('Unsuccessful');
+			}
+		});
 	},
 	'click #publishNote': function () {
 		var id = Session.get('postId');
@@ -99,7 +137,11 @@ Template.EditNote.events({
 		var updatedAt = new Date().toLocaleString();
 		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
+				Toast.success('Saved successfully');
 				Router.go('/notes/'+id);
+			}
+			else{
+				Toast.error('Unsuccessful');
 			}
 		});
 	}
@@ -205,7 +247,7 @@ Template.CreateNoteInGroup.events({
 		var title = event.target.postTitle.value;
 		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
         if (result) {
-              alert("Post name already exists");
+              Toast.info("Note with same name already exists.","Warning!!!");
               event.target.postTitle.value = "";
               return false;
         }
@@ -221,8 +263,12 @@ Template.CreateNoteInGroup.events({
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
+	                  Toast.success('Created successfully')
 	                  Router.go('/group/'+groupID+'/notes/'+id);
 	                  //location.reload();
+				}
+				else{
+					Toast.error('Unsuccessful');
 				}
 			});
 		
@@ -275,8 +321,16 @@ Template.SingleNoteOfGroup.events({
 		var id = Session.get('postId');
 		var groupID= Session.get('groupId');
 		console.log(id);
-		Meteor.call('deletePost', id);
-		Router.go('/group/'+groupID+'/shared_notes/');
+		Meteor.call('deletePost', id, function(err,res){
+			if(!err){
+				Toast.success('Successful');
+				Router.go('/group/'+groupID+'/shared_notes/');
+			}
+			else{
+				Toast.error('Unsuccessful');
+			}
+		});
+		
 	},
 	'click #publishNote': function () {
 		var id = Session.get('postId');
@@ -300,7 +354,11 @@ Template.EditNoteOfGroup.events({
 		var updatedAt = new Date().toLocaleString();
 		Meteor.call('editGroupNote',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
+				Toast.success('Saved successfully');
 				Router.go('/group/'+group_id+'/notes/'+id);
+			}
+			else{
+				Toast.error('Unsuccessful');
 			}
 		});
 	}

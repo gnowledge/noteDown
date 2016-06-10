@@ -20,7 +20,7 @@ Template.CreateGroup.events({
             var gdesc = event.target.Description.value;
             var result = Groups.findOne({ gname: gtitle });
             if (result) {
-                  alert("You have already created a group by this name");
+                  Toast.info("Group with same name already exist.","Warning!!!");
                   event.target.Title.value = "";
                   return false;
             }
@@ -35,8 +35,12 @@ Template.CreateGroup.events({
                   if(!err){//all good
                         var group = Groups.findOne({ gname: gtitle });
                         var id= group._id;
+                        Toast.success('Created successfully');
                         Router.go('/group/'+id);
       		}
+                  else{
+                        Toast.error('Unsuccessful');
+                  }
       	});
             // Clear form
             event.target.Title.value = "";
