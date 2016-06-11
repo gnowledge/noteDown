@@ -152,6 +152,11 @@ Meteor.methods({
 					}
 				}
 			});
+			var group_Id= Meteor.users.update({ _id: this.userId },{
+				$addToSet: {
+					group_ids: data._id
+				}
+			});
 			return id;
 		}
 	},
@@ -170,15 +175,23 @@ Meteor.methods({
 	      return false;
 	    } 
 	    else {
-	      count--;
-	      return Groups.update(result._id, {
-	      	$set: { member_count: count},
-	      	$pull: {
-				members:{
-					id: userId,
-					name: name 
+	      	count--;
+	      	Meteor.users.update(
+				{ _id: this.userId },
+				{ 
+					$pull: {
+						group_ids: groupId 
+					}
 				}
-			}
+			);
+	      	return Groups.update(result._id, {
+		      	$set: { member_count: count},
+		      	$pull: {
+					members:{
+						id: userId,
+						name: name 
+					}
+				}
 			});
 	    }
   	},
@@ -211,8 +224,16 @@ Meteor.methods({
 	      return false;
 	    } 
 	    else {
-	      count--;
-	      return Groups.update({_id: groupId}, {
+	      	count--;
+	      	Meteor.users.update(
+				{ _id: memberId },
+				{ 
+					$pull: {
+						group_ids: groupId 
+					}
+				}
+			);
+	      	return Groups.update({_id: groupId}, {
 		      	$set: { member_count: count},
 		      	$pull: {
 					members:{
@@ -298,26 +319,18 @@ Meteor.methods({
     },
     deleteReminder : function(taskId){
 		var task = Tasks.findOne(taskId);
-		if(task.owner.id !== this.userId){
-			throw new Meteor.Error("not-authorized");
-		}
 		var id=Tasks.remove(taskId);
 		Meteor.users.update({ _id: this.userId },{ 
-				$pull: {
-					reminder_ids: taskId 
-				}
+			$pull: {
+				reminder_ids: taskId 
+			}
 		});
 		return id;
     },
 
     setCheckedReminder : function(taskId, setChecked){
 		var task = Tasks.findOne(taskId);
-		if(task.owner.id !== this.userId){
-			throw new Meteor.Error("not-authorized");
-		}
-		else{
-			Tasks.update({_id: taskId},{$set: {checked:setChecked}});
-		}
+		Tasks.update({_id: taskId},{$set: {checked:setChecked}});
     },
      //--------------------------------group Discussion--------------------------
 	addThread : function(msg, groupId,post_id){

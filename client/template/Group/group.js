@@ -231,8 +231,7 @@ Template.Members.events({
 				Toast.error("Unsuccesful");
 			}
 		});
-	}
-
+	}s
 });
 
 
@@ -249,7 +248,8 @@ Template.Invite.helpers({
   		var group = Groups.findOne({_id: groupId});
   		var owner = group.owner.name;
     	var regexp = new RegExp(Session.get('search/members'), 'i');
-    	return Meteor.users.find({"profile.name": regexp, "profile.name": {$ne: owner}});
+    	return Meteor.users.find({"profile.name": regexp, "profile.name": {$ne: owner} });
+    	
   	},
   	member: function(){
   		var groupId = Session.get('groupId');

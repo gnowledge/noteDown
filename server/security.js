@@ -125,6 +125,13 @@ Meteor.users.allow({
     return true;
   }
 });
+
+Meteor.users.deny({
+  update: function() {
+    return true;
+  }
+});
+
 /*Documents.allow({
   insert: function (userId, doc) {
     return true;

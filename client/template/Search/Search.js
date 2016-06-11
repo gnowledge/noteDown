@@ -10,7 +10,7 @@ Template.Search.helpers({
   	},
   	groups:function () {
   		var regexp = new RegExp(Session.get('search/keyword'), 'i');
-    	return Groups.find({gname: regexp});
+    	return Groups.find({gname: regexp, "privacy": "public"});
   	}
 });
 
