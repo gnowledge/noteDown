@@ -2,42 +2,23 @@
   {{> Navbar}}
   <br>
   <div class="container-fluid">
-    <!--<div class="well well-sm" style="width:100%;display: inline-block;">
-    <h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
-    </div>-->
       <div class="dropdown">
-        <!--{{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
-          <div>No search results found</div>
-        {{/EasySearch.IfNoResults}}
-
-        {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
-          <div>Indexes are searching...</div>
-        {{/EasySearch.IfSearching}}-->
-
         <div class="well well-lg" style="width:100%;display: inline-block;">
-          <!--{{#EasySearch.Each index=groupIndex }}
-            <h3>Group name: <a href="/group/{{__originalId}}">{{gname}}</a></h3>
-            <h4>Privacy: {{privacy}}</h4>-->
           <ul>
+            <h3>Note:</h3>
             {{#each posts}}
-              <li>Note: <a href="/group/{{groupID}}/notes/{{_id}}/">{{Title}}</a></li>
+              <li><h4> <a href="/notes/{{_id}}/">{{Title}}</a></h4></li>
             {{else}}
-              <li>No results found.. try something different !!</li>
+              <li><h4>No results found.. try something different !!</h4></li>
             {{/each}}
+            <h3>Group:</h3>
             {{#each groups}}
-              <li>Group: <a href="/group/{{_id}}/">{{gname}}</a></li>
+              <li><h4>Group: <a href="/group/{{_id}}/">{{gname}}</a></h4></li>
             {{else}}
-              <li>No results found.. try something different !!</li>  
+              <li><h4>No results found.. try something different !!</h4></li>  
             {{/each}}
           </ul>
-          <!--{{/EasySearch.Each}}
-
-          {{#EasySearch.Each index=postIndex }}
-            <h3>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h3>
-          {{/EasySearch.Each}}-->
         </div>
-          
-        
       </div>
     </div>
 </template>

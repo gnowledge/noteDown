@@ -115,12 +115,12 @@ Template.SingleNote.events({
 				Toast.error('Unsuccessful');
 			}
 		});
-	},
+	}/*,
 	'click #publishNote': function () {
 		var id = Session.get('postId');
 		Session.set('note_id',id);
 		Router.go('publishNote');
-	}
+	}*/
 });
 //-------------------------------editing personal notes-----------------
 Template.EditNote.events({
@@ -331,12 +331,12 @@ Template.SingleNoteOfGroup.events({
 			}
 		});
 		
-	},
+	}/*,
 	'click #publishNote': function () {
 		var id = Session.get('postId');
 		Session.set('note_id',id);
 		Router.go('publishNote');
-	}
+	}*/
 });
 //-------------------------------editing personal notes-----------------
 Template.EditNoteOfGroup.events({

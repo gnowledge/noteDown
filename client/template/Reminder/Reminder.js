@@ -123,53 +123,7 @@ Template.YourTodo.helpers({
     }
   });
 
-//--------- Group Task----------------
-Template.GroupTask.onCreated(function(){
-	var self= this;
-	this.autorun( function() {
-		self.subscribe('tasks');
-		self.subscribe('groups');
-	});
-});
 
-Template.GroupTask.events({
-	"change .hide-completed input": function (event) {
-		Session.set("hideCompleted", event.target.checked);
-	}
-});
-
-Template.GroupTask.helpers({
-    tasks: function () {
-    	var groupId = Session.get('groupId'); 
-      	if (Session.get("hideCompleted")) {
-        	// If hide completed is checked, filter tasks
-        	return Tasks.find({checked: {$ne: true}, groupID:groupId, action:"task" }, {sort: {createdAt: -1}});
-      	} 
-      	else {
-        	// Otherwise, return all of the tasks
-
-        	return Tasks.find({ groupID: groupId, action:"task" }, {sort: {createdAt: -1}});
-      	}
-    },
-    task: function () {
-    	var groupId = Session.get('groupId');
-      	if (Session.get("hideCompleted")) {
-        	// If hide completed is checked, filter tasks
-        	return Tasks.find({checked: {$ne: true}, groupID:groupId, action:"task"}).count();
-      	} 
-      	else {
-        	// Otherwise, return all of the tasks
-        	return Tasks.find({groupID:groupId, action:"task"}).count();
-      	}
-    },
-    hideCompleted: function () {
-      	return Session.get("hideCompleted");
-    },
-    incompleteCount : function(){
-    	var groupId = Session.get('groupId');
-      	return Tasks.find({checked : {$ne: true}, groupID:groupId, action:"task" }).count();
-    }
-  });
 
 //--------------Group create task--------------
 Template.CreateTask.onCreated(function(){
@@ -251,8 +205,19 @@ Template.CreateTask.helpers({
 	}
 });
 
+//--------- Group Task----------------
+Template.GroupTask.onCreated(function(){
+	var self= this;
+	this.autorun( function() {
+		self.subscribe('tasks');
+		self.subscribe('groups');
+	});
+});
 
-Template.Task1.events({
+Template.GroupTask.events({
+	"change .hide-completed input": function (event) {
+		Session.set("hideCompleted", event.target.checked);
+	},
 	"click .toggle-checked": function () {
 	 	// Set the checked property to the opposite of its current value
 		Meteor.call("setCheckedReminder",this._id, !this.checked);
@@ -266,6 +231,38 @@ Template.Task1.events({
 			else{
                 Toast.error('Not-authorised');
             }
-		});s
+		});
 	}
+});
+
+Template.GroupTask.helpers({
+    tasks: function () {
+    	var groupId = Session.get('groupId'); 
+      	if (Session.get("hideCompleted")) {
+        	// If hide completed is checked, filter tasks
+        	return Tasks.find({checked: {$ne: true}, groupID:groupId, action:"task" }, {sort: {createdAt: -1}});
+      	} 
+      	else {
+        	// Otherwise, return all of the tasks
+        	return Tasks.find({ groupID: groupId, action:"task" }, {sort: {createdAt: -1}});
+      	}
+    },
+    task: function () {
+    	var groupId = Session.get('groupId');
+      	if (Session.get("hideCompleted")) {
+        	// If hide completed is checked, filter tasks
+        	return Tasks.find({checked: {$ne: true}, groupID:groupId, action:"task"}).count();
+      	} 
+      	else {
+        	// Otherwise, return all of the tasks
+        	return Tasks.find({groupID:groupId, action:"task"}).count();
+      	}
+    },
+    hideCompleted: function () {
+      	return Session.get("hideCompleted");
+    },
+    incompleteCount : function(){
+    	var groupId = Session.get('groupId');
+      	return Tasks.find({checked : {$ne: true}, groupID:groupId, action:"task" }).count();
+    }
 });

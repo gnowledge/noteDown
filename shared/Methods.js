@@ -100,14 +100,6 @@ Meteor.methods({
 					group_ids: id
 				}
 			});
-			/*Rss.insert({
-                rss_title: "'" +user+ "' has created a new group",
-                title:gtitle,
-                user: user,
-                createdAt: new Date().toLocaleString(),
-                action: "/group/"+id,
-                id: id
-          	});*/
 			return id;
 		}
 	},
@@ -152,14 +144,14 @@ Meteor.methods({
 			var id= Groups.update(
 				{"_id" : id},{
 					$set:{ member_count: count},
-					$addToSet: {
-						members:{ 
-							"id": memberId,
-							"name":memberName,
-							"joinedAt": new Date().toLocaleString()
-							}
-						}
-					});
+				$addToSet: {
+					members:{ 
+						"id": memberId,
+						"name":memberName,
+						"joinedAt": new Date().toLocaleString()
+					}
+				}
+			});
 			return id;
 		}
 	},
@@ -208,31 +200,6 @@ Meteor.methods({
 			return id;
 		}
   	},
-
-  	/*requestJoin: function(groupId, ownerId,ownerName, user, username){
-  		var data= Groups.findOne(groupId);
-  		var name= data.gname;
-  		var notification= {
-  			title: username + " wants to join your group- " + name,
-  			group:{
-  				id: groupId,
-  				name: name
-  			},
-  			owner:{
-  				id: ownerId,
-  				name: ownerName
-  			},
-  			user:{
-  				id: user,
-  				name: username
-  			},
-  			createdAt: new Date().toLocaleString()
-  		};
-  		var id= Notify.insert(notification);
-  		console.log(id);
-  		return id;
-  	},
-	*/
   	removeMember: function(groupId, memberId, memberName){  
   		var data= Groups.findOne(groupId);
   		var count= data.member_count;
@@ -312,16 +279,6 @@ Meteor.methods({
 		}
 		var id=Tasks.insert(task);
 		Rss.insert({
-				rss_title: "has created a task",
-				title: text,
-				user_action: "/user_dashboard/"+ this.userId,
-				user_name: Meteor.user().profile.name,
-				group_name: group_name,
-				createdAt: new Date().toLocaleString(),
-				group_action: "/group/"+group_id+"/",
-				action:"/group/"+group_id+"/group_task/"
-		});
-		Rss.insert({
 				rss_title: "has assigned you a task",
 				title: text,
 				user_action: "/user_dashboard/"+ this.userId,
@@ -385,14 +342,6 @@ Meteor.methods({
 				threads: id
 			}
 		});
-		/*Rss.insert({
-			rss_title:"'" + user + "' has posted a comment",
-			title:msg,
-			user: user,
-			createdAt: new Date().toLocaleString(),
-			action: "/group/"+groupId,
-			id: groupId
-		});*/
 		return id;
 	},
 
@@ -405,15 +354,6 @@ Meteor.methods({
 				likedBy: Meteor.user().profile.name
 			}
 		});
-		/*Rss.insert({
-			rss_title: user + " has liked " + owner_name +" post",
-			title:content,
-			user: user,
-			owner: owner,
-			createdAt: new Date().toLocaleString(),
-			action: "/group/"+group_id,
-			id: group_id
-		});*/
 		return id;
 		
 	},
@@ -429,7 +369,7 @@ Meteor.methods({
 	},
 
 	//SummerNote------------------------------------
-	addPost: function (title, /*message,*/ postBody, loc, tags, privacy, created_date) {
+	addPost: function (title, postBody, loc, tags, privacy, created_date) {
 		var doc;
 		var user= Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
@@ -439,7 +379,6 @@ Meteor.methods({
 			doc={
 				
 				Title: title,
-				//Message: message,
 				Body: postBody,
 				owner:{
 					id:this.userId, 
@@ -461,12 +400,11 @@ Meteor.methods({
 		
 	},
 
-	editPost: function (postID, title,/* message,*/ postBody, owner, loc, tags, updatedAt) {
+	editPost: function (postID, title, postBody, owner, loc, tags, updatedAt) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{
 				Title: title,
-				//Message: message,
 				Body: postBody,
 				Location: loc,
 				Tags:tags,
@@ -498,7 +436,7 @@ Meteor.methods({
   				}
   			});
   	},
-  	addGroupNote: function (title, /*message,*/ postBody, loc, tags, privacy, group_id, group_name) {
+  	addGroupNote: function (title, postBody, loc, tags, privacy, group_id, group_name) {
 		var doc;
 		var user= Meteor.user().profile.name;
 		if(!this.userId){// NOt logged in
@@ -508,7 +446,6 @@ Meteor.methods({
 			doc={
 				
 				Title: title,
-				//Message: message,
 				Body: postBody,
 				owner:{
 					id:this.userId, 
@@ -540,12 +477,11 @@ Meteor.methods({
 		}  
 		
 	},
-	editGroupNote: function (postID, title,/* message,*/ postBody, owner, loc, tags, updatedAt) {
+	editGroupNote: function (postID, title, postBody, owner, loc, tags, updatedAt) {
 		var user=Meteor.user().profile.name;
 		var id =Posts.update(postID,{
 			$set:{
 				Title: title,
-				//Message: message,
 				Body: postBody,
 				Location: loc,
 				Tags:tags,
@@ -554,4 +490,16 @@ Meteor.methods({
 		});
 		return id;
 	},
+	Media_Rss: function(rss_title, title, user_id, user_name, group_name, groupId){
+		Rss.insert({
+          rss_title: rss_title,
+          title: title,
+          user_action: "/user_dashboard/"+ user_id,
+          user_name: user_name,
+          group_name: group_name,
+          group_action: "/group/"+groupId+"/",
+          createdAt: new Date().toLocaleString(),
+          action: '/group/'+groupId+'/shared_media/'
+        });
+	}
 });

@@ -7,14 +7,11 @@
 
 <template name="uploadedImage">
     <div class="media well pull-left">
-    <a href="{{this.url}}" target="_blank" class="pull-left"><img src="{{this.url store='thumbs'}}" alt="" class="img-rounded">
-    </a>
-    
       <div class="media-body">
         <h4 class="media-heading">{{this.name}}</h4>
     
         <p>
-            <em>Original size: {{this.formattedSize}}<br>Thumbnail size: {{this.formattedSize store="thumbs"}}<br>Type: {{this.type store="images"}}</em>
+            <em>Original size: {{this.formattedSize}}<br>Thumbnail size: {{this.formattedSize store="thumbs"}}<br>Type: {{this.type store="images"}}<br>Owner: {{this.owner.name}}<br>Added At: {{this.createdAt}}</em>
         </p>
     
           {{#if this.isUploaded}}

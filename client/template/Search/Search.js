@@ -6,7 +6,7 @@ Template.Search.helpers({
   		postIndex: () => postsIndex*/
   	posts: function () {
     	var regexp = new RegExp(Session.get('search/keyword'), 'i');
-    	return Posts.find({Title: regexp,privacy: "public"});
+    	return Posts.find({Title: regexp});
   	},
   	groups:function () {
   		var regexp = new RegExp(Session.get('search/keyword'), 'i');
@@ -20,4 +20,8 @@ Template.Search.onCreated(function(){
 		self.subscribe('groups');
 		self.subscribe('posts');
 	});
+});
+
+Template.Search.onRendered(function(){
+  $("#search").focus();
 });

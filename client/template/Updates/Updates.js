@@ -7,7 +7,6 @@ Template.Updates.onCreated(function(){
 	var rss= Rss.find({},{fields: { _id: 0, group_name: 1}});
 		for(var i=0; i< rss.length; i++){
 			var group_name= rss[i].group_name;
-			console.log(group_name);
 		}
 });
 
@@ -21,10 +20,8 @@ Template.Updates.helpers({
 	},
 	group: function(){
 		var rss= Rss.find({ });
-		console.log(rss.count());
 		for(var i=0; i< rss.length; i++){
 			var group_name= rss[i].group_name;
-			console.log(group_name);
 		}
 	}
 });

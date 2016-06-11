@@ -20,8 +20,7 @@
 				<li id="navli"><a id="list" title="Todo" href="{{pathFor route='YourTodo'}}">Todo</a></li>&nbsp;
 				<li id="navli"><a id="list" title="Media" href="{{pathFor route='YourMedia'}}">Media</a></li>&nbsp;
 				<li id="navli"><a id="list" title="Updates" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
-				<!--<li id="navli"><a id="list" title="Search" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;-->
-				<li id="navli"><i><input id="search" placeholder="Search.." required></i></li>
+				<li id="navli"><i><input id="search" name='search' placeholder="Search.." required></i></li>
 		    </ul>
 	    </div>
 	  </div>
@@ -45,10 +44,10 @@
 	      <ul class="nav navbar-nav">
       		<li id="navli"><a id="list" href="/group/{{group._id}}/" title="{{group.gdesc}}"><span class="glyphicon glyphicon-home"></span> <b>{{group.gname}}</b></a></li>&nbsp;
       		<li id="navli"><a id="list" href="/group/{{group._id}}/shared_notes/" title="Notes">Notes</a></li>&nbsp;
- 
 			<li id="navli"><a id="list" href="/group/{{group._id}}/group_task/" title="Tasks">Tasks</a></li>&nbsp;
 			<li id="navli"><a id="list" href="/group/{{group._id}}/shared_media/" title="Media">Media</a></li>&nbsp;
 			<li id="navli"><a id="list" href="/group/{{group._id}}/members/" title="Members">Members</a></li>&nbsp;
+			<!--<li id="navli"><a id="list" href="/group/{{group._id}}/discuss/" title="Discuss">Discuss</a></li>&nbsp;-->
 	      </ul>
 	    </div>
 	  </div>

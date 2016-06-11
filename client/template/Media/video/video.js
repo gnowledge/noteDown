@@ -21,7 +21,8 @@ Meteor.startup(function() {
 	            	name: Meteor.user().profile.name
 	          	},
 	          	dropped: false,
-          		privacy:"private"
+          		privacy:"private",
+          		createdAt: new Date().toLocaleString()
 	        };
 		},
 
@@ -73,16 +74,11 @@ Meteor.startup(function() {
 			var groupId = Session.get('groupId');
 			var group= Groups.findOne({ _id: groupId});
 			var group_name = group.gname;
-			Rss.insert({
-				rss_title: "has added a new ",
-				title: "video",
-				user_action: "/user_dashboard/"+ Meteor.userId(),
-				user_name: Meteor.user().profile.name,
-				group_name: group_name,
-				createdAt: new Date().toLocaleString(),
-				group_action: "/group/"+groupId,
-				action: '/group/'+groupId+'/shared_media/'
-			});
+			 var rss_title = "has added a new ";
+        	var title = "video";
+        	var user_id = Meteor.userId();
+        	var user_name = Meteor.user().profile.name;
+        	Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
 		    	return {
 					owner:{
 						id: Meteor.userId(),
@@ -90,7 +86,8 @@ Meteor.startup(function() {
 					},
 					groupID: groupId,
 					dropped: false,
-              		privacy:"public"
+              		privacy:"public",
+          			createdAt: new Date().toLocaleString()
 		        };
 		},
 

@@ -10,7 +10,8 @@ Meteor.startup(function () {
             name: Meteor.user().profile.name
           },
           dropped: false,
-          privacy:"private"
+          privacy:"private",
+          createdAt: new Date().toLocaleString()
         }
       },
       after: function (error, fileObj) {
@@ -39,27 +40,18 @@ Template.images.onCreated(function(){
   });
 });
 
-
-// Can't call getHandler until startup so that Collections object is available
 Meteor.startup(function () {
-
   Template.images_group.events({
     'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
       metadata: function (fileObj) {
         var groupId = Session.get('groupId');
         var group= Groups.findOne({ _id: groupId});
         var group_name = group.gname;
-        var ins = Template.instance();
-        Rss.insert({
-          rss_title: "has added a new ",
-          title: "image",
-          user_action: "/user_dashboard/"+ Meteor.userId(),
-          user_name: Meteor.user().profile.name,
-          group_name: group_name,
-          group_action: "/group/"+groupId,
-          createdAt: new Date().toLocaleString(),
-          action: '/group/'+groupId+'/shared_media/'
-        });
+        var rss_title = "has added a new ";
+        var title = "image";
+        var user_id = Meteor.userId();
+        var user_name = Meteor.user().profile.name;
+        Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
         return {
           owner:{
             id: Meteor.userId(),
@@ -67,7 +59,8 @@ Meteor.startup(function () {
           },
           groupID: groupId,
           dropped: false,
-          privacy:"public"
+          privacy:"public",
+          createdAt: new Date().toLocaleString()
         };
       },
       after: function (error, fileObj) {
@@ -88,11 +81,9 @@ Meteor.startup(function () {
       }
     }
   });
-
 });
 
 Template.images_group.uploadedImage = function() {
-  
   return Collections.Images.find({});
 };
 

@@ -42,7 +42,7 @@
 		<div class="col-xs-12">
 			<div class="panel-group">
 				{{#if post}}
-						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
+						<!--<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>-->
 
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
@@ -60,6 +60,7 @@
 						{{#if tags }}
 							<p class=""	>Tags: <b>{{post.Tags}}</b></p>
 						{{/if}}
+						<p class="">{{post.Location}}</p>
 						<p class="">{{post.createdOn}}</p>
 					</div>
 				{{else}}
@@ -250,7 +251,7 @@
 		<div class="col-xs-12">
 			<div class="panel-group">
 				{{#if post}}
-						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
+						<!--<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>-->
 
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
@@ -263,12 +264,15 @@
 					</div>
 					<div class="panel panel-body">
 						<p class="more">{{{post.Body}}}</p>
+					</div>
+					<div class="panel panel-footer">
 						{{#if tags }}
 							<p class="">Tags: <b>{{post.Tags}}</b></p>
 						{{/if}}
 						<p class="">{{post.createdOn}}</p>
-						{{> groupDiscuss}}
 					</div>
+						{{> groupDiscuss}}
+					
 				{{else}}
 					<h2>No Such Note</h2>
 					<a href="{{pathFor route='CreateNoteInGroup'}}">Create Note</a>

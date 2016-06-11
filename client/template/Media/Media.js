@@ -56,7 +56,7 @@ $(document).ready(function () {
 Template.SharedMediaInGroup.helpers({
     images: function() {
         var group_id= Session.get('groupId');
-        return Collections.Images.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+        return Collections.Images.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
     },
     image: function() {
         var group_id= Session.get('groupId');
@@ -64,7 +64,7 @@ Template.SharedMediaInGroup.helpers({
     },
     videos: function() {
         var group_id= Session.get('groupId');
-        return Collections.Videos.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+        return Collections.Videos.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
     },
     video: function() {
          var group_id= Session.get('groupId');
@@ -72,7 +72,7 @@ Template.SharedMediaInGroup.helpers({
     },
     audios: function() {
          var group_id= Session.get('groupId');
-        return Collections.Audios.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+        return Collections.Audios.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
     },
     audio: function() {
          var group_id= Session.get('groupId');
@@ -80,7 +80,7 @@ Template.SharedMediaInGroup.helpers({
     },
     files: function() {
          var group_id= Session.get('groupId');
-        return Collections.Files.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+        return Collections.Files.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
     },
     file: function() {
          var group_id= Session.get('groupId');
@@ -100,25 +100,25 @@ Template.SharedMediaInGroup.onCreated(function(){
 
 Template.YourMedia.helpers({
     images: function() {
-        return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+        return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
     },
     image: function() {
         return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     videos: function() {
-        return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+        return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
     },
     video: function() {
         return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     audios: function() {
-        return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+        return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
     },
     audio: function() {
         return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     files: function() {
-        return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+        return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
     },
     file: function() {
         return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
