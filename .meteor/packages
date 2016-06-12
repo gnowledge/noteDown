@@ -48,7 +48,6 @@ reactive-var
 cfs:graphicsmagick
 fortawesome:fontawesome
 dangrossman:bootstrap-daterangepicker
-#easy:search
 ground:db
 email
 yong:meteor-videojs

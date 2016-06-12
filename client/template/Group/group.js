@@ -2,7 +2,6 @@ Template.SingleGroup.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
 		self.subscribe('groups',Session.get('groupId'));
-		self.subscribe('notify');
 		Session.set('group',Session.get('groupId'));
 	});
 });
@@ -43,16 +42,7 @@ Template.SingleGroup.helpers({
         var group = Groups.findOne({_id: groupId});
         var members= group.members;
         return members;
-    },
-    notification: function(){
-    	var groupId = Session.get('groupId');
-    	var notification= Notify.find({"owner.id": Meteor.user()._id},{sort : {createdAt:-1} });
-    	return notification;
-    },
-    notificationCount: function(){
-    	var groupId = Session.get('groupId');
-    	return Notify.find({"group.id": groupId}).count();
-  	}
+    }
 });
 
 Template.SingleGroup.events({
@@ -61,7 +51,7 @@ Template.SingleGroup.events({
 		Meteor.call('deleteGroup', groupId, function(err,res){
 			if(!err){//all good
 				Toast.success('Successful');
-                Router.go('User');
+                Router.go('YourGroup');
 			}
 			else{
 				Toast.error("Unsuccesful");
@@ -100,7 +90,7 @@ Template.SingleGroup.events({
 			Meteor.call('leaveGroup',groupId, function(err,res){
 				if(!err){//all good
 					Toast.success('Successful');
-	                Router.go('User');
+	                Router.go('YourGroup');
 				}
 				else{
 					Toast.error("Unsuccesful");
@@ -231,7 +221,7 @@ Template.Members.events({
 				Toast.error("Unsuccesful");
 			}
 		});
-	}s
+	}
 });
 
 
@@ -274,7 +264,7 @@ Template.Invite.events({
 			createdAt: new Date().toLocaleString(),
 			group_action: "/group/"+group_id+'/'	
 		});
-		Router.go('/group/'+group_id+"/");
+		//Router.go('/group/'+group_id+"/");
 	},
 	'keyup #search': function(event) {
     	Session.set('search/members', event.target.value);

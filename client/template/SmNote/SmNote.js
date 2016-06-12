@@ -3,7 +3,6 @@ Template.CreateNote.onCreated(function(){
 	this.autorun( function() {
 		self.subscribe('posts');
 	});
-	console.log(Meteor.status());
 });
 
 Template.CreateNote.events({
@@ -16,13 +15,12 @@ Template.CreateNote.events({
               event.target.postTitle.value = "";
               return false;
         }
-		//var message = event.target.postMessage.value;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
 		var privacy= "private";
 		var created_date = new Date().toLocaleString();
-		Meteor.call('addPost', title, /*message,*/ postBody,loc, tags, privacy, created_date, function(err, res){
+		Meteor.call('addPost', title, postBody,loc, tags, privacy, created_date, function(err, res){
 				if(!err){//all good
 					var note= Posts.findOne({ Title: title });
 					var id= note._id;
@@ -33,7 +31,8 @@ Template.CreateNote.events({
 					Toast.error('Unsuccessful');
 				}
 			});
-		//location.reload();
+		
+		
 	}
 });
 
@@ -43,6 +42,10 @@ Template.CreateNote.onRendered(function () {
 		  $('#summernote').summernote();
 		});
 });
+Template.CreateNote.onDestroyed(function(){
+	location.reload();
+});
+
 
 //-------------------single note page------------------
 Template.SingleNote.onRendered(function() {
@@ -109,7 +112,7 @@ Template.SingleNote.events({
 		Meteor.call('deletePost', id,function(err,res){
 			if(!err){
 				Toast.success('Successful');
-				Router.go('User');
+				Router.go('YourNotes');
 			}
 			else{
 				Toast.error('Unsuccessful');
@@ -128,14 +131,13 @@ Template.EditNote.events({
 		event.preventDefault();
 		var id = Session.get('postId');
 		var title = event.target.postTitle.value;
-		//var message = event.target.postMessage.value;
 		var post= Posts.findOne({_id: id});
 		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
 		var updatedAt = new Date().toLocaleString();
-		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
+		Meteor.call('editPost',id, title, postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
 				Toast.success('Saved successfully');
 				Router.go('/notes/'+id);
@@ -251,7 +253,6 @@ Template.CreateNoteInGroup.events({
               event.target.postTitle.value = "";
               return false;
         }
-		//var message = event.target.postMessage.value;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
@@ -259,7 +260,7 @@ Template.CreateNoteInGroup.events({
 		var groupID= Session.get('groupId');
 		var group= Groups.findOne({ _id: groupID});
 		var group_name = group.gname;
-		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, group_name, function(err, res){
+		Meteor.call('addGroupNote', title, postBody,loc, tags, privacy, groupID, group_name, function(err, res){
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
 	                  var id= note._id;
@@ -281,6 +282,10 @@ Template.CreateNoteInGroup.onRendered(function () {
 		  $('#summernote').summernote();
 		});
 });
+Template.CreateNoteInGroup.onDestroyed(function(){
+	location.reload();
+});
+
 
 Template.SingleNoteOfGroup.onRendered(function(){
 	$(document).ready(function(){
@@ -344,7 +349,6 @@ Template.EditNoteOfGroup.events({
 		event.preventDefault();
 		var id = Session.get('postId');
 		var title = event.target.postTitle.value;
-		//var message = event.target.postMessage.value;
 		var post= Posts.findOne({_id: id});
 		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
@@ -352,7 +356,7 @@ Template.EditNoteOfGroup.events({
 		var tags = Session.get('tag');
 		var group_id= Session.get('groupId');
 		var updatedAt = new Date().toLocaleString();
-		Meteor.call('editGroupNote',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
+		Meteor.call('editGroupNote',id, title, postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
 				Toast.success('Saved successfully');
 				Router.go('/group/'+group_id+'/notes/'+id);

@@ -71,16 +71,6 @@ Groups.allow({
   }
 });
 
-Notify.allow({ 
-  insert: function(userId, doc) {
-    // only allow posting if you are logged in    
-    return true;  
-  },
-  remove:function (userId, doc) {
-    return true;
-  }
-});
-
 Tasks.allow({
   insert: function (userId, doc) {
     return true;
