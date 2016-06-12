@@ -49,9 +49,11 @@
         </li>
         <li id="commentboxContainer" style="display: none;">
         <!--Text box on Post button -->
-        
+        {{#each reply}}
+          {{content}}
+        {{/each}}
           <div class="container-fluid" id="replyPostboxContainer">
-            <div class="col-md-12" style="background-color:lavender">
+            <div class="col-md-12">
               <div class="pull-right">
                 <form class="reply-post">
                   <input type="text" id="replyBox1">
@@ -64,7 +66,7 @@
 
           <!--Reply message :  Box on Reply button  -->
           <div class="container-fluid">
-            <div class="col-md-12" style="background-color:lavender">
+            <div class="col-md-12">
               <div class="pull-right">
                 <ul id="replyCommentbox"></ul>
               </div>

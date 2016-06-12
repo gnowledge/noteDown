@@ -380,6 +380,22 @@ Meteor.methods({
 		});
 		return did;
 	},
+	setReply: function(reply_id, userid, username, value, thread_id){
+		Thread.update({_id:thread_id},
+            {
+            	$addToSet:{
+            		reply:{
+            			id: reply_id,
+            			owner:{
+            				id: userid,
+            				name: username
+            			},
+            			content: value
+            		}
+            	}
+            }
+        );
+	},
 
 	//SummerNote------------------------------------
 	addPost: function (title, postBody, loc, tags, privacy, created_date) {

@@ -30,6 +30,10 @@ Template.postMessage.helpers({
        var owner= this.owner.id;
        if(owner === Meteor.userId())
         return true;
+    },
+    'reply': function(){
+        var postid= Session.get('postId');
+        return Thread.find({ postId:postid });
     }
 });
  
@@ -59,7 +63,6 @@ Template.postMessage.events({
         var group_id= Session.get('groupId');
         var owner_name= this.owner.name;
         for(var i=0;i<likedBy.length;i++){
-            //console.log(likedBy[i]);
             if(likedBy[i]===Meteor.user().profile.name){
                 return false;
             }
@@ -74,38 +77,31 @@ Template.postMessage.events({
         
     },
     'click #hidebtn' : function(e){
-        event.preventDefault();
+        e.preventDefault();
         var $this = $(e.target);         
         $($this).parents("#commentboxContainer").find("#replyCommentbox").slideToggle();
 
     },
 
     'click #replyOkbtn' : function(e){
-        event.preventDefault();
+        e.preventDefault();
         var value = $("#replyBox1").val();
         var $this = $(e.target);
-        Toast.info("value : "+value);
+        //Toast.info("value : "+value);
         var replyIcon1 = '<span class="glyphicon glyphicon-comment" id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
         $($this).parents("#commentboxContainer").find("#replyCommentbox").append('<li id="commentboxContainer_li">'+value +replyIcon1+"</li>");
-        
-        /*replyId++;
-        var replymsg = $("#replyBox").val();
-        Thread.update(
-                        {_id:this._id},
-                        {
-                            $push:{
-                                replypost :{
-                                    $each:[{replypostId:replyId,replymsg : replymsg}]
-                                    }
-                                }
-                        }
-                    );*/
+        var userid= Meteor.userId();
+        var username = Meteor.user().profile.name;
+        var id= this._id;
+        var replyId = 1;
+        Meteor.call('setReply', replyId, userid, username, value,id);
+        replyId++;
         $("#replyBox1").val(" ");
+        $('#replyPostboxContainer').hide();
     },
 
     'click #reply_replyIcon':function(e){
-        event.preventDefault();
-        
+        e.preventDefault();
         var $this = $(e.target);
         var count = 1;
         var idgenerate = "reply_replyBox_"+(count++);
@@ -115,7 +111,7 @@ Template.postMessage.events({
         
     },
     'click #reply_replyOkbtn':function(e){
-        event.preventDefault();
+        e.preventDefault();
         var $this = $(e.target);
         var value = $($this).prev("#reply_replyBox").val();
         Toast.info("reply_replyOkbtn : "+value);
@@ -125,7 +121,7 @@ Template.postMessage.events({
         $($this).prev().val(" ");
     },
     'click #reply_hidebtn' : function(e){
-        event.preventDefault();
+        e.preventDefault();
         var $this = $(e.target);
         $($this).parents("#reply_replyBox_li1").find("#li_test").slideToggle();
     } 
