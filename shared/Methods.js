@@ -334,7 +334,7 @@ Meteor.methods({
 		Tasks.update({_id: taskId},{$set: {checked:setChecked}});
     },
      //--------------------------------group Discussion--------------------------
-	addThread : function(msg, groupId,post_id){
+	addThread : function(msg, groupId,post_id, post_name){
 		var user= Meteor.user().profile.name;
 		var group= Groups.findOne({_id: groupId});
 		var group_name= group.gname;
@@ -352,6 +352,24 @@ Meteor.methods({
 
 		};
 		var id=Thread.insert(thread);
+		/*var group = Groups.findOne({ _id : groupId });
+		var gname = group.gname;
+		var members = group.members;
+		for (var i = 0; i <members.length; i++){
+			if(members[i].id !== user_id){
+				Rss.insert({
+		          rss_title: "has commented on note",
+		          title: post_name,
+		          user_action: "/user_dashboard/"+ this.userId,
+		          user_name: user,
+		          group_name: gname,
+		          group_action: "/group/"+groupId+"/",
+		          createdAt: new Date().toLocaleString(),
+		          action: '/group/'+groupId+'/notes/'+post_id+"/",
+		          user: members[i].name
+		        });
+		    }
+		}*/
 		Posts.update({ _id: post_id},{
 			$addToSet: {
 				comments: id
@@ -383,7 +401,7 @@ Meteor.methods({
 		});
 		return did;
 	},
-	setReply: function( userid, username, value, thread_id){
+	setReply: function( userid, username, value, thread_id,type){
 		var thread ={
         		title: value,
         		owner:{
@@ -392,12 +410,13 @@ Meteor.methods({
         		},
         		threadID: thread_id,
         		publishedAt: new Date().toLocaleString(),
-        		type: "thread"
+        		type: type
         }
         var id =Thread.insert(thread);
+        if(type==="thread")
 		Thread.update({ _id: thread_id },{
 				$addToSet:{
-					threads: id
+					comments: id
 				}
 		});
 		return id;
@@ -505,7 +524,7 @@ Meteor.methods({
 						group_name: group_name,
 						createdAt: new Date().toLocaleString(),
 						group_action: "/group/"+group_id+"/",
-						action: "/group_notes/"+id+"/",
+						action: "group/"+group_id+"/notes/"+id+"/",
 						user: members[i].name
 					});
 				}
