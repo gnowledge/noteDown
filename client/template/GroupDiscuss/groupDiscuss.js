@@ -10,9 +10,11 @@ Template.groupdiscussion.events({
     "submit .new-post": function(event){
         event.preventDefault();
         var post_id= Session.get('postId');
+        var post = Posts.findOne({ _id: post_id });
+        var pname = post.Title;
         var text = event.target.commentbox.value;
         var groupId = Session.get('groupId'); //instead of Router.current().params.gameId;
-        Meteor.call("addThread",text, groupId,post_id);
+        Meteor.call("addThread",text, groupId,post_id, pname);
         event.target.commentbox.value='';  
     }
 });
@@ -31,8 +33,17 @@ Template.postMessage.helpers({
        if(owner === Meteor.userId())
         return true;
     },
-    'replies': function(){
+    'threads': function(){
         return Thread.find({type: "thread"},{sort: {publishedAt: -1}});
+    },
+    'threadCount': function(){
+        return Thread.find({type: "thread"}).count();
+    },
+    'reply': function(){
+        return Thread.find({type: "reply"});
+    },
+    'replyCount': function(){
+        return Thread.find({type: "reply"}).count();
     }
 });
  
@@ -70,17 +81,16 @@ Template.postMessage.events({
         Meteor.call('likeThread',this._id,like,owner,owner_name,group_id,content);
     },
     'click #replyIcon' : function(e){
-        
         var $this = $(e.target);
         $($this).parents("#li1").siblings("#commentboxContainer").slideToggle();
         
     },
-    'click #hidebtn' : function(e){
+    /*'click #hidebtn' : function(e){
         e.preventDefault();
         var $this = $(e.target);         
-        $($this).parents("#commentboxContainer").find("#replyCommentbox").slideToggle();
+        $($this).parents("#commentboxContainer").find("#replyPostboxContainer").slideToggle();
 
-    },
+    },*/
 
     'click #replyOkbtn' : function(e){
         e.preventDefault();
@@ -90,28 +100,24 @@ Template.postMessage.events({
             return false;
         }
         var $this = $(e.target);
-        //Toast.info("value : "+value);
-        var replyIcon1 = '<span class="glyphicon glyphicon-comment" id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
-        $($this).parents("#ultest").find("#publishedDate").append('<li id="commentboxContainer_li">'+value +replyIcon1+"</li>");
         var userid= Meteor.userId();
         var username = Meteor.user().profile.name;
         var id= this._id;
-        Meteor.call('setReply', userid, username, value, id, function(err,res){
+        var type = "thread";
+        Meteor.call('setReply', userid, username, value, id, type, function(err,res){
             if(!err){
                 $("#replyBox1").val(" ");
                 $('#replyPostboxContainer').hide();
             }
-        });
-        
-        
+        });   
     },
 
     'click #reply_replyIcon':function(e){
         e.preventDefault();
-        var $this = $(e.target);
+        var $this = $(e.target); 
         var count = 1;
         var idgenerate = "reply_replyBox_"+(count++);
-        var textbox = '<li id="reply_replyBox_li1"><div class="container-fluid"><div class="col-md-12" style="background-color:lavender"><form id="form_reply_replyIcon"><input type="text" id="reply_replyBox" style="float:left;"><input type="submit" id="reply_replyOkbtn" class="btn btn-primary" value="Ok"><input type="submit" id="reply_hidebtn" class="btn btn-primary" style="margin-left:5px;" value="hide"></form></div></div></li>';
+        var textbox = '<li id="reply_replyBox_li1"><div class="container-fluid"><div class="col-md-12"><form id="form_reply_replyIcon"><input type="text" id="reply_replyBox" style="float:left;"><input type="submit" id="reply_replyOkbtn" class="btn btn-primary" value="Ok"></form></div></div></li>';
         $($this).after(textbox);
         $($this).off('click');
         
@@ -119,18 +125,25 @@ Template.postMessage.events({
     'click #reply_replyOkbtn':function(e){
         e.preventDefault();
         var $this = $(e.target);
+        var id = this._id;
         var value = $($this).prev("#reply_replyBox").val();
-        Toast.info("reply_replyOkbtn : "+value);
-        var replyIcon1 = '<span class="glyphicon glyphicon-comment " id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
+        var userid= Meteor.userId();
+        var username = Meteor.user().profile.name;
+        var id= this._id;
+        var type = "reply";
+        Meteor.call('setReply', userid, username, value, id,type, function(err,res){
+            if(!err){
+                $('#reply_replyBox_li1').hide();
+            }
+        });
         
-        $($this).parent().append('<li id="li_test">'+value+"   "+replyIcon1+"</li>");
         $($this).prev().val(" ");
-    },
+    }/*,
     'click #reply_hidebtn' : function(e){
         e.preventDefault();
         var $this = $(e.target);
         $($this).parents("#reply_replyBox_li1").find("#li_test").slideToggle();
-    } 
+    } */
 });
 
 

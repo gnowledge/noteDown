@@ -1,7 +1,7 @@
 <template name="groupDiscuss">
   <div class="container-fluid">
-    {{> postMessage}}
-    {{> groupdiscussion}}  
+    {{> groupdiscussion}}
+    {{> postMessage}}  
   </div>
 </template>
 
@@ -25,14 +25,14 @@
 
 <template name = "postMessage">
   <div class="container-fluid">
-    <h4 style="margin: 20px ;width:100%"><b>Comments :</b>
+    <h4 style="margin: 20px ;width:100%"><b>Comments: </b>
       <span class="badge">Total : {{count}}</span>
     </h4> 
     {{#each gdPost}}
       <div class="well well-lg" style="width:100%;display: inline-block;">  
         <ul id="ultest">
         <li id="li1"> 
-          <span style="font-size:16px;"><b><u>{{owner.name}}</u> : {{content}}</b></span>
+          <span style="font-size:16px;"><b><u>{{owner.name}}</u>: {{content}}</b></span>
           {{#if admin}}
               <span class="glyphicon glyphicon-trash pull-right" id="deletePost" style="cursor: pointer;" title="Delete"></span>
           {{else}}
@@ -41,36 +41,54 @@
           {{/if}}
         </li>
         <li>  
-            <span class="badge">Likes : {{like}}</span>&nbsp;<i>{{likedBy}} liked your comment</i>
+            <span class="badge">Likes: {{like}}</span>&nbsp;<i>{{likedBy}} liked your comment</i>
         </li>
 
         
         <li id="publishedDate">
           <span style="float: right; font-size:12px;">{{publishedAt}}</span>
         </li>
+        {{#if threadCount}}
+        <li><span style="font-size:16px;"><b><u>Threads:</u> </b></span>
+          {{#each threads}}
+            <li>{{title}}<span class="glyphicon glyphicon-comment" id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span></li>
+          {{/each}}
+        </li>
+        {{else}}
+          <p>No threads yet..</p>
+        {{/if}}
         <li id="commentboxContainer" style="display: none;">
         <!--Text box on Post button--> 
           <div class="container-fluid" id="replyPostboxContainer">
             <div class="col-md-12">
-              <div class="pull-right">
+              <div class="pull-left">
                 <form class="reply-post">
                   <input type="text" id="replyBox1" required="required">
                   <button type="submit" id="replyOkbtn" class="btn btn-primary">Ok</button>
-                  <button type="submit" id="hidebtn" class="btn btn-primary">Hide</button>
+                  <!--<button type="submit" id="hidebtn" class="btn btn-primary">Hide</button>-->
                 </form>
               </div>
             </div>
           </div>
+          </li>
           <!--Reply message :  Box on Reply button  -->
           <div class="container-fluid">
             <div class="col-md-12">
-              <div class="pull-right">
-                <ul id="replyCommentbox"></ul>
+              <div class="pull-left">
+                <ul id="replyCommentbox">
+                  {{#if replyCount}}
+                  <li><span style="font-size:16px;"><b><u>Reply:</u> </b></span>
+                  {{#each reply}}
+                    <li>{{title}}<span class="glyphicon glyphicon-comment " id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span></li>
+                  {{/each}}
+                  </li>
+                  {{else}}
+                    <p>No reply yet..</p>
+                  {{/if}}
+                </ul>
               </div>
             </div>
           </div>
-        
-        </li>
         </ul>
     </div>
     {{/each}}
