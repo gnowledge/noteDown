@@ -24,16 +24,15 @@ Template.postMessage.helpers({
     },
     'gdPost': function(){   
         var postid= Session.get('postId');
-        return Thread.find({ postId:postid},{sort: {publishedAt: -1}});
+        return Thread.find({ postId:postid, type: "comment"},{sort: {publishedAt: -1}});
     },
     admin: function(){
        var owner= this.owner.id;
        if(owner === Meteor.userId())
         return true;
     },
-    'reply': function(){
-        var postid= Session.get('postId');
-        return Thread.find({ postId:postid });
+    'replies': function(){
+        return Thread.find({type: "thread"},{sort: {publishedAt: -1}});
     }
 });
  
@@ -86,18 +85,25 @@ Template.postMessage.events({
     'click #replyOkbtn' : function(e){
         e.preventDefault();
         var value = $("#replyBox1").val();
+        if(value === ""){
+            $("#replyBox1").focus();
+            return false;
+        }
         var $this = $(e.target);
         //Toast.info("value : "+value);
         var replyIcon1 = '<span class="glyphicon glyphicon-comment" id="reply_replyIcon" style="margin-left:10px; cursor: pointer;" title="Reply"></span>';
-        $($this).parents("#commentboxContainer").find("#replyCommentbox").append('<li id="commentboxContainer_li">'+value +replyIcon1+"</li>");
+        $($this).parents("#ultest").find("#publishedDate").append('<li id="commentboxContainer_li">'+value +replyIcon1+"</li>");
         var userid= Meteor.userId();
         var username = Meteor.user().profile.name;
         var id= this._id;
-        var replyId = 1;
-        Meteor.call('setReply', replyId, userid, username, value,id);
-        replyId++;
-        $("#replyBox1").val(" ");
-        $('#replyPostboxContainer').hide();
+        Meteor.call('setReply', userid, username, value, id, function(err,res){
+            if(!err){
+                $("#replyBox1").val(" ");
+                $('#replyPostboxContainer').hide();
+            }
+        });
+        
+        
     },
 
     'click #reply_replyIcon':function(e){

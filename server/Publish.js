@@ -1,6 +1,19 @@
-Meteor.publish("tags",function(){
-  return Tags.find({ });
-});
+  Meteor.publish("documents", function(){
+    return Documents.find({
+      $or:[
+        {isPrivate:{$ne:true}},
+        {owner:this.userId}
+      ]
+    });
+  })
+
+  Meteor.startup(function () {
+    // code to run on server at startup
+    if(!Documents.findOne()){
+      //No Docs yet
+      Documents.insert({title:"Untitled Discussion"});
+    }
+  });
 
 Meteor.publish("user",function(){
   return Meteor.users.find({ },{fields: { _id:1, profile: 1}});

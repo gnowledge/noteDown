@@ -111,8 +111,8 @@ meteor-platform@1.2.5
 meteortoys:toykit@2.2.1
 minifier-js@1.1.10
 minimongo@1.0.13
-mizzao:sharejs@0.7.5
-mizzao:sharejs-codemirror@4.12.0
+mizzao:sharejs@0.8.0
+mizzao:sharejs-codemirror@4.12.1
 mobile-experience@1.0.3
 mobile-status-bar@1.0.11
 modules@0.5.2

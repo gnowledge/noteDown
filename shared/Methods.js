@@ -12,50 +12,31 @@ Meteor.methods({
 	},
 
 //-------------------note---------------
-/*	addDoc:function(loc,tags){		//, tags
+	addDoc:function(group){		//, tags
 		var doc;
-		if(!this.userId){// NOt logged in
-			return;
-		}else{
-			doc={
-				owner:this.userId, 
-				getLocation:loc,
-				tagsName:tags,
-				createdOn:new Date().toLocaleString(), 
-				title:"Untitled Document"
-			};
-			var id = Documents.insert(doc);
-			return id; //return was missing. caused problem in method call.
-		}
+		doc={
+			owner:this.userId, 
+			createdAt:new Date().toLocaleString(), 
+			title:"Untitled Discussion",
+			groupID: group
+		};
+		var id = Documents.insert(doc);
+		return id; //return was missing. caused problem in method call.
 	},
+
 	delDoc:function(doc){
-		if(!this.userId){// NOt logged in
-			return;
-		}else{
-			var realDoc=Documents.findOne({_id:doc._id, owner:this.userId});
-			if(realDoc){
-				//realDoc.isPrivate=doc.isPrivate;
-				Documents.remove({_id:doc._id}, realDoc);
-			}
-			
-		}
-	}
-	updateDocPrivacy:function(doc){
-		console.log("updateDocPrivacy Method");
 		var realDoc=Documents.findOne({_id:doc._id, owner:this.userId});
 		if(realDoc){
-			realDoc.isPrivate=doc.isPrivate;
-			Documents.update({_id:doc._id}, realDoc);
+			//realDoc.isPrivate=doc.isPrivate;
+			Documents.remove({_id:doc._id}, realDoc);
 		}
-
 	},
-	*/
+	
 	addEditingUser:function(docid){
 		var doc, user, eusers;
 
-		doc = Posts.findOne({_id:docid});
+		doc = Documents.findOne({_id:docid});
 		if(!doc){return;} //No Doc Give up.
-		
 		if(!this.userId){return;}// No Loggen in user Give up.
 		//NOw i have a doc anf possibly a user.
 
@@ -346,13 +327,14 @@ Meteor.methods({
 				like: 0,
 				likedBy: [],
 				publishedAt: new Date().toLocaleString(),
-				postId: post_id
+				postId: post_id,
+				type: "comment"
 
 		};
 		var id=Thread.insert(thread);
 		Posts.update({ _id: post_id},{
 			$addToSet: {
-				threads: id
+				comments: id
 			}
 		});
 		return id;
@@ -373,28 +355,32 @@ Meteor.methods({
 
 	deleteThread: function(thread_id,note_id){
 		var did=Thread.remove(thread_id);
+		Thread.remove({threadID: thread_id});
 		Posts.update({_id: note_id},{
 			$pull: {
-				threads: thread_id
+				comments: thread_id
 			}
 		});
 		return did;
 	},
-	setReply: function(reply_id, userid, username, value, thread_id){
-		Thread.update({_id:thread_id},
-            {
-            	$addToSet:{
-            		reply:{
-            			id: reply_id,
-            			owner:{
-            				id: userid,
-            				name: username
-            			},
-            			content: value
-            		}
-            	}
-            }
-        );
+	setReply: function( userid, username, value, thread_id){
+		var thread ={
+        		title: value,
+        		owner:{
+        			id: userid,
+        			name: username
+        		},
+        		threadID: thread_id,
+        		publishedAt: new Date().toLocaleString(),
+        		type: "thread"
+        }
+        var id =Thread.insert(thread);
+		Thread.update({ _id: thread_id },{
+				$addToSet:{
+					threads: id
+				}
+		});
+		return id;
 	},
 
 	//SummerNote------------------------------------
