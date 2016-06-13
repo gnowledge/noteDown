@@ -21,6 +21,25 @@ Meteor.methods({
 			groupID: group
 		};
 		var id = Documents.insert(doc);
+		var group = Groups.findOne({ _id : group });
+		var name = group.gname;
+		var gid = group._id;
+		var members = group.members;
+		for (var i = 0; i <members.length; i++){
+			if(members[i].id !== this.userId){
+				Rss.insert({
+					rss_title: "has opened a new",
+					title: "discussion",
+					user_action: "/user_dashboard/"+ this.userId,
+					user_name: Meteor.user().profile.name,
+					group_name: name,
+					createdAt: new Date().toLocaleString(),
+					group_action: "/group/"+gid+"/",
+					action: "/group/"+gid+"/discuss/",
+					user: members[i].name
+				});
+			}
+		}
 		return id; //return was missing. caused problem in method call.
 	},
 
@@ -280,6 +299,7 @@ Meteor.methods({
 				}			
 		}
 		var id=Tasks.insert(task);
+		var group = Groups.findOne({ _id : group_id });
 		Rss.insert({
 				rss_title: "has assigned you a task",
 				title: text,
@@ -473,16 +493,23 @@ Meteor.methods({
 				createdOn:new Date().toLocaleString(), 
 			};
 			var id = Posts.insert(doc);
-			Rss.insert({
-				rss_title: "has created a note",
-				title: title,
-				user_action: "/user_dashboard/"+ this.userId,
-				user_name: user,
-				group_name: group_name,
-				createdAt: new Date().toLocaleString(),
-				group_action: "/group/"+group_id+"/",
-				action: "/group_notes/"+id+"/"
-			});
+			var group = Groups.findOne({ _id : group_id });
+			var members = group.members;
+			for (var i = 0; i <members.length; i++){
+				if(members[i].id !== this.userId){
+					Rss.insert({
+						rss_title: "has created a note",
+						title: title,
+						user_action: "/user_dashboard/"+ this.userId,
+						user_name: user,
+						group_name: group_name,
+						createdAt: new Date().toLocaleString(),
+						group_action: "/group/"+group_id+"/",
+						action: "/group_notes/"+id+"/",
+						user: members[i].name
+					});
+				}
+			}
 			var postId= Meteor.users.update({ _id: this.userId },{
 				$addToSet: {
 					post_ids: id
@@ -492,29 +519,55 @@ Meteor.methods({
 		}  
 		
 	},
-	editGroupNote: function (postID, title, postBody, owner, loc, tags, updatedAt) {
+	editGroupNote: function (postID, title, postBody, owner, loc, tags, updatedAt, groupId) {
 		var user=Meteor.user().profile.name;
+		var user_id = this.userId;
 		var id =Posts.update(postID,{
 			$set:{
 				Title: title,
 				Body: postBody,
 				Location: loc,
 				Tags:tags,
-				updatedAt: updatedAt
+				updatedAt: updatedAt,
+				updatedBy: user
 			}
 		});
+		var group = Groups.findOne({ _id : groupId });
+		var name = group.gname;
+		var members = group.members;
+		for (var i = 0; i <members.length; i++){
+			Rss.insert({
+	          rss_title: "has edited a note",
+	          title: title,
+	          user_action: "/user_dashboard/"+ user_id,
+	          user_name: user,
+	          group_name: name,
+	          group_action: "/group/"+groupId+"/",
+	          createdAt: new Date().toLocaleString(),
+	          action: '/group/'+groupId+'/shared_media/',
+	          user: members[i].name
+	        });
+		   
+		}
 		return id;
 	},
 	Media_Rss: function(rss_title, title, user_id, user_name, group_name, groupId){
-		Rss.insert({
-          rss_title: rss_title,
-          title: title,
-          user_action: "/user_dashboard/"+ user_id,
-          user_name: user_name,
-          group_name: group_name,
-          group_action: "/group/"+groupId+"/",
-          createdAt: new Date().toLocaleString(),
-          action: '/group/'+groupId+'/shared_media/'
-        });
+		var group = Groups.findOne({ _id : groupId });
+		var members = group.members;
+		for (var i = 0; i <members.length; i++){
+			if(members[i].id !== user_id){
+				Rss.insert({
+		          rss_title: rss_title,
+		          title: title,
+		          user_action: "/user_dashboard/"+ user_id,
+		          user_name: user_name,
+		          group_name: group_name,
+		          group_action: "/group/"+groupId+"/",
+		          createdAt: new Date().toLocaleString(),
+		          action: '/group/'+groupId+'/shared_media/',
+		          user: members[i].name
+		        });
+		    }
+		}
 	}
 });

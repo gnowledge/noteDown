@@ -17,7 +17,31 @@
             {{else}}
               <li><h4>No results found.. try something different !!</h4></li>  
             {{/each}}
-          </ul>
+            <h3>Images:</h3>
+            {{#each images}}
+              <li><h4>Image: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <h3>Videos:</h3>
+            {{#each videos}}
+              <li><h4>Video: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <h3>Audios:</h3>
+            {{#each audios}}
+              <li><h4>Audio: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <h3>Files:</h3>
+            {{#each videos}}
+              <li><h4>File: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+          </ul> 
         </div>
       </div>
     </div>

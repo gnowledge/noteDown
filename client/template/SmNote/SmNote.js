@@ -356,7 +356,7 @@ Template.EditNoteOfGroup.events({
 		var tags = Session.get('tag');
 		var group_id= Session.get('groupId');
 		var updatedAt = new Date().toLocaleString();
-		Meteor.call('editGroupNote',id, title, postBody, owner, loc, tags, updatedAt, function (error) {
+		Meteor.call('editGroupNote',id, title, postBody, owner, loc, tags, updatedAt, group_id, function (error) {
 			if(!error){
 				Toast.success('Saved successfully');
 				Router.go('/group/'+group_id+'/notes/'+id);

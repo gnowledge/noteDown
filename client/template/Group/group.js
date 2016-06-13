@@ -240,13 +240,6 @@ Template.Invite.helpers({
     	var regexp = new RegExp(Session.get('search/members'), 'i');
     	return Meteor.users.find({"profile.name": regexp, "profile.name": {$ne: owner} });
     	
-  	},
-  	member: function(){
-  		var groupId = Session.get('groupId');
-  		var group = Groups.findOne({_id: groupId});
-  		for (var i = 0; i < group.members.length; i++) {
-  			return Meteor.users.find({ "profile.name": {$ne: group.members[i].name }})
-  		}
   	}
 });
 
