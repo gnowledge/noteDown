@@ -248,8 +248,31 @@ Meteor.methods({
 			});
 	    }
   	},
-	
-	//---------------Todo Function--------------------------------------------
+	  	/*requestJoin: function(groupId, ownerId,ownerName, user, username){
+  		var data= Groups.findOne(groupId);
+  		  		var name= data.gname;
+  		var notification= {
+  			title: username + " wants to join your group- " + name,
+  			group:{
+  				id: groupId,
+  				name: name
+  			},
+  			owner:{
+  				id: ownerId,
+  				name: ownerName
+ 			},
+ 			user:{
+ 				id: user,
+ 				name: username
+ 			},
+ 			createdAt: new Date().toLocaleString()
+ 		};
+  		var id= Notify.insert(notification);
+ 		console.log(id);
+  		return id;
+  	},
+	*/
+//---------------Todo Function--------------------------------------------
 
 	createReminder : function(text, desc, date){
 		check(text,String);

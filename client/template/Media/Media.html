@@ -46,10 +46,6 @@
         {{> images }}
     </div>
 
-    <div id="Files" class="tab-pane fade">
-        {{> files }}  
-    </div>
-
     <div id="Audio" class="tab-pane fade">
         {{> audio }}
     </div>
@@ -57,7 +53,9 @@
     <div id="Video" class="tab-pane fade">
         {{> video }}
     </div>
-
+    <div id="Files" class="tab-pane fade">
+        {{> files }}  
+    </div>
   </div>
 </template>
 
@@ -80,6 +78,22 @@
        <a href="{{pathFor route='AddMedia'}}">Add Images</a>
       {{/if}}
       <hr class="divider"><br>
+
+
+      {{#if audio}}
+        <div class="imageArea clearfix">    
+          <h3>Audio: ({{audio}})</h3>
+          {{#each audios}}
+            {{> uploadedAudio}}
+          {{/each}}
+        </div>
+        {{else}}
+        <h3>No audios</h3>
+        <a href="{{pathFor route='AddMedia'}}">Add Audio</a>
+      {{/if}}
+    {{else}}
+      <p>Loading... {{> spinner}}</p>
+    {{/if}}
 
       {{#if video}}
         <div class="imageArea clearfix">
@@ -106,21 +120,6 @@
         <a href="{{pathFor route='AddMedia'}}">Add Files</a>
       {{/if}}
       <hr class="divider"><br>
-
-      {{#if audio}}
-        <div class="imageArea clearfix">    
-          <h3>Audio: ({{audio}})</h3>
-          {{#each audios}}
-            {{> uploadedAudio}}
-          {{/each}}
-        </div>
-        {{else}}
-        <h3>No audios</h3>
-        <a href="{{pathFor route='AddMedia'}}">Add Audio</a>
-      {{/if}}
-    {{else}}
-      <p>Loading... {{> spinner}}</p>
-    {{/if}}
   </div>
 </template>
 
@@ -166,9 +165,7 @@
         {{> images_group }}
     </div>
 
-    <div id="Files" class="tab-pane fade">
-        {{> files_group }}  
-    </div>
+   
 
     <div id="Audio" class="tab-pane fade">
         {{> audio_group }}
@@ -177,7 +174,9 @@
     <div id="Video" class="tab-pane fade">
         {{> video_group }}
     </div>
-
+     <div id="Files" class="tab-pane fade">
+        {{> files_group }}  
+    </div>
   </div>
 </template>
 
@@ -213,20 +212,7 @@
         <a href="{{pathFor route='AddMediaInGroup'}}">Add Videos</a>
       {{/if}}
       <hr class="divider"><br>
-
-      {{#if file}}
-        <div class="imageArea clearfix">
-          <h3>Files: ({{file}})</h3>
-          {{#each files}}
-            {{> uploadedFile}}
-          {{/each}}
-        </div>
-      {{else}}
-        <h3>No files</h3>
-        <a href="{{pathFor route='AddMediaInGroup'}}">Add Files</a>
-      {{/if}}
-      <hr class="divider"><br>
-
+      
       {{#if audio}}
         <div class="imageArea clearfix">    
           <h3>Audio: ({{audio}})</h3>
@@ -241,6 +227,21 @@
     {{else}}
       <p>Loading... {{> spinner}}</p>
     {{/if}}
+
+      {{#if file}}
+        <div class="imageArea clearfix">
+          <h3>Files: ({{file}})</h3>
+          {{#each files}}
+            {{> uploadedFile}}
+          {{/each}}
+        </div>
+      {{else}}
+        <h3>No files</h3>
+        <a href="{{pathFor route='AddMediaInGroup'}}">Add Files</a>
+      {{/if}}
+      <hr class="divider"><br>
+
+
   </div>
 </template>
 

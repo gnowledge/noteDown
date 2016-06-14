@@ -9,6 +9,7 @@ accounts-ui-unstyled@1.1.11
 aldeed:autoform@4.2.2
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.3
+aramix:social-share@1.0.6
 autoupdate@1.2.7
 babel-compiler@6.6.1
 babel-runtime@0.1.7
@@ -152,6 +153,7 @@ spacebars@1.0.10
 spacebars-compiler@1.0.10
 srp@1.0.7
 summernote:summernote@0.8.1
+tanis:bootstrap-social@0.1.2
 templating@1.1.8
 templating-tools@1.0.3
 tracker@1.0.12
