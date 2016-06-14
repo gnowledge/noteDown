@@ -7,6 +7,7 @@
 
 
 <template name="uploadedVideo">
+<<<<<<< HEAD
 
    <h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>
    {{else}}
@@ -19,6 +20,70 @@
   {{else}}
   <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
   {{/if}}
+=======
+  <div class="media well pull-left">
+    <div class="media-body">
+      <h4 class="media-heading">{{this.name}}</h4>
+      <p>
+        <em>
+          Original size: {{this.formattedSize}}<br>
+          Type: {{this.type store="videos"}}<br>Owner: {{this.owner.name}}<br>
+          Added At: {{this.createdAt}}
+        </em>
+      </p>
+      {{#if this.isUploaded}}
+      {{#with this.url download=true}}
+        <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
+      {{/with}}
+      <button type="button" class="btn-video btn btn-primary btn-xs" data-toggle="modal" data-target="#{{_id}}">Open Video</button>
+  <!-- Modal -->
+  <div id="{{_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->     
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{name}}</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+            <video id="example_video_1" class="video-js vjs-default-skin"
+              controls preload="auto" width="565" height="400"
+              poster="http://video-js.zencoder.com/oceans-clip.png"
+              data-setup='{"example_option":true}'>
+               <source src="{{this.url}}" type='video/mp4' />
+               <source src="{{this.url}}" type='video/webm' />
+               <source src="{{this.url}}" type='video/ogg' />
+               <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" id={{_id}} class="btn btn-shareVid btn-success btn-xs" data-toggle="modal" data-target="#D{{_id}}" value={{this.url}}>Share</button>
+      <!-- Modal -->
+      <div id="D{{_id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">{{name}}</h4>
+            </div>
+            <div class="modal-body">                  
+                <center>{{> amxSocialShare opts=opts}}</center>
+            </div>
+          </div>
+        </div>
+      </div>
+        {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+      {{else}}
+        <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
+      {{/if}}
+    </div>
+  </div>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 </template>
 
 <template name="video_group">

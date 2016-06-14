@@ -23,4 +23,11 @@ h3#showTitles{
 	height:33px;
 	max-height:33px;
 	overflow: hidden;
+<<<<<<< HEAD
 }
+=======
+}
+
+.morectnt span { display: none; }
+
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

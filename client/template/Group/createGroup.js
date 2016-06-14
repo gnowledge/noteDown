@@ -20,7 +20,11 @@ Template.CreateGroup.events({
             var gdesc = event.target.Description.value;
             var result = Groups.findOne({ gname: gtitle });
             if (result) {
+<<<<<<< HEAD
                   alert("You have already created a group by this name");
+=======
+                  Toast.info("Group with same name already exist.","Warning!!!");
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
                   event.target.Title.value = "";
                   return false;
             }
@@ -35,8 +39,17 @@ Template.CreateGroup.events({
                   if(!err){//all good
                         var group = Groups.findOne({ gname: gtitle });
                         var id= group._id;
+<<<<<<< HEAD
                         Router.go('/group/'+id);
       		}
+=======
+                        Toast.success('Created successfully');
+                        Router.go('/group/'+id);
+      		}
+                  else{
+                        Toast.error('Unsuccessful');
+                  }
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
       	});
             // Clear form
             event.target.Title.value = "";

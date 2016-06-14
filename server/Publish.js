@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*Meteor.startup(function () {
   // code to run on server at startup
 if(!Documents.findOne()){
@@ -14,6 +15,24 @@ Meteor.publish("documents", function(){
 	});
 })
 */
+=======
+  Meteor.publish("documents", function(){
+    return Documents.find({
+      $or:[
+        {isPrivate:{$ne:true}},
+        {owner:this.userId}
+      ]
+    });
+  })
+
+  Meteor.startup(function () {
+    // code to run on server at startup
+    if(!Documents.findOne()){
+      //No Docs yet
+      Documents.insert({title:"Untitled Discussion"});
+    }
+  });
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 Meteor.publish("user",function(){
   return Meteor.users.find({ },{fields: { _id:1, profile: 1}});
@@ -24,11 +43,11 @@ Meteor.publish("editingUsers",function(){
 });
 
 Meteor.publish("groups", function(){
-  return Groups.find({},{sort: {createdAt: -1}});
+  return Groups.find({});
 });  
 
 Meteor.publish("tasks",function(){
-  return Tasks.find({"owner.id":this.userId},{sort: {createdAt: -1}});
+  return Tasks.find({});
 });  
 
 Meteor.publish("notify",function(){

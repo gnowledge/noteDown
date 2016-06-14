@@ -20,6 +20,7 @@ Template.UserDashboard.helpers({
 
 Template.UserDashboard.events({
 	'click #edit':function(){
+<<<<<<< HEAD
 		//var name = $("#nametxt").text();
 		var first_name = $("#firsttxt").text();
 		var last_name = $("#lasttxt").text();
@@ -41,11 +42,23 @@ Template.UserDashboard.events({
 
 		var input6 = $('<input id="gendertxt" type="text" value="' + gender + '" />');
 		$("#gendertxt").replaceWith(input6);
+=======
+		var first_name = $("#firsttxt").text();
+		var last_name = $("#lasttxt").text();
+		var email = $("#emailtxt").text();
+		var input2 = $('<input id="firsttxt" class="form-control" type="text" value="' + first_name + '" />');
+		$("#firsttxt").replaceWith(input2);
+		var input3 = $('<input id="lasttxt" class="form-control" type="text" value="' + last_name + '" />');
+		$("#lasttxt").replaceWith(input3);
+		var input4 = $('<input id="emailtxt" class="form-control" type="text" value="' + email + '" />');
+		$("#emailtxt").replaceWith(input4);
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 		document.getElementById('save').disabled = false; 
 		document.getElementById('edit').disabled = true;
 	},
 	'click #save':function(){
+<<<<<<< HEAD
 		//var name = document.getElementById('nametxt').value;
 		var first_name = document.getElementById('firsttxt').value;
 		var last_name = document.getElementById('lasttxt').value;
@@ -59,23 +72,50 @@ Template.UserDashboard.events({
 
 				//var input1 = $('<h2 id="nametxt">' + name + '</h2>');
 				//$("#nametxt").replaceWith(input1);
+=======
+		var first_name = document.getElementById('firsttxt').value;
+		var last_name = document.getElementById('lasttxt').value;
+		var email = document.getElementById('emailtxt').value;
+		var img= document.getElementById('myFile').innerHTML;
+		var user_id = Meteor.userId();
+		Meteor.call('editUser', user_id, first_name, last_name, email /*, img*/, function(err,res){
+			if(!err){
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				var input2 = $('<h3 id="firsttxt">' + first_name + '</h3>');
 				$("#firsttxt").replaceWith(input2);
 				var input3 = $('<h3 id="lasttxt">' + last_name + '</h3>');
 				$("#lasttxt").replaceWith(input3);
 				var input4 = $('<h3 id="emailtxt">' + email + '</h3>');
 				$("#emailtxt").replaceWith(input4);
+<<<<<<< HEAD
 				var input5 = $('<h3 id="agetxt">' + age + '</h3>');
 				$("#agetxt").replaceWith(input5);
 				var input6 = $('<h3 id="gendertxt">' + gender + '</h3>');
 				$("#gendertxt").replaceWith(input6);
 
+=======
+				Toast.success('Successfull');
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				document.getElementById('save').disabled = true; 
 				document.getElementById('edit').disabled = false;
 			}
 			else{ 
 				console.log('error');
+<<<<<<< HEAD
 			}
 		});
 	}
+=======
+				Toast.error('Unsuccessfull');
+			}
+		});
+	},
+	'change #myFile': function(event){
+	    
+  	}
+});
+
+Template.VerifyUser.onCreated(function() {
+	//alert('Please verify your email id');
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 });

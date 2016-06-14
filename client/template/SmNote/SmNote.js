@@ -11,16 +11,24 @@ Template.CreateNote.events({
 		var title = event.target.postTitle.value;
 		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
         if (result) {
+<<<<<<< HEAD
               alert("Post name already exists");
               event.target.postTitle.value = "";
               return false;
         }
 		//var message = event.target.postMessage.value;
+=======
+              Toast.info("Note with same name already exists.","Warning!!!");
+              event.target.postTitle.value = "";
+              return false;
+        }
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
 		var privacy= "private";
 		var created_date = new Date().toLocaleString();
+<<<<<<< HEAD
 		Meteor.call('addPost', title, /*message,*/ postBody,loc, tags, privacy, created_date, function(err, res){
 				if(!err){//all good
 					var note= Posts.findOne({ Title: title });
@@ -29,6 +37,21 @@ Template.CreateNote.events({
 				}
 			});
 		//location.reload();
+=======
+		Meteor.call('addPost', title, postBody,loc, tags, privacy, created_date, function(err, res){
+				if(!err){//all good
+					var note= Posts.findOne({ Title: title });
+					var id= note._id;
+					Toast.success('Created successfully');
+					Router.go('/notes/'+id);
+				}
+				else{
+					Toast.error('Unsuccessful');
+				}
+			});
+		
+		
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	}
 });
 
@@ -38,8 +61,44 @@ Template.CreateNote.onRendered(function () {
 		  $('#summernote').summernote();
 		});
 });
+<<<<<<< HEAD
 
 //-------------------single note page------------------
+=======
+Template.CreateNote.onDestroyed(function(){
+	location.reload();
+});
+
+
+//-------------------single note page------------------
+Template.SingleNote.onRendered(function() {
+	$(function() { 
+		var showTotalChar = 200, showChar = "Read more (+)", hideChar = "Less (-)";
+		$('.show').each(function() { 
+			var content = $(this).text(); 
+			if (content.length > showTotalChar) { 
+				var con = content.substr(0, showTotalChar); 
+				var hcon = content.substr(showTotalChar, content.length - showTotalChar); 
+				var txt= con + '<span class="dots">...</span><span class="morectnt"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>'; 
+				$(this).html(txt); 
+			} 
+		}); 
+		$(".showmoretxt").click(function() { 
+			if ($(this).hasClass("sample")) { 
+				$(this).removeClass("sample"); 
+				$(this).text(showChar); 
+			} 
+			else { 
+				$(this).addClass("sample"); 
+				$(this).text(hideChar); 
+			} 
+			$(this).parent().prev().toggle(); 
+			$(this).prev().toggle(); 
+			return false; 
+		}); 
+	});
+});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 Template.SingleNote.helpers({
 	post: function() { 
@@ -69,18 +128,39 @@ Template.SingleNote.onCreated(function(){
 	});
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 Template.SingleNote.events({
 	'click #deletePost': function () {
 		var id = Session.get('postId');
 		console.log(id);
+<<<<<<< HEAD
 		Meteor.call('deletePost', id);
 		Router.go('User');
 	},
+=======
+		Meteor.call('deletePost', id,function(err,res){
+			if(!err){
+				Toast.success('Successful');
+				Router.go('YourNotes');
+			}
+			else{
+				Toast.error('Unsuccessful');
+			}
+		});
+	}/*,
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	'click #publishNote': function () {
 		var id = Session.get('postId');
 		Session.set('note_id',id);
 		Router.go('publishNote');
+<<<<<<< HEAD
 	}
+=======
+	}*/
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 });
 //-------------------------------editing personal notes-----------------
 Template.EditNote.events({
@@ -88,16 +168,29 @@ Template.EditNote.events({
 		event.preventDefault();
 		var id = Session.get('postId');
 		var title = event.target.postTitle.value;
+<<<<<<< HEAD
 		//var message = event.target.postMessage.value;
+=======
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		var post= Posts.findOne({_id: id});
 		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
 		var updatedAt = new Date().toLocaleString();
+<<<<<<< HEAD
 		Meteor.call('editPost',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
 				Router.go('/posts/'+id);
+=======
+		Meteor.call('editPost',id, title, postBody, owner, loc, tags, updatedAt, function (error) {
+			if(!error){
+				Toast.success('Saved successfully');
+				Router.go('/notes/'+id);
+			}
+			else{
+				Toast.error('Unsuccessful');
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			}
 		});
 	}
@@ -203,11 +296,18 @@ Template.CreateNoteInGroup.events({
 		var title = event.target.postTitle.value;
 		var result = Posts.findOne({ Title: title, "owner.id": Meteor.userId() });
         if (result) {
+<<<<<<< HEAD
               alert("Post name already exists");
               event.target.postTitle.value = "";
               return false;
         }
 		//var message = event.target.postMessage.value;
+=======
+              Toast.info("Note with same name already exists.","Warning!!!");
+              event.target.postTitle.value = "";
+              return false;
+        }
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
@@ -215,6 +315,7 @@ Template.CreateNoteInGroup.events({
 		var groupID= Session.get('groupId');
 		var group= Groups.findOne({ _id: groupID});
 		var group_name = group.gname;
+<<<<<<< HEAD
 		Meteor.call('addGroupNote', title, /*message,*/ postBody,loc, tags, privacy, groupID, group_name, function(err, res){
 				if(!err){//all good
 	                  var note= Posts.findOne({ Title: title });
@@ -222,6 +323,19 @@ Template.CreateNoteInGroup.events({
 	                  Router.go('/group_notes/'+id);
 	                  //location.reload();
 				}
+=======
+		Meteor.call('addGroupNote', title, postBody,loc, tags, privacy, groupID, group_name, function(err, res){
+				if(!err){//all good
+	                  var note= Posts.findOne({ Title: title });
+	                  var id= note._id;
+	                  Toast.success('Created successfully')
+	                  Router.go('/group/'+groupID+'/notes/'+id);
+	                  //location.reload();
+				}
+				else{
+					Toast.error('Unsuccessful');
+				}
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			});
 		
 	}
@@ -233,6 +347,19 @@ Template.CreateNoteInGroup.onRendered(function () {
 		  $('#summernote').summernote();
 		});
 });
+<<<<<<< HEAD
+=======
+Template.CreateNoteInGroup.onDestroyed(function(){
+	location.reload();
+});
+
+
+Template.SingleNoteOfGroup.onRendered(function(){
+	$(document).ready(function(){
+	
+	});
+});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 Template.SingleNoteOfGroup.helpers({
 	post: function() { 
@@ -265,15 +392,35 @@ Template.SingleNoteOfGroup.onCreated(function(){
 Template.SingleNoteOfGroup.events({
 	'click #deletePost': function () {
 		var id = Session.get('postId');
+<<<<<<< HEAD
 		console.log(id);
 		Meteor.call('deletePost', id);
 		Router.go('/shared_notes');
 	},
+=======
+		var groupID= Session.get('groupId');
+		console.log(id);
+		Meteor.call('deletePost', id, function(err,res){
+			if(!err){
+				Toast.success('Successful');
+				Router.go('/group/'+groupID+'/shared_notes/');
+			}
+			else{
+				Toast.error('Unsuccessful');
+			}
+		});
+		
+	}/*,
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	'click #publishNote': function () {
 		var id = Session.get('postId');
 		Session.set('note_id',id);
 		Router.go('publishNote');
+<<<<<<< HEAD
 	}
+=======
+	}*/
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 });
 //-------------------------------editing personal notes-----------------
 Template.EditNoteOfGroup.events({
@@ -281,16 +428,31 @@ Template.EditNoteOfGroup.events({
 		event.preventDefault();
 		var id = Session.get('postId');
 		var title = event.target.postTitle.value;
+<<<<<<< HEAD
 		//var message = event.target.postMessage.value;
+=======
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		var post= Posts.findOne({_id: id});
 		var owner= post.owner.id;
 		var postBody = $('#summernote').summernote('code');
 		var loc = Session.get('location');
 		var tags = Session.get('tag');
+<<<<<<< HEAD
 		var updatedAt = new Date().toLocaleString();
 		Meteor.call('editGroupNote',id, title, /*message,*/ postBody, owner, loc, tags, updatedAt, function (error) {
 			if(!error){
 				Router.go('/group_notes/'+id);
+=======
+		var group_id= Session.get('groupId');
+		var updatedAt = new Date().toLocaleString();
+		Meteor.call('editGroupNote',id, title, postBody, owner, loc, tags, updatedAt, group_id, function (error) {
+			if(!error){
+				Toast.success('Saved successfully');
+				Router.go('/group/'+group_id+'/notes/'+id);
+			}
+			else{
+				Toast.error('Unsuccessful');
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			}
 		});
 	}

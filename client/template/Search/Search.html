@@ -2,6 +2,7 @@
   {{> Navbar}}
   <br>
   <div class="container-fluid">
+<<<<<<< HEAD
     <div class="well well-sm" style="width:100%;display: inline-block;">
     <h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
     </div> 
@@ -27,3 +28,49 @@
       </div>
     </div>
 </template>
+=======
+      <div class="dropdown">
+        <div class="well well-lg" style="width:100%;display: inline-block;">
+          <ul>
+            <h3>Note:</h3>
+            {{#each posts}}
+              <li><h4>Note: <a href="/notes/{{_id}}/">{{Title}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>
+            {{/each}}
+            <h3>Group:</h3>
+            {{#each groups}}
+              <li><h4>Group: <a href="/group/{{_id}}/">{{gname}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <!--<h3>Images:</h3>
+            {{#each images}}
+              <li><h4>Image: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <h3>Videos:</h3>
+            {{#each videos}}
+              <li><h4>Video: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <h3>Audios:</h3>
+            {{#each audios}}
+              <li><h4>Audio: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}
+            <h3>Files:</h3>
+            {{#each videos}}
+              <li><h4>File: <a href="/user/showMedia/">{{original.name}}</a></h4></li>
+            {{else}}
+              <li><h4>No results found.. try something different !!</h4></li>  
+            {{/each}}-->
+          </ul> 
+        </div>
+      </div>
+    </div>
+</template>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

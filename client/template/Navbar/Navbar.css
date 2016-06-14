@@ -5,6 +5,19 @@ a#list{
 li#navli{
 	padding-top: 0px;
 	padding-bottom: 0px;
+<<<<<<< HEAD
+=======
+	padding-right: 10px;
+	padding-left: 20px;
+}
+
+.navbar-toggle{
+	background: #000000;
+}
+
+.dropdown{
+	position: relative;
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 }
 
 .navbar-toggle{

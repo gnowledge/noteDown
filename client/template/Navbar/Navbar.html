@@ -2,26 +2,46 @@
 	<nav class="navbar navbar-inverse" style="border-radius:0px !important; margin-top:0px; background:#fafafa;">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
+<<<<<<< HEAD
 	      <button aria-expanded="true" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-2">
 	        <span class="sr-only">Toggle navigation</span>
+=======
+	      <button  type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-2">
+	      	<span class="sr-only">Toggle navigation</span>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
 	    </div>
 
+<<<<<<< HEAD
 	    <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="navbar-collapse-2">
 		    <ul class="nav navbar-nav">
 		    	{{#each user}}
 					<li id="navli"><a id="list" title="Dashboard" href="/user_dashboard/{{_id}}">Dashboard</a></li>&nbsp;
 				{{/each}}
+=======
+	    <div class="collapse navbar-collapse" id="navbar-collapse-2">
+		    <ul class="nav navbar-nav">
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				<li id="navli"><a id="list" title="Notes" href="{{pathFor route='YourNotes'}}">Notes</a></li>&nbsp;
 				<li id="navli"><a id="list" title="Groups" href="{{pathFor route='YourGroup'}}">Groups</a></li>&nbsp;
 				<li id="navli"><a id="list" title="Todo" href="{{pathFor route='YourTodo'}}">Todo</a></li>&nbsp;
 				<li id="navli"><a id="list" title="Media" href="{{pathFor route='YourMedia'}}">Media</a></li>&nbsp;
 				<li id="navli"><a id="list" title="Updates" href="{{pathFor route='Updates'}}">Updates</a></li>&nbsp;
+<<<<<<< HEAD
 				<li id="navli"><a id="list" title="Search" href="{{pathFor route='Search'}}">Search</a></li>&nbsp;
 		    </ul>
+=======
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{{#each user}}
+					<li id="navli"><a id="list" title="Dashboard" href="/user_dashboard/{{_id}}">Dashboard</a></li>&nbsp;
+				{{/each}}	
+				<li id="navli"><i><input id="search" class="form-control" name='search' placeholder="Search.." required></i></li>
+			</ul>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	    </div>
 	  </div>
 	</nav>
@@ -31,7 +51,12 @@
 	<nav class="navbar navbar-inverse" style="border-radius:0px !important; margin-top:0px; background:#fafafa;">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
+<<<<<<< HEAD
 	      <button aria-expanded="true" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-3">
+=======
+	    
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-3">
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	        <span class="sr-only">Toggle navigation</span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
@@ -39,6 +64,7 @@
 	      </button>
 	    </div>
 
+<<<<<<< HEAD
 	    <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="navbar-collapse-3">
 
 	      <ul class="nav navbar-nav">
@@ -76,6 +102,16 @@
 					<li id="navli"><a id="list" href="{{pathFor route='Invite'}}" title="Invite">Invite</a></li>&nbsp;
 				{{/if}}
 			{{/if}}
+=======
+	    <div class=" collapse navbar-collapse" id="navbar-collapse-3">
+	      <ul class="nav navbar-nav">
+      		<li id="navli"><a id="list" href="/group/{{group._id}}/" title="{{group.gdesc}}"><span class="glyphicon glyphicon-home"></span> <b>{{group.gname}}</b></a></li>&nbsp;
+      		<li id="navli"><a id="list" href="/group/{{group._id}}/shared_notes/" title="Notes">Notes</a></li>&nbsp;
+			<li id="navli"><a id="list" href="/group/{{group._id}}/group_task/" title="Tasks">Tasks</a></li>&nbsp;
+			<li id="navli"><a id="list" href="/group/{{group._id}}/shared_media/" title="Media">Media</a></li>&nbsp;
+			<li id="navli"><a id="list" href="/group/{{group._id}}/members/" title="Members">Members</a></li>&nbsp;
+			<li id="navli"><a id="list" href="/group/{{group._id}}/discuss/" title="Discuss">Discuss</a></li>&nbsp;
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	      </ul>
 	    </div>
 	  </div>

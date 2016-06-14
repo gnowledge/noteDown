@@ -71,6 +71,7 @@ Groups.allow({
   }
 });
 
+<<<<<<< HEAD
 Notify.allow({ 
   insert: function(userId, doc) {
     // only allow posting if you are logged in    
@@ -81,6 +82,8 @@ Notify.allow({
   }
 });
 
+=======
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 Tasks.allow({
   insert: function (userId, doc) {
     return true;
@@ -114,6 +117,27 @@ Posts.allow({
   }
 });
 
+<<<<<<< HEAD
+=======
+Meteor.users.allow({
+  insert: function (userId,loc) {
+    return true;
+  },
+  update: function (userId,loc) {
+    return true;
+  },
+  remove:function (userId, doc) {
+    return true;
+  }
+});
+
+Meteor.users.deny({
+  update: function() {
+    return true;
+  }
+});
+
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 /*Documents.allow({
   insert: function (userId, doc) {
     return true;

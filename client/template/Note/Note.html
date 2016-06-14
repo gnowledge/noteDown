@@ -1,9 +1,20 @@
+<<<<<<< HEAD
 <template name="publishNote">
 	{{> Navbar }}<br><br>
+=======
+<template name="DiscussNote">
+	{{> navbarGroup }}<br>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	<div class="container-fluid top-margin">
 		<div class="row">
 			<div class="col-md-12" style="background-color:#11d3bc">
 				{{> docMeta}}
+<<<<<<< HEAD
+=======
+			</div>
+			<div class="col-md-12" style="background-color:#11d3bc">
+				{{> noteHeader}}
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			</div>
 			<div class="col-md-12" style="background-color:#55e9bc">
 				{{> editingUsers}}
@@ -20,18 +31,51 @@
 <template name="editor">
 	<div class="container-fluid">
 		{{>sharejsCM docid=docid onRender=config id="editor" }}
+<<<<<<< HEAD
 		<!--{{{data.Body}}}-->
+=======
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	</div>
 </template>
 
 <template name="docMeta">
 	<div class="container-fluid">
 		{{#with document}}
+<<<<<<< HEAD
 			<span class="h1" style="color:#5e366a">{{> editableText collection="posts" field="Title"}}</span>
 		{{/with}}
 	</div>
+=======
+			<span class="h1">{{> editableText collection="documents" field="title"}}</span>
+		{{/with}}
+	</div>
 </template>
-
+<template name="noteHeader">
+	<ul class="nav navbar-nav" style="font-color:#537780">
+     	<li>
+	     	<a href="#" class="js-add-doc"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Discussion
+	     	</a>
+     	</li>
+     	<!--DropDown-->
+     	<li class="dropdown" >
+      		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Discussed Topics <span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#11d3bc">
+          	{{#each documents}}
+            	<li><a href="#" class="js-load-doc">{{title}}</a></li>
+           	{{/each}}
+          </ul>
+		</li>
+     	<!--End Dropdown-->
+     	{{#if owner}}
+	     	<li>
+		     	<a href="#" class="js-del-doc"><span class=" glyphicon glyphicon-trash" aria-hidden="true"></span> Discard
+		     	</a>
+	     	</li>
+     	{{else}}
+     	{{/if}}
+    </ul>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
+</template>
 <template name="editingUsers">
 	<div class="container-fluid">
 		Editors: 
@@ -40,3 +84,7 @@
 		{{/each}}
 	</div>
 </template>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

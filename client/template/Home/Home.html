@@ -2,15 +2,88 @@
 <!-- Start Container-->
 	<div id="body">
 	{{#if currentUser}}
+<<<<<<< HEAD
 		{{> User}}
 	{{else}}
 		{{> getLocation}}
 	{{/if}}
 	<br><br>
 	<br>
+=======
+		<!--{{#if currentUser.loginWith}}
+			{{#if currentUser.emails.[0].verified}}
+    			{{> User}}
+  			{{else}}
+    			{{> VerifyUser}}
+  			{{/if}}
+  		{{else}}
+  			{{> User}}
+  		{{/if}}-->
+  		{{> User}}
+	{{else}}
+		{{> Animations}}
+	{{/if}}
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	</div>
 <!-- End Container-->
 </template>
 
+<<<<<<< HEAD
+=======
+<template name="Animations">
+<div id="about-sec">
+ 	<div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-12">
+                    <h1 data-scroll-reveal="enter from the bottom after 0.1s">ABOUT </h1>
+                    <div class="col-lg-"></div>
+                    <p>
+                      
+                    </p>
+                    <p data-scroll-reveal="enter from the bottom after 0.3s">
+                        noteDown is an app for reading, writing, sharing, re-writing, discussing, organize, and network our notes. Notes can be any digital media including pictures, audio files, video files and other digitized documents.
+
+                        It is developed as a JHAPP, a JavaScript HTML App. Of course CSS.
+
+                        Uses mongodb as storage and developed as an Node.js App.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="features-sec">
+  <div class="jumbotron">
+        <div class="container ">
+            <div class="row pad-btm">
+                <div class="row">
+                    <div class="col-xs-6 col-md-8">
+                      <h1 data-scroll-reveal="enter from the bottom after 0.1s">One place to collabrate</h1>
+                      <h2>Share</h2>
+                      <p>
+                      Securely share your files with colleagues, business partners, or customers. You control who can see and edit each file.
+                      </p>
+                      <h2>Contribute</h2>
+                      <p>
+                      As part of Office 365, OneDrive for Business lets you use familiar tools to create, edit, and review documents in real time and even discuss them on Yammer.
+                      </p>
+                      <h2>Manage</h2>
+                      <p>
+                      Keep everyone working on the most recent version of a document, and view or restore previous versions if you need to. Set up an integrated approval process for documents that are ready to review.
+                      </p>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                      <img src="/images/NoteDown.gif">                    
+                    </div>
+                </div>
+              </div>
+            </div>
+      </div>      
+</div>                
+</template>
+
+
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 

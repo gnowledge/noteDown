@@ -1,6 +1,7 @@
 //Meteor.subscribe("documents");
 Meteor.subscribe("editingUsers");
 
+<<<<<<< HEAD
 Template.editor.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
@@ -8,21 +9,28 @@ Template.editor.onCreated(function(){
 	});
 });
 
+=======
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 Template.editor.helpers({
 	docid:function(){
 		var post= Posts.findOne({_id: Session.get("note_id")});
 		console.log("post_id " +post._id);
 		return post._id;
 	},
-
 	config:function(){
 		return function(editor){
 			editor.setOption("lineNumbers",true);
 			editor.setOption("theme","cobalt");
 			editor.on("change",function(cm_editor,info){
+<<<<<<< HEAD
 				//console.log(cm_editor.getValue());
 				//$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());
 				Meteor.call("addEditingUser", Session.get("note_id"));
+=======
+				console.log(cm_editor.getValue());
+				//$("#viewer_iframe").contents().find("html").html(cm_editor.getValue());
+				Meteor.call("addEditingUser", Session.get("docid"));
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			});
 		}
 	},
@@ -56,6 +64,7 @@ Template.editingUsers.helpers({
 	}
 });
 
+<<<<<<< HEAD
 
 Template.docMeta.onCreated(function(){
 	var self= this;
@@ -80,9 +89,29 @@ Template.docMeta.helpers({
 			}
 		}
 		return false;
+=======
+Template.noteHeader.helpers({
+	documents:function(){
+		var group = Session.get('groupId');
+		return Documents.find({ groupID: group },{sort: {createdAt: -1}});
+	},
+	owner:function(){
+		var doc = Documents.findOne({_id: Session.get('docid')});
+		if(doc.owner===Meteor.userId()){
+			return true;
+		}
+	}
+})
+
+Template.docMeta.helpers({
+	document:function(){
+		var group = Session.get('groupId');
+		return Documents.findOne({_id:Session.get("docid")});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	}
 });
 
+<<<<<<< HEAD
 Template.editableText.onCreated(function(){
 	var self= this;
 	this.autorun( function() {
@@ -101,6 +130,9 @@ Template.editableText.helpers({
 		}
 	}
 })
+=======
+
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 /////////
 //Events
@@ -109,6 +141,7 @@ Template.editableText.helpers({
 /*Template.noteHeader.events({
 	"click .js-add-doc":function(event){
 		event.preventDefault();
+<<<<<<< HEAD
 		console.log(" Add a new Doc");
 		if(!Meteor.user()){
 			alert("You need to login first");
@@ -124,36 +157,30 @@ Template.editableText.helpers({
 			}); // DB ops only works from methods.
 			location.reload();					//current page load click on addNote button
 		}
+=======
+		var group = Session.get('groupId');
+		var id = Meteor.call("addDoc", group, function(err, res){
+			if(!err){//all good
+				console.log("callback recieved: "+res);
+				Session.set("docid",res);
+			}
+		}); // DB ops only works from methods.
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	},
 
 	"click .js-del-doc":function(event){
 		event.preventDefault();
-		console.log(" Delete a Doc");
-		if(!Meteor.user()){
-			alert("You need to login first");
-		}else{
-			var doc={_id:Session.get("docid")};
-			//They are logged in lets add a document
-			Meteor.call("delDoc", doc); // DB ops only works from methods.
-			
-		}
+		var doc={_id:Session.get("docid")};
+		//They are logged in lets add a document
+		Meteor.call("delDoc", doc); // DB ops only works from methods.
 	},
 
 	"click .js-load-doc":function(event){
 		console.log(this);
 		Session.set("docid",this._id);
-
 	}
 })
 
-Template.docMeta.events({
-	"click .js-tog-private":function(event){
-		console.log(event.target.checked);
-		var doc={_id:Session.get("docid"), isPrivate:event.target.checked};
-		Meteor.call("updateDocPrivacy", doc);
-
-	}
-})
 
 function setupCurrentDocument(){
 	var doc;
