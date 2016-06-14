@@ -96,8 +96,8 @@
 			{{#if members}}
 				<div class="row">
 						{{#if owner}}
-							<li>You - {{group.createdOn}} - Group Admin</li>
-							{{#if members}}
+							<!--<li>You - {{group.createdOn}} - Group Admin</li>-->
+							{{#if member}}
 								{{#each members}}
 									<li>
 										{{name}} - {{joinedAt}}
@@ -108,7 +108,7 @@
 								{{/each}}
 							{{/if}}
 						{{else}}
-							<li>{{group.owner.name}} - {{group.createdOn}} - Group Admin</li>
+							<!--<li>{{group.owner.name}} - {{group.createdOn}} - Group Admin</li>-->
 							{{#if member}}
 								{{#each members}}
 									<li>{{name}} - {{joinedAt}}</li>
@@ -117,9 +117,6 @@
 						{{/if}}
 				</div>
 			{{else}}
-				
-					{{group.owner.name}}
-				
 			{{/if}}
 		{{else}}
       		<p>Loading... {{> spinner}}</p>

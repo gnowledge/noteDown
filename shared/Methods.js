@@ -417,12 +417,13 @@ Meteor.methods({
         		type: type
         }
         var id =Thread.insert(thread);
-        if(type==="thread")
-		Thread.update({ _id: thread_id },{
-				$addToSet:{
-					comments: id
-				}
-		});
+        if(type==="reply"){
+			Thread.update({ _id: thread_id },{
+					$addToSet:{
+						comments: id
+					}
+			});
+		}
 		return id;
 	},
 
