@@ -39,7 +39,7 @@ Template.editingUsers.helpers({
 Template.noteHeader.helpers({
 	documents:function(){
 		var group = Session.get('groupId');
-		return Documents.find({ groupID: group},{sort: {createdAt: -1}});
+		return Documents.find({ groupID: group },{sort: {createdAt: -1}});
 	},
 	owner:function(){
 		var doc = Documents.findOne({_id: Session.get('docid')});
@@ -51,6 +51,7 @@ Template.noteHeader.helpers({
 
 Template.docMeta.helpers({
 	document:function(){
+		var group = Session.get('groupId');
 		return Documents.findOne({_id:Session.get("docid")});
 	}
 })

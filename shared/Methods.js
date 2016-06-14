@@ -90,7 +90,11 @@ Meteor.methods({
 					"id": this.userId,
 				    "name": Meteor.user().profile.name 
 				},
-				members:[],
+				members:[{
+					"id": this.userId,
+				    "name": Meteor.user().profile.name,
+				    "joinedAt": new Date().toLocaleString()
+				}],
 				member_count: 1,
 				createdOn: new Date().toLocaleString()
 			};
