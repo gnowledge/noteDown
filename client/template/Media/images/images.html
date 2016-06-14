@@ -6,15 +6,23 @@
 </template>
 
 <template name="uploadedImage">
+<<<<<<< HEAD
   <div class="media well pull-left">
     <a href="{{this.url}}" target="_blank" class="pull-left"><img src="{{this.url store='thumbs'}}" alt="" class="img-rounded">
     </a>
     
+=======
+    <div class="media well pull-left">
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
       <div class="media-body">
         <h4 class="media-heading">{{this.name}}</h4>
     
         <p>
+<<<<<<< HEAD
             <em>Original size: {{this.formattedSize}}<br>Thumbnail size: {{this.formattedSize store="thumbs"}}<br>Type: {{this.type store="images"}}</em>
+=======
+            <em>Original size: {{this.formattedSize}}<br>Thumbnail size: {{this.formattedSize store="thumbs"}}<br>Type: {{this.type store="images"}}<br>Owner: {{this.owner.name}}<br>Added At: {{this.createdAt}}</em>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
         </p>
     
           {{#if this.isUploaded}}
@@ -29,13 +37,54 @@
           Uploading: {{this.uploadProgress}}%
             <p>{{> FS.UploadProgressBar}}</p>
           {{/if}}
+<<<<<<< HEAD
          {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
     </div>
+=======
+          <button type="button" class="btn btn-primary btn-xs btn-imgs" data-toggle="modal" data-target="#{{_id}}">Preview</button>
+                  <!-- Modal -->
+          <div id="{{_id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">{{name}}</h4>
+                </div>
+                <div class="modal-body">
+                  <img id="imgLoad" src="{{this.url}}" class="img-rounded" alt="Cinque Terre" width="565" height="400">
+                </div>
+              </div>
+            </div>
+          </div> 
+
+      <button type="button" id="{{_id}}" class="btn btn-shareImg btn-success btn-xs" data-toggle="modal" data-target="#E{{_id}}" value="{{this.url}}">Share</button>
+      <!-- Modal -->
+      <div id="E{{_id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">{{name}}</h4>
+            </div>
+            <div class="modal-body">                  
+                <center>{{> amxSocialShare opts=opts}}</center>
+            </div>
+          </div>
+        </div>
+      </div> 
+         {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+      </div>
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
   </div>
 </template>
 
 <template name="images_group">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
   <h2>Image Files</h2>
   <div class="well">
     <input type="file" multiple class="images">

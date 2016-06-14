@@ -1,4 +1,5 @@
 /* CSS declarations go here */
+<<<<<<< HEAD
 
 	
 
@@ -11,3 +12,8 @@
 .editor{
 	outline: 1px solid black;
 }
+=======
+.top-margin{
+	margin-top:50px;
+}
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

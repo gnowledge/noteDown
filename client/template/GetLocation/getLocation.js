@@ -68,12 +68,17 @@ if (navigator.geolocation){
         }, showError);
     }, 5000);
 } else {
+<<<<<<< HEAD
     console.log("Geolocation is not supported by this browser.");
+=======
+    //console.log("Geolocation is not supported by this browser.");
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 }
 
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
+<<<<<<< HEAD
             console.log("User denied the request for Geolocation.");
             break;
         case error.POSITION_UNAVAILABLE:
@@ -84,6 +89,18 @@ function showError(error) {
             break;
         case error.UNKNOWN_ERROR:
             console.log("An unknown error occurred.");
+=======
+            //console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            //console.log("Location information is unavailable.");
+          break;
+        case error.TIMEOUT:
+            //console.log("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            //console.log("An unknown error occurred.");
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
             break;
     }
 }

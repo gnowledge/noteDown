@@ -56,7 +56,11 @@ $(document).ready(function () {
 Template.SharedMediaInGroup.helpers({
     images: function() {
         var group_id= Session.get('groupId');
+<<<<<<< HEAD
         return Collections.Images.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+=======
+        return Collections.Images.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     image: function() {
         var group_id= Session.get('groupId');
@@ -64,7 +68,11 @@ Template.SharedMediaInGroup.helpers({
     },
     videos: function() {
         var group_id= Session.get('groupId');
+<<<<<<< HEAD
         return Collections.Videos.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+=======
+        return Collections.Videos.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     video: function() {
          var group_id= Session.get('groupId');
@@ -72,7 +80,11 @@ Template.SharedMediaInGroup.helpers({
     },
     audios: function() {
          var group_id= Session.get('groupId');
+<<<<<<< HEAD
         return Collections.Audios.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+=======
+        return Collections.Audios.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     audio: function() {
          var group_id= Session.get('groupId');
@@ -80,7 +92,11 @@ Template.SharedMediaInGroup.helpers({
     },
     files: function() {
          var group_id= Session.get('groupId');
+<<<<<<< HEAD
         return Collections.Files.find({groupID: group_id,privacy:"public", private: {$ne: "private"}});
+=======
+        return Collections.Files.find({groupID: group_id,privacy:"public", private: {$ne: "private"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     file: function() {
          var group_id= Session.get('groupId');
@@ -100,25 +116,41 @@ Template.SharedMediaInGroup.onCreated(function(){
 
 Template.YourMedia.helpers({
     images: function() {
+<<<<<<< HEAD
         return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+=======
+        return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     image: function() {
         return Collections.Images.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     videos: function() {
+<<<<<<< HEAD
         return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+=======
+        return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     video: function() {
         return Collections.Videos.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     audios: function() {
+<<<<<<< HEAD
         return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+=======
+        return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     audio: function() {
         return Collections.Audios.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();
     },
     files: function() {
+<<<<<<< HEAD
         return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}});
+=======
+        return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}},{ sort: {createdAt: -1}});
+>>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
     },
     file: function() {
         return Collections.Files.find({"owner.id":Meteor.userId(),privacy:"private", private: {$ne: "public"}}).count();

@@ -8,6 +8,7 @@
 			{{> yield region="header"}}
 		</div>
 
+
 		{{> yield }}
 
 		<div class="bottom">
@@ -17,4 +18,10 @@
 	
 </template>
 
-
+<template name="NotFound">
+	<br><br>
+	<div id="notFound">
+		<center><h1 style="font-size:8em;">Oops! No Such Page</h1>
+		<p style="font-size:2em;">Try going to <u><a href="/"> Homepage </a></u> </p></center>
+	</div>
+</template>
