@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<template name="Todo">
-=======
 <!--template name="Todo">
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	<div class="container">  
 		<h2>Todo   &nbsp;&nbsp;&nbsp;<a href="{{pathFor route='CreateTodo'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
 		<hr class="divider">
@@ -12,145 +8,6 @@
 <template name="CreateTodo">
 	{{> Navbar}}
 	<div class="container">
-<<<<<<< HEAD
-		<h1>Todo</h1>
-	    <form  class="new-task" id="form">
-     		<ul>
-     			<input type="text" name="text" placeholder="Type to add new tasks" required />
-     			<li>
-     				<input type="text" name="desc" placeholder="Type to add a description" required/>
-     				<li>
-         				<div class="input-group datetimepicker">
-						    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						    <input class="set-due-date form-control" name="datefilter" type="text" placeholder="Select a date" required/>
-			  			</div>
-			  		</li>
-     			</li>
-     			<li>
-     				<input type="submit" class="btn btn-primary" value="Create">
-     			</li>
-     		</ul>
-   		</form>
-	 </div>	
-</template>
-
-<template name="Task">
-	<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-		<button class="delete">&times;</button>      
-	    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-	    <span class="text">
-	    	<strong>{{title}}</strong> - {{desc}} - <strong>{{date}}</strong>
-	    </span>
-	</li>
-</template>
-
-<template name="YourTodo">
-	{{> Navbar}}
-	<div class="container">
-		{{#if Template.subscriptionsReady}}
-			<h2>Todo ({{incompleteCount}}) &nbsp; <a href="{{pathFor route='CreateTodo'}}"><img src="/images/add.png"  height="50" title="Create todo"></a></h2>
-			<label class="hide-completed" id="hide">
-			<input type="checkbox" checked= "{{hideCompleted}}" />
-		          Hide Completed Tasks
-		    </label>
-			<hr class="divider">
-			<br>
-			{{#if task}}
-		       	
-		        
-				<div class="row">
-					<div class="jumbotron" id="container">
-						  <ul>	
-							{{#each tasks}}
-						  		{{>Task}}
-							{{/each}}	
-						  </ul>
-					</div>
-				</div>
-			{{else}}
-				<h2>No todo</h2>
-				<a href="{{pathFor route='CreateTodo'}}">Create Todo</a>
-			{{/if}}
-		{{else}}
-	        <p>Loading... {{> spinner}}</p>
-		{{/if}}
-	</div>
-</template>
-
-<template name="CreateTask">
-	{{> navbarGroup }}
-	<div class="container">
-		<h1>Task</h1>
-	    <form  class="new-task" id="form">
-     		<ul>
-     			<input type="text" name="text" placeholder="Type to add new tasks" required />
-     			<li>
-     				<input type="text" name="desc" placeholder="Type to add a description" required/>
-     				<li>
-         				<div class="input-group datetimepicker">
-						    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						    <input class="set-due-date form-control" name="datefilter" type="text" placeholder="Select a date" required/>
-			  			</div>
-			  		</li>
-			  		<li>Assign Task: &nbsp;
-			  			<select id="assign">
-			  			 	{{#each member}}
-						  		<option value="{{name}}">{{name}}</option>
-						  	{{else}}
-						  		<option value="">---No Members---</option>
-						  	{{/each}}
-						</select> 
-			  		</li>
-     			</li>
-     			<li>
-     				<input type="submit" class="btn btn-primary" value="Create">
-     			</li>
-     		</ul>
-   		</form>
-	 </div>	
-</template>
-
-<template name="GroupTask">
-	{{> navbarGroup}}
-	<div class="container">
-		{{#if Template.subscriptionsReady}}
-			<h2>Task ({{incompleteCount}}) <a href="{{pathFor route='CreateTask'}}"><img src="/images/add.png"  height="50" title="Create task"></a></h2>
-			<hr class="divider">
-			<br>
-			{{#if task}}
-		       	<label class="hide-completed" id="hide">
-		        <input type="checkbox" checked= "{{hideCompleted}}" />
-		          Hide Completed Tasks
-		       	</label>
-				<div class="row">
-					<div class="jumbotron" id="container">
-						  <ul>	
-							{{#each tasks}}
-						  		{{>Task1}}
-							{{/each}}	
-						  </ul>
-					</div>
-				</div>
-			{{else}}
-				<h2>No task</h2>
-				<a href="{{pathFor route='CreateTask'}}">Create Task</a>
-			{{/if}}
-		{{else}}
-	        <p>Loading... {{> spinner}}</p>
-		{{/if}}
-	</div>
-</template>
-
-<template name="Task1">
-	<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-		<button class="delete">&times;</button>      
-	    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-	    <span class="text">
-	    	<strong>{{title}}</strong> - {{desc}} - {{assignedTo}} - <strong>{{date}}</strong>
-	    </span>
-	</li>
-</template>
-=======
 		<div class="thumbnail">
 			<h1>Todo</h1>
 		    <form  class="new-task" id="form">
@@ -287,4 +144,3 @@
 		{{/if}}
 	</div>
 </template>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

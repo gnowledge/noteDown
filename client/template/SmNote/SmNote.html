@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-<template name="Note">
-	<div class="container">  
-		<h2>Note &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
-		<hr class="divider">
-	</div>
-</template>
-
-=======
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 <template name="CreateNote">
 	{{> Navbar}}
 	<div class="container">
@@ -16,17 +6,8 @@
 				<div class="form-group container-fluid">
 					<h2>Create Note</h2> 
 					<!--label for="postTitle">Post Title: </label-->
-<<<<<<< HEAD
-					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
-				</div>
-				<!--<div class="form-group container-fluid">
-					
-					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
-				</div>-->
-=======
 					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="form-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
 				</div>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				<div id="summernote" class="form-group">
 				
 				</div>
@@ -50,29 +31,11 @@
 		<div class="col-xs-12">
 			<div class="panel-group">
 				{{#if post}}
-<<<<<<< HEAD
-						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
-=======
 						<!--<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>-->
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
 
-<<<<<<< HEAD
-							<a href="{{pathFor route='EditNote'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
-						{{/if}}
-					<br><br><br>
-					<div class="panel panel-title">
-						<h1 class="text-capitalize text-center">{{post.Title}}</h1>
-					</div>
-					<div class="panel panel-body">
-						<p class="text-center">{{{post.Body}}}</p>
-						{{#if tags }}
-							<p class="text-center">Tags: <b>{{post.Tags}}</b></p>
-						{{/if}}
-						<p class="text-center">{{post.createdOn}}</p>
-=======
 							<a href="/edit_note/{{post._id}}/"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
 						{{/if}}
 					<br><br><br>
@@ -88,7 +51,6 @@
 						{{/if}}
 						<p class="">{{post.Location}}</p>
 						<p class="">{{post.createdOn}}</p>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 					</div>
 				{{else}}
 					<h2>No Such Note</h2>
@@ -104,18 +66,6 @@
 	<div class="container">
 		<div class="col-xs-12">
 			<h2>Edit Note</h2>
-<<<<<<< HEAD
-			<form role="form" id ="editPost">
-				<div class="form-group container-fluid">
-					<!--label for="postTitle">Post Title: </label-->
-					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
-
-				</div>
-
-				<!--<div class="form-group container-fluid">
-					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
-				</div>-->
-=======
 			<form class="form-horizontal" role="form" id ="editPost">
 				<div class="form-group container-fluid">
 					<!--label for="postTitle">Post Title: </label-->
@@ -124,7 +74,6 @@
 				</div>
 
 
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 				<div id="summernote" class="form-group">
 					{{{edit.Body}}}
@@ -153,26 +102,16 @@
 	{{> Navbar}}
 	<div class="container">
 		{{#if Template.subscriptionsReady}}
-<<<<<<< HEAD
-			<h2>Notes &nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
-=======
 			<h2>Notes ({{post}}) &nbsp;<a href="{{pathFor route='CreateNote'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h2>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			<hr class="divider"><br>
 			{{#if post}}
 				<div class="row">
 					{{#each posts}}
 						<div class="col-xs-12 col-md-6 col-lg-3">
 							<div class="thumbnail" style="height:200px;">
-<<<<<<< HEAD
-								<a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
-								<hr class="divider">
-		  						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
-=======
 								<a class="" href="/notes/{{_id}}" style="font-size:14px; border-style: solid 1px;"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
 								<hr class="divider">
 		  						<center><a class="" href="/notes/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			  				</div>
 		  				</div>
 		           {{/each}}
@@ -217,21 +156,12 @@
 				{{#each posts}}
 					<div class="thumbnail" >
 						<div class="caption" style="margin-left:30px;">
-<<<<<<< HEAD
-							<a class="s" href="/posts/{{_id}}">
-								<h2 title="{{Body}}">{{Title}}</h2>
-							</a>
-							<h4>Created by......<i>{{owner.name}}</i></h4>
-							<h5>{{createdOn}}</h5>
-							{{> groupDiscuss}}	
-=======
 							<h2 title="{{Body}}">{{Title}}</h2>
 							<br>
 							{{{Body}}}
 							{{Tags}}
 							<h4>Created by......<i>{{owner.name}}</i></h4>
 							<h5>{{createdOn}}</h5>	
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 						</div>
 					</div>
 				{{/each}}
@@ -246,28 +176,17 @@
 	{{> navbarGroup}}
 	<div class="container" >
 	{{#if Template.subscriptionsReady}}
-<<<<<<< HEAD
-		<h3>Note &nbsp;&nbsp;<a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h3>
-=======
 		<h3>Note ({{post}}) &nbsp;&nbsp;<a href="{{pathFor route='CreateNoteInGroup'}}"><img src="/images/add.png"  height="50" title="Create note"></a></h3>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		<hr class="divider"><br>
 		{{#if post}}
 		<div class="row">
 			{{#each posts}}
 				<div class="col-xs-12 col-md-6 col-lg-3">
 					<div class="thumbnail" style="height:200px;">
-<<<<<<< HEAD
-						<a class="s" href="/group_notes/{{_id}}"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
-						<center><h4>Created by..<i>{{owner.name}}</i></h4></center>
-						<hr class="divider">
-						<center><a class="" href="/posts/{{_id}}" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
-=======
 						<a class="s" href="/group/{{groupID}}/notes/{{_id}}/"><h2 id="showTitle" class="text-capitalize text-center" title="{{Message}}">{{Title}}</h2></a>
 						<center><h4>Created by..<i>{{owner.name}}</i></h4></center>
 						<hr class="divider">
 						<center><a class="" href="/group/{{groupID}}/notes/{{_id}}/" style="font-size:14px; border-style: solid 1px;"><span class="glyphicon glyphicon-file"></span> Read More!</a></center><br>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	  				</div>
   				</div>
 			{{/each}}
@@ -291,17 +210,8 @@
 				<div class="form-group container-fluid">
 					<h2>Create Note</h2> 
 					<!--label for="postTitle">Post Title: </label-->
-<<<<<<< HEAD
-					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
-				</div>
-				<!--<div class="form-group container-fluid">
-					
-					<textarea class="form-contol" id="postMessage" value={{Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
-				</div>-->
-=======
 					<input type="text" value={{Title}} name="postTitle" id="postTitle" class="form-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required/>
 				</div>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				<div id="summernote" class="form-group">
 				</div>
 				<div class="form-group">
@@ -324,30 +234,11 @@
 		<div class="col-xs-12">
 			<div class="panel-group">
 				{{#if post}}
-<<<<<<< HEAD
-						<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>
-=======
 						<!--<button type="submit" class="pull-right btn btn-default" id="publishNote"><span class="glyphicon glyphicon-file"></span> Publish </button>-->
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 						{{#if owner}}
 							<button class="btn btn-danger pull-right deletePost" id="deletePost" title="Delete Post" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
 
-<<<<<<< HEAD
-							<a href="{{pathFor route='EditNoteOfGroup'}}"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
-						{{/if}}
-					<br><br><br>
-					<div class="panel panel-title">
-						<h1 class="text-capitalize text-center">{{post.Title}}</h1>
-					</div>
-					<div class="panel panel-body">
-						<p class="text-center">{{{post.Body}}}</p>
-						{{#if tags }}
-							<p class="text-center">Tags: <b>{{post.Tags}}</b></p>
-						{{/if}}
-						<p class="text-center">{{post.createdOn}}</p>
-					</div>
-=======
 							<a href="/group/{{post.groupID}}/edit_note/{{post._id}}/"> <button type="submit" class="pull-right btn btn-success" style="margin-right: 10px; margin-bottom: 10px;"><span class="glyphicon glyphicon-pencil"></span>  Edit</button></a>
 						{{/if}}
 					<br><br><br>
@@ -366,7 +257,6 @@
 						<br>
 						{{> groupDiscuss}}
 					
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				{{else}}
 					<h2>No Such Note</h2>
 					<a href="{{pathFor route='CreateNoteInGroup'}}">Create Note</a>
@@ -384,21 +274,10 @@
 			<form role="form" id ="editPost">
 				<div class="form-group container-fluid">
 					<!--label for="postTitle">Post Title: </label-->
-<<<<<<< HEAD
-					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="from-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
-
-				</div>
-
-				<!--<div class="form-group container-fluid">
-					<textarea class="form-contol" id="postMessage" value={{edit.Message}} name="postMessage" rows="4" placeholder="Enter your post message here..."  style="width: 100%; border-radius:0px; border: 1px solid #BFBFBF; height: 80px; font-size :16px;" required></textarea>
-				</div>-->
-
-=======
 					<input type="text" value={{edit.Title}} name="postTitle" id="postTitle" class="form-control" placeholder="Enter your post title here..."  style="width: 100%; border-radius: 0px; border: 1px solid #BFBFBF; height: 40px; font-size :18px;" required>
 
 				</div>
 
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 				<div id="summernote" class="form-group">
 					{{{edit.Body}}}
 				</div>

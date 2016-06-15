@@ -21,26 +21,18 @@ Meteor.startup(function() {
 	            	name: Meteor.user().profile.name
 	          	},
 	          	dropped: false,
-<<<<<<< HEAD
-          		privacy:"private"
-=======
           		privacy:"private",
           		createdAt: new Date().toLocaleString()
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 	        };
 		},
 
 		after : function (error,fileobj){
 			if(!error){
-<<<<<<< HEAD
-				alert('done');
-=======
 				Toast.success('Successful');
 				Router.go('/user/showMedia/');
 			}
 			else{
 				Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			}
 		}
 	}),
@@ -82,23 +74,11 @@ Meteor.startup(function() {
 			var groupId = Session.get('groupId');
 			var group= Groups.findOne({ _id: groupId});
 			var group_name = group.gname;
-<<<<<<< HEAD
-			Rss.insert({
-				rss_title: "has added a new video",
-				title: $('.filename').val(),
-				user_action: "/user_dashboard/"+ Meteor.userId(),
-				user_name: Meteor.user().profile.name,
-				group_name: group_name,
-				createdAt: new Date().toLocaleString(),
-				action: "/group/"+groupId
-			});
-=======
 			 var rss_title = "has added a new ";
         	var title = "video";
         	var user_id = Meteor.userId();
         	var user_name = Meteor.user().profile.name;
         	Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		    	return {
 					owner:{
 						id: Meteor.userId(),
@@ -106,27 +86,19 @@ Meteor.startup(function() {
 					},
 					groupID: groupId,
 					dropped: false,
-<<<<<<< HEAD
-              		privacy:"public"
-=======
               		privacy:"public",
           			createdAt: new Date().toLocaleString()
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		        };
 		},
 
 		after : function (error,fileobj){
 			if(!error){
-<<<<<<< HEAD
-				alert('done');
-=======
 				var groupID = Session.get('groupId');
 				Toast.success('Successful');
           		Router.go('/group/'+groupID+'/shared_media/');
 			}
 			else{
 				Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			}
 		}
 	}),
@@ -145,8 +117,6 @@ Template.video_group.helpers({
   uploadedVideos: function() {
     return Collections.Videos.find({});
   }
-<<<<<<< HEAD
-=======
 });
 
 
@@ -199,5 +169,4 @@ Template.uploadedVideo.helpers({
       };
       return opts;
     }
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 });
