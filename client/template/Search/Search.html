@@ -2,33 +2,6 @@
   {{> Navbar}}
   <br>
   <div class="container-fluid">
-<<<<<<< HEAD
-    <div class="well well-sm" style="width:100%;display: inline-block;">
-    <h3>Search: {{> EasySearch.Input indexes=searchIndexes }}</h3>
-    </div> 
-      <div class="dropdown">
-        {{#EasySearch.IfNoResults indexes=searchIndexes logic="AND" }}
-          <div>No search results found</div>
-        {{/EasySearch.IfNoResults}}
-
-        {{#EasySearch.IfSearching indexes=searchIndexes logic="OR" }}
-          <div>Indexes are searching...</div>
-        {{/EasySearch.IfSearching}}
-
-        <div class="well well-lg" style="width:100%;display: inline-block;">
-          {{#EasySearch.Each index=groupIndex }}
-            <h3>Group name: <a href="/group/{{__originalId}}">{{gname}}</a></h3>
-            <h4>Privacy: {{privacy}}</h4>
-          {{/EasySearch.Each}}
-
-          {{#EasySearch.Each index=postIndex }}
-            <h3>Note name: <a href="/posts/{{__originalId}}">{{Title}}</a></h3>
-          {{/EasySearch.Each}}
-        </div>
-      </div>
-    </div>
-</template>
-=======
       <div class="dropdown">
         <div class="well well-lg" style="width:100%;display: inline-block;">
           <ul>
@@ -73,4 +46,3 @@
       </div>
     </div>
 </template>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

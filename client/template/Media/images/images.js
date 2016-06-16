@@ -1,51 +1,49 @@
 // Can't call getHandler until startup so that Collections object is available
 Meteor.startup(function () {
-
-  Template.images.events({
-    'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
-      metadata: function (fileObj) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
-        return {
-          owner:{
-            id: Meteor.userId(),
-            name: Meteor.user().profile.name
-          },
-          dropped: false,
-<<<<<<< HEAD
-          privacy:"private"
+    Template.images.events({
+      'change input.images':FS.EventHandlers.insertFiles(Collections.Images, {
+        metadata: function (fileObj) {
+            var fileName = fileObj.name();
+            var fileExt = fileObj.extension();
+            var fileSize = fileObj.size();
+            var fileFrmtSize = fileObj.formattedSize(); 
+            var fileType = fileObj.type();
+            var md5 = fileName+fileExt+fileSize+fileFrmtSize+fileType;
+            var fileMd = CryptoJS.MD5(md5).toString();
+            var CurrentUser = Meteor.userId();
+            var match = Collections.Images.findOne({ $and: [{MD5:fileMd},{'owner.id':CurrentUser}]});
+            if (match){
+                Toast.info("This Image already exist.","Warning!!!");
+                Router.go('/user/showMedia/');
+                this.data.queue.cancel();
+            }
+            else{
+                return {
+                    owner:{
+                        id: Meteor.userId(),
+                        name: Meteor.user().profile.name
+                    },
+                    dropped: false,
+                    privacy:"private",
+                    MD5:fileMd,
+                    createdAt: new Date().toLocaleString()
+                }
+            }
+        },
+        after: function (error, fileObj) {
+          if(!error){
+              Toast.success('Successful');
+              Router.go('/user/showMedia/');
+          }
+          else{
+              Toast.error('Unsuccessful');
+          }
         }
-      },
-      after: function (error, fileObj) {
-        if (!error) {
-          alert('done');
-=======
-          privacy:"private",
-          createdAt: new Date().toLocaleString()
-        }
-      },
-      after: function (error, fileObj) {
-        if(!error){
-          Toast.success('Successful');
-          Router.go('/user/showMedia/');
-        }
-        else{
-          Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
-        }
-      }
+      })
     })
-  });
-
 });
-
-<<<<<<< HEAD
-Template.images.uploadedImages = function() {
-=======
+     
 Template.images.uploadedImage = function() {
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
   
   return Collections.Images.find({});
 };
@@ -57,40 +55,6 @@ Template.images.onCreated(function(){
   });
 });
 
-<<<<<<< HEAD
-
-// Can't call getHandler until startup so that Collections object is available
-Meteor.startup(function () {
-
-  Template.images_group.events({
-    'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
-      metadata: function (fileObj) {
-      var groupId = Session.get('groupId');
-      var group= Groups.findOne({ _id: groupId});
-      var group_name = group.gname;
-      Rss.insert({
-        rss_title: "has added a new image",
-        title: $('.filename').val(),
-        user_action: "/user_dashboard/"+ Meteor.userId(),
-        user_name: Meteor.user().profile.name,
-        group_name: group_name,
-        createdAt: new Date().toLocaleString(),
-        action: "/group/"+groupId
-      });
-          return {
-            owner:{
-              id: Meteor.userId(),
-              name: Meteor.user().profile.name
-            },
-            groupID: groupId,
-            dropped: false,
-            privacy:"public"
-          };
-      },
-      after: function (error, fileObj) {
-        if (!error) {
-          alert('done');
-=======
 Meteor.startup(function () {
   Template.images_group.events({
     'change input.images': FS.EventHandlers.insertFiles(Collections.Images, {
@@ -102,27 +66,42 @@ Meteor.startup(function () {
         var title = "image";
         var user_id = Meteor.userId();
         var user_name = Meteor.user().profile.name;
-        Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
-        return {
-          owner:{
-            id: Meteor.userId(),
-            name: Meteor.user().profile.name
-          },
-          groupID: groupId,
-          dropped: false,
-          privacy:"public",
-          createdAt: new Date().toLocaleString()
-        };
+        var fileName = fileObj.name();
+        var fileExt = fileObj.extension();
+        var fileSize = fileObj.size();
+        var fileFrmtSize = fileObj.formattedSize(); 
+        var fileType = fileObj.type();
+        var md5 = fileName+fileExt+fileSize+fileFrmtSize+fileType;
+        var fileMd = CryptoJS.MD5(md5).toString();
+        var matchImg = Collections.Images.findOne({ $and: [{MD5:fileMd},{groupID:groupId}]});
+        if (matchImg){
+            Toast.info("This Image already exist.","Warning!!!");
+            Router.go('/group/'+groupId+'/shared_media/');
+            this.data.queue.cancel();
+        }
+        else{
+          Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
+          return {
+            owner:{
+              id: Meteor.userId(),
+              name: Meteor.user().profile.name
+            },
+            groupID: groupId,
+            dropped: false,
+            privacy:"public",
+            MD5:fileMd,
+            createdAt: new Date().toLocaleString()
+          };
+        }
       },
       after: function (error, fileObj) {
         if(!error){
           var groupID = Session.get('groupId');
           Toast.success('Successful');
-          Router.go('/group/'+groupID+'/shared_media/');
+          Router.go('/group/'+groupId+'/shared_media/');
         }
         else{
           Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
         }
       }
     }),
@@ -133,17 +112,9 @@ Meteor.startup(function () {
       }
     }
   });
-<<<<<<< HEAD
-
-});
-
-Template.images_group.uploadedImages = function() {
-  
-=======
 });
 
 Template.images_group.uploadedImage = function() {
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
   return Collections.Images.find({});
 };
 
@@ -153,8 +124,6 @@ Template.images_group.onCreated(function(){
     self.subscribe('images');
   });
 });
-<<<<<<< HEAD
-=======
 
 
 Meteor.startup(function() {
@@ -206,4 +175,3 @@ Template.uploadedImage.helpers({
       return opts;
     }
 });
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de

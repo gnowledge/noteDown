@@ -5,37 +5,10 @@
     <div class="well">
     <input type="file" multiple class="audioFile">
     </div>
-<<<<<<< HEAD
-
-    <!--<div class="imageArea clearfix">
-    {{#each uploadedAudios}}
-    {{> uploadedAudio}}
-    {{/each}}
-  </div>-->
-=======
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 </template>
 
 
 <template name="uploadedAudio">
-<<<<<<< HEAD
-  <h4>
-  {{#with this.url}}
-    <a href="{{this}}" target="_blank">{{../name}}</a>
-  {{else}}
-    {{this.name}}
-  {{/with}}
-  ({{this.formattedSize}})
-  </h4>
-  {{#if this.isUploaded}}
-    {{#with this.url download=true}}
-      <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
-    {{/with}}
-    {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
-  {{else}}
-    <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
-  {{/if}}
-=======
   <div class="media well pull-left">
     <div class="media-body">
       <h4 class="media-heading">{{this.name}}</h4>
@@ -92,7 +65,6 @@
       {{/if}}
     </div>
   </div>
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 </template>
 
 <template name="audio_group">

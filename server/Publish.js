@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-/*Meteor.startup(function () {
-  // code to run on server at startup
-if(!Documents.findOne()){
-  	//No Docs yet
-  }
-});
-/*
-Meteor.publish("documents", function(){
-	return Documents.find({
-		$or:[
-  		{isPrivate:{$ne:true}},
-  		{owner:this.userId}
-		]
-	});
-})
-*/
-=======
   Meteor.publish("documents", function(){
     return Documents.find({
       $or:[
@@ -32,7 +14,6 @@ Meteor.publish("documents", function(){
       Documents.insert({title:"Untitled Discussion"});
     }
   });
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 
 Meteor.publish("user",function(){
   return Meteor.users.find({ },{fields: { _id:1, profile: 1}});
@@ -50,9 +31,6 @@ Meteor.publish("tasks",function(){
   return Tasks.find({});
 });  
 
-Meteor.publish("notify",function(){
-  return Notify.find({});
-});  
 if (Meteor.isClient) {
   	Meteor.startup(function() {
     		GoogleMaps.load();
