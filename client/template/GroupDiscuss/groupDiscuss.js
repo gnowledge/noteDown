@@ -135,5 +135,3 @@ Template.postMessage.events({
     }
 });
 
-
-
