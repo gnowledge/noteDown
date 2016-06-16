@@ -43,7 +43,6 @@ mrt:jquery-easing
 mrt:numeral
 cfs:autoform
 reactive-var
-<<<<<<< HEAD
 summernote:summernote
 fortawesome:fontawesome
 dangrossman:bootstrap-daterangepicker
@@ -51,15 +50,3 @@ yong:meteor-videojs
 ground:db
 aramix:social-share
 mrt:toastjs
-
-=======
-cfs:graphicsmagick
-fortawesome:fontawesome
-dangrossman:bootstrap-daterangepicker
-ground:db
-email
-yong:meteor-videojs
-summernote:summernote
-aramix:social-share
-mrt:toastjs
->>>>>>> c38218c8a8bb4c6aa02050f0852b01429050efd2
