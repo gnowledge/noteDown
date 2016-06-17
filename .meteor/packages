@@ -20,8 +20,6 @@ accounts-google
 accounts-twitter
 iron:router
 twbs:bootstrap
-babrahams:editable-text
-mizzao:sharejs-codemirror
 gwendall:auth-client-callbacks
 service-configuration
 msavin:mongol
@@ -30,8 +28,7 @@ dburles:google-maps
 jeffrey:easy-map
 jaymc:google-reverse-geocode
 sacha:spin
-check
-gfk:notifications	
+check	
 meteor-platform
 cfs:standard-packages
 cfs:gridfs
@@ -46,7 +43,10 @@ reactive-var
 summernote:summernote
 fortawesome:fontawesome
 dangrossman:bootstrap-daterangepicker
-yong:meteor-videojs
 ground:db
 aramix:social-share
 mrt:toastjs
+babrahams:editable-text
+mizzao:sharejs-codemirror
+yong:meteor-videojs
+ecmascript-runtime@0.2.9
