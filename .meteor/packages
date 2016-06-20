@@ -50,3 +50,4 @@ babrahams:editable-text
 mizzao:sharejs-codemirror
 yong:meteor-videojs
 ecmascript-runtime@0.2.9
+jparker:crypto-md5

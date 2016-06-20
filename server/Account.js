@@ -27,15 +27,15 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.image = user.services.twitter.profile_image_url_https; 
     }
     else {  
-            user.profile.id= user._id;
-            if(user.emails[0].verified===false){
-                user.profile.emails = user.emails[0].address;
-            }
-            user.profile.name= user.username;
-            user.profile.first_name = user.username;
-            user.profile.last_name = "not set";
-            user.profile.image = "/images/user.png"; 
-            user.loginWith = "Email";
+        user.profile.id= user._id;
+        if(user.emails[0].verified===false){
+            user.profile.emails = user.emails[0].address;
+        }
+        user.profile.name= user.username;
+        user.profile.first_name = user.username;
+        user.profile.last_name = "not set";
+        user.profile.image = "/images/user.png"; 
+        user.loginWith = "Email";
     } 
     return user;
 });
