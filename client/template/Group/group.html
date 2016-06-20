@@ -97,30 +97,36 @@
 			{{#if members}}
 				<div class="row">
 						{{#if owner}}
-							<li>You - {{group.createdOn}} - Group Admin</li>
+							<!--<li>You - {{group.createdOn}} - Group Admin</li>-->
 							{{#if members}}
 								{{#each members}}
 									<li>
-										{{name}} - {{joinedAt}}
-										<button class="delete">
-											<span class="glyphicon glyphicon-minus"></span>
-										</button>
+										{{#if owner}}
+											<li>You - {{group.createdOn}} - Group Admin</li>
+										{{else}}
+											<li>{{name}} - {{joinedAt}}
+											<button class="delete">
+												<span class="glyphicon glyphicon-minus"></span>
+											</button></li>
+										{{/if}}
 									</li>
 								{{/each}}
 							{{/if}}
 						{{else}}
-							<li>{{group.owner.name}} - {{group.createdOn}} - Group Admin</li>
+							<!--<li>{{group.owner.name}} - {{group.createdOn}} - Group Admin</li>-->
 							{{#if member}}
 								{{#each members}}
-									<li>{{name}} - {{joinedAt}}</li>
+									{{#if owner}}
+										<li>{{group.owner.name}} - {{group.createdOn}} - Group Admin</li>
+									{{else}}
+										<li>{{name}} - {{joinedAt}}</li>
+									{{/if}}
 								{{/each}}
 							{{/if}}
 						{{/if}}
 				</div>
 			{{else}}
-				
-					{{group.owner.name}}
-				
+				<li>{{group.owner.name}} - {{group.createdOn}} - Group Admin</li>
 			{{/if}}
 		{{else}}
       		<p>Loading... {{> spinner}}</p>
