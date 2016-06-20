@@ -11,40 +11,46 @@ Template.video.onCreated(function(){
 
 
 Meteor.startup(function() {
-
 	Template.video.events({
 	'change input.videoFile' : FS.EventHandlers.insertFiles(Collections.Videos,{
-		metadata : function(fileobj){
-			return {
-	          	owner:{
-	            	id: Meteor.userId(),
-	            	name: Meteor.user().profile.name
-	          	},
-	          	dropped: false,
-<<<<<<< HEAD
-          		privacy:"private"
-=======
-          		privacy:"private",
-          		createdAt: new Date().toLocaleString()
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
-	        };
+		metadata : function(fileObj){
+			var fileName = fileObj.name();
+            var fileExt = fileObj.extension();
+            var fileSize = fileObj.size();
+            var fileFrmtSize = fileObj.formattedSize(); 
+            var fileType = fileObj.type();
+            var md5 = fileName+fileExt+fileSize+fileFrmtSize+fileType;
+            var fileMd = CryptoJS.MD5(md5).toString();
+            var CurrentUser = Meteor.userId();
+            var match = Collections.Videos.findOne({ $and: [{MD5:fileMd},{'owner.id':CurrentUser}]});
+            if (match){
+                Toast.info("This video already exist.","Warning!!!");
+                Router.go('/user/showMedia/');
+                this.data.queue.cancel();
+            }
+            else{
+				return {
+		          	owner:{
+		            	id: Meteor.userId(),
+		            	name: Meteor.user().profile.name
+		          	},
+		          	dropped: false,
+	          		privacy:"private",
+	          		MD5:fileMd,
+	          		createdAt: new Date().toLocaleString()
+		        };
+		    }
 		},
-
-		after : function (error,fileobj){
+		after : function (error,fileObj){
 			if(!error){
-<<<<<<< HEAD
-				alert('done');
-=======
 				Toast.success('Successful');
 				Router.go('/user/showMedia/');
 			}
 			else{
 				Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			}
 		}
 	}),
-	
 	'keyup .filename': function(){
 		var ins = Template.instance();
 		if(ins){
@@ -78,27 +84,30 @@ Meteor.startup(function() {
 
 	Template.video_group.events({
 	'change input.videoFile' : FS.EventHandlers.insertFiles(Collections.Videos,{
-		metadata : function(fileobj){
+		metadata : function(fileObj){
 			var groupId = Session.get('groupId');
 			var group= Groups.findOne({ _id: groupId});
 			var group_name = group.gname;
-<<<<<<< HEAD
-			Rss.insert({
-				rss_title: "has added a new video",
-				title: $('.filename').val(),
-				user_action: "/user_dashboard/"+ Meteor.userId(),
-				user_name: Meteor.user().profile.name,
-				group_name: group_name,
-				createdAt: new Date().toLocaleString(),
-				action: "/group/"+groupId
-			});
-=======
-			 var rss_title = "has added a new ";
+			var rss_title = "has added a new ";
         	var title = "video";
         	var user_id = Meteor.userId();
         	var user_name = Meteor.user().profile.name;
-        	Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
+        	var fileName = fileObj.name();
+            var fileExt = fileObj.extension();
+            var fileSize = fileObj.size();
+            var fileFrmtSize = fileObj.formattedSize(); 
+            var fileType = fileObj.type();
+            var md5 = fileName+fileExt+fileSize+fileFrmtSize+fileType;
+            var fileMd = CryptoJS.MD5(md5).toString();
+            var CurrentUser = Meteor.userId();
+            var match = Collections.Videos.findOne({ $and: [{MD5:fileMd},{groupID:groupId}]});
+            if (match){
+                Toast.info("This video already exist.","Warning!!!");
+                Router.go('/group/'+groupId+'/shared_media/');
+                this.data.queue.cancel();
+            }
+            else{
+        		Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
 		    	return {
 					owner:{
 						id: Meteor.userId(),
@@ -106,27 +115,20 @@ Meteor.startup(function() {
 					},
 					groupID: groupId,
 					dropped: false,
-<<<<<<< HEAD
-              		privacy:"public"
-=======
               		privacy:"public",
+              		MD5:fileMd,
           			createdAt: new Date().toLocaleString()
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 		        };
+		    }
 		},
-
-		after : function (error,fileobj){
+		after : function (error,fileObj){
 			if(!error){
-<<<<<<< HEAD
-				alert('done');
-=======
 				var groupID = Session.get('groupId');
 				Toast.success('Successful');
           		Router.go('/group/'+groupID+'/shared_media/');
 			}
 			else{
 				Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 			}
 		}
 	}),
@@ -145,8 +147,6 @@ Template.video_group.helpers({
   uploadedVideos: function() {
     return Collections.Videos.find({});
   }
-<<<<<<< HEAD
-=======
 });
 
 
@@ -174,7 +174,7 @@ Template.uploadedVideo.helpers({
 	        googlePlus: true,
 	        linkedIn: true,
 	        pinterest: true,
-	        sms: false,
+	        sms:false,
 	        twitter: true,
 	        url: false,
 	        shareData: {
@@ -199,5 +199,4 @@ Template.uploadedVideo.helpers({
       };
       return opts;
     }
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
 });

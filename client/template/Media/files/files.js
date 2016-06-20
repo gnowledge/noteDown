@@ -15,23 +15,32 @@ Meteor.startup(function () {
   Template.files.events({
     'change input.any': FS.EventHandlers.insertFiles(Collections.Files, {
       metadata: function (fileObj) {
-        return {
+        var fileName = fileObj.name();
+        var fileExt = fileObj.extension();
+        var fileSize = fileObj.size();
+        var fileFrmtSize = fileObj.formattedSize(); 
+        var fileType = fileObj.type();
+        var md5 = fileName+fileExt+fileSize+fileFrmtSize+fileType;
+        var fileMd = CryptoJS.MD5(md5).toString();
+        var CurrentUser = Meteor.userId();
+        var match = Collections.Files.findOne({ $and: [{MD5:fileMd},{'owner.id':CurrentUser}]});
+        if (match){
+            Toast.info("This File already exist.","Warning!!!");
+            Router.go('/user/showMedia/');
+            this.data.queue.cancel();
+        }
+        else{
+            return {
               owner:{
                 id: Meteor.userId(),
                 name: Meteor.user().profile.name
               },
               dropped: false,
-<<<<<<< HEAD
-              privacy:"private"
-            };
-      },
-      after: function (error, fileObj) {
-        if (!error) {
-          alert('done');
-=======
               privacy:"private",
+              MD5:fileMd,
               createdAt: new Date().toLocaleString()
             };
+        }
       },
       after: function (error, fileObj) {
         if(!error){
@@ -40,7 +49,6 @@ Meteor.startup(function () {
       }
         else{
           Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
         }
       }
     }),
@@ -51,7 +59,6 @@ Meteor.startup(function () {
       }
     }
   });
-
 });
 
 
@@ -83,23 +90,25 @@ Meteor.startup(function () {
         var groupId = Session.get('groupId');
         var group= Groups.findOne({ _id: groupId});
         var group_name = group.gname;
-<<<<<<< HEAD
-        Rss.insert({
-          rss_title: "has added a new file",
-          title: $('.filename').val(),
-          user_action: "/user_dashboard/"+ Meteor.userId(),
-          user_name: Meteor.user().profile.name,
-          group_name: group_name,
-          createdAt: new Date().toLocaleString(),
-          action: "/group/"+groupId
-        });
-=======
         var rss_title = "has added a new ";
         var title = "file";
         var user_id = Meteor.userId();
         var user_name = Meteor.user().profile.name;
-        Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
+        var fileName = fileObj.name();
+        var fileExt = fileObj.extension();
+        var fileSize = fileObj.size();
+        var fileFrmtSize = fileObj.formattedSize(); 
+        var fileType = fileObj.type();
+        var md5 = fileName+fileExt+fileSize+fileFrmtSize+fileType;
+        var fileMd = CryptoJS.MD5(md5).toString();
+        var match = Collections.Files.findOne({ $and: [{MD5:fileMd},{groupID:groupId}]});
+        if (match){
+            Toast.info("This File already exist.","Warning!!!");
+            Router.go('/group/'+groupId+'/shared_media/');
+            this.data.queue.cancel();
+        }
+        else{
+          Meteor.call('Media_Rss', rss_title, title, user_id, user_name, group_name, groupId);
           return {
               owner:{
                 id: Meteor.userId(),
@@ -107,52 +116,37 @@ Meteor.startup(function () {
               },
               groupID: groupId,
               dropped: false,
-<<<<<<< HEAD
-              privacy:"public"
-            };
-      },
-      after: function (error, fileObj) {
-        if (!error) {
-          alert('done');
-=======
               privacy:"public",
+              MD5:fileMd,
               createdAt: new Date().toLocaleString()
-            };
+          };
+        }
       },
       after: function (error, fileObj) {
         if(!error){
-          var groupID = Session.get('groupId');
-          Toast.success('Successful');
-                Router.go('/group/'+groupID+'/shared_media/');
+            var groupID = Session.get('groupId');
+            Toast.success('Successful');
+            Router.go('/group/'+groupID+'/shared_media/');
         }
         else{
-          Toast.error('Unsuccessful');
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
+            Toast.error('Unsuccessful');
         }
       }
     }),
     'keyup .filename': function () {
       var ins = Template.instance();
       if (ins) {
-        ins.filename.set($('.filename').val());
+          ins.filename.set($('.filename').val());
       }
     }
   });
-
 });
-
-
 
 Template.files_group.helpers({
   uploadedFiles: function() {
     return Collections.Files.find({});
   }
 });
-<<<<<<< HEAD
-=======
-
-
-
 
 Meteor.startup(function() {
 Template.uploadedFile.events({
@@ -164,7 +158,6 @@ Template.uploadedFile.events({
   }
 });
 });
-
 
 Template.uploadedFile.helpers({
     opts: function() {
@@ -204,4 +197,3 @@ Template.uploadedFile.helpers({
       return opts;
     }
 });
->>>>>>> 6c12f9441b016354c71cd1b368f2cddf86c283de
